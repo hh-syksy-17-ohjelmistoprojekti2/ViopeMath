@@ -39,8 +39,7 @@ public class EquListExercisesActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         dbHelper = new EquDatabaseHelper(this);
         FbHelper = new EquFirebaseHelper();
-        System.out.println("Pääseeks tähä?");
-        FbHelper.Get();
+
         super.onCreate(savedInstanceState);
         setContentView(R.layout.equ_activity_list_exercises);
         getSupportActionBar().setDisplayShowCustomEnabled(true);
@@ -80,7 +79,11 @@ public class EquListExercisesActivity extends AppCompatActivity {
                             }
                         } else {
                             if (EquAppNetStatus.getInstance(EquListExercisesActivity.this).isOnline()) {
-
+                                FbHelper.Get();
+                                Intent intent = getIntent();
+                                intent.addFlags(Intent.FLAG_ACTIVITY_NO_ANIMATION);
+                                finish();
+                                startActivity(intent);
                                 //KYSYMYSTEN LATAAMINEN TULEE TÄHÄN
 
                                 Toast.makeText(EquListExercisesActivity.this, "Questions downloaded", Toast.LENGTH_SHORT).show();

@@ -229,22 +229,24 @@ public class EquListActivity extends Activity {
 
     public void loadNextQuestion() {
         equQuestion = dbHelper.findNextQuestion();
+        currentQuestionIdInt++;
         Log.d(TAG, equQuestion.toString());
         answer = equQuestion.getAnswer();
         populateListView(equQuestion.getQuestionId());
         questionTextView.setText(equQuestion.getQuestionText());
-        equCustomKeyboard.showCustomKeyboard(input);
+        //equCustomKeyboard.showCustomKeyboard(input);
     }
 
     public void loadPreviousQuestion() {
         equQuestion = dbHelper.findPreviousQuestion();
+        currentQuestionIdInt--;
         if (equQuestion == null){
             finish();
         }else{
             questionTextView.setText(equQuestion.getQuestionText());
             answer = equQuestion.getAnswer();
             populateListView(equQuestion.getQuestionId());
-            equCustomKeyboard.showCustomKeyboard(input);
+            //equCustomKeyboard.showCustomKeyboard(input);
         }
 
     }
