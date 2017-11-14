@@ -4,24 +4,24 @@ package application.viope.math.app.bean;
  * Created by a1600519 on 30.10.2017.
  */
 
-public class User {
+public class EquUser {
 
     private String username;
     private String userid;
 
-    public User() {
+    public EquUser() {
         super();
         this.userid = null;
         this.username = null;
     }
 
-    public User(String userid, String username) {
+    public EquUser(String userid, String username) {
         this.username = username;
         this.userid= userid;
 
     }
 
-    public User(String username){
+    public EquUser(String username){
         this.username = username;
     }
 
@@ -43,7 +43,7 @@ public class User {
 
     @Override
     public String toString() {
-        return "User{" +
+        return "EquUser{" +
                 "username='" + username + '\'' +
                 ", userid='" + userid + '\'' +
                 '}';

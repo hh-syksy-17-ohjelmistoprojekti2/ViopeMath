@@ -11,12 +11,12 @@ import android.widget.Button;
 import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 
-import application.viope.math.app.bean.Answerstatus;
+import application.viope.math.app.bean.EquAnswerstatus;
 
-public class ListExercisesActivity extends AppCompatActivity {
+public class EquListExercisesActivity extends AppCompatActivity {
 
     public static final String EXTRA_MESSAGE = "com.viope.saskia.viope0.MESSAGE";
-    private DatabaseHelper dbHelper;
+    private EquDatabaseHelper dbHelper;
     private String id;
     private Button eBtn;
     private int numberofquestions;
@@ -25,16 +25,16 @@ public class ListExercisesActivity extends AppCompatActivity {
     private float prows;
     private int buttonsbeforepartials;
     private int answerStatus;
-    private Answerstatus answerstatus;
+    private EquAnswerstatus equAnswerstatus;
 
     private RelativeLayout mRelativeLayout;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_list_exercises);
+        setContentView(R.layout.equ_activity_list_exercises);
 
-        dbHelper = new DatabaseHelper(this);
+        dbHelper = new EquDatabaseHelper(this);
         long getnumberofquestions = dbHelper.getQuestionCount();
         numberofquestions = (int) getnumberofquestions;
         frows = numberofquestions / 3;
@@ -84,16 +84,16 @@ public class ListExercisesActivity extends AppCompatActivity {
                 eBtn.setId(j + 1 + (i * 3));
                 int questionOrder = j + 1 + (i * 3);
                 Log.d("QUESTIONORDER IS: ", "questionorder: " + questionOrder);
-                answerstatus = dbHelper.getAnswerStatus(questionOrder);
+                equAnswerstatus = dbHelper.getAnswerStatus(questionOrder);
 
-                answerStatus = answerstatus.getAnswerStatus();
+                answerStatus = equAnswerstatus.getAnswerStatus();
                 Log.d("ANSWER STATUS: ", " " + answerStatus);
                 if (answerStatus == 1) {
-                    eBtn.setBackgroundResource(R.drawable.exercisebuttonyellow);
+                    eBtn.setBackgroundResource(R.drawable.equ_exercisebuttonyellow);
                 } else if (answerStatus == 2) {
-                    eBtn.setBackgroundResource(R.drawable.exercisebuttongreen);
+                    eBtn.setBackgroundResource(R.drawable.equ_exercisebuttongreen);
                 } else {
-                    eBtn.setBackgroundResource(R.drawable.exercisebutton);
+                    eBtn.setBackgroundResource(R.drawable.equ_exercisebutton);
                 }
 
                 // add view to the inner LinearLayout
@@ -104,7 +104,7 @@ public class ListExercisesActivity extends AppCompatActivity {
 
                     @Override
                     public void onClick(View view) {
-                        Intent intent = new Intent(getApplicationContext(), ListActivity.class);
+                        Intent intent = new Intent(getApplicationContext(), EquListActivity.class);
                         id = "" + view.getId();
                         intent.putExtra(EXTRA_MESSAGE, id);
                         startActivity(intent);
@@ -135,16 +135,16 @@ public class ListExercisesActivity extends AppCompatActivity {
                     eBtn.setId(buttonsbeforepartials + (j + 1));
                     int questionOrder = buttonsbeforepartials + (j + 1);
                     Log.d("QUESTIONORDER IS: ", "questionorder: " + questionOrder);
-                    answerstatus = dbHelper.getAnswerStatus(questionOrder);
+                    equAnswerstatus = dbHelper.getAnswerStatus(questionOrder);
 
-                    answerStatus = answerstatus.getAnswerStatus();
+                    answerStatus = equAnswerstatus.getAnswerStatus();
                     Log.d("ANSWER STATUS: ", " " + answerStatus);
                     if (answerStatus == 1) {
-                        eBtn.setBackgroundResource(R.drawable.exercisebuttonyellow);
+                        eBtn.setBackgroundResource(R.drawable.equ_exercisebuttonyellow);
                     } else if (answerStatus == 2) {
-                        eBtn.setBackgroundResource(R.drawable.exercisebuttongreen);
+                        eBtn.setBackgroundResource(R.drawable.equ_exercisebuttongreen);
                     } else {
-                        eBtn.setBackgroundResource(R.drawable.exercisebutton);
+                        eBtn.setBackgroundResource(R.drawable.equ_exercisebutton);
                     }
 
                     row.addView(eBtn);
@@ -153,7 +153,7 @@ public class ListExercisesActivity extends AppCompatActivity {
 
                         @Override
                         public void onClick(View view) {
-                            Intent intent = new Intent(getApplicationContext(), ListActivity.class);
+                            Intent intent = new Intent(getApplicationContext(), EquListActivity.class);
                             id = "" + view.getId();
                             intent.putExtra(EXTRA_MESSAGE, id);
                             startActivity(intent);

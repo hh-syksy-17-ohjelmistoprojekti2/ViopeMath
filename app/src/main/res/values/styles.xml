@@ -15,8 +15,8 @@
     </style>
 
     <style name="ActionBarStyle" parent="@style/Widget.AppCompat.ActionBar">
-        <item name="android:background">@drawable/actionbar_bg</item>
-        <item name="background">@drawable/actionbar_bg</item>
+        <item name="android:background">@drawable/equ_actionbar_bg</item>
+        <item name="background">@drawable/equ_actionbar_bg</item>
 
         <item name="android:titleTextStyle">@style/ActionBarStyle.TitleTextStyle</item>
         <item name="titleTextStyle">@style/ActionBarStyle.TitleTextStyle</item>
@@ -43,7 +43,7 @@
         <item name="android:paddingRight">20dp</item>
         <item name="android:paddingTop">10dp</item>
         <item name="android:paddingBottom">10dp</item>
-        <item name="android:background">@drawable/custombutton</item>
+        <item name="android:background">@drawable/equ_custombutton</item>
         <item name="android:gravity">center</item>
         <item name="android:typeface">normal</item>
         <item name="android:textStyle">bold</item>
@@ -70,7 +70,7 @@
         <item name="android:typeface">serif</item>
     </style>
     <style name="NavButtonTheme">
-        <item name="android:background">@drawable/custombutton2</item>
+        <item name="android:background">@drawable/equ_custombutton2</item>
         <item name="android:textColor">@color/bgLight</item>
         <item name="android:textSize">20sp</item>
         <item name="android:layout_marginLeft">30dp</item>
@@ -83,7 +83,7 @@
     </style>
     <style name="AddButtonTheme">
         <item name="android:src">@drawable/equ_add</item>
-        <item name="android:background">@drawable/custombutton</item>
+        <item name="android:background">@drawable/equ_custombutton</item>
         <item name="android:textColor">@android:color/background_light</item>
         <item name="android:textSize">20sp</item>
     </style>
@@ -91,12 +91,12 @@
         <item name="android:textColor">@android:color/background_light</item>
         <item name="android:textSize">10sp</item>
         <item name="android:src">@drawable/equ_undo</item>
-        <item name="android:background">@drawable/custombutton3</item>
+        <item name="android:background">@drawable/equ_custombutton3</item>
     </style>
     <style name="ExerciseButtonTheme">
         <item name="android:textColor">#FFFFFF</item>
         <item name="android:textSize">22sp</item>
-        <item name="android:background">@drawable/exercisebutton</item>
+        <item name="android:background">@drawable/equ_exercisebutton</item>
     </style>
     <style name="KeyboardTheme">
         <item name="android:background">@color/silver</item>

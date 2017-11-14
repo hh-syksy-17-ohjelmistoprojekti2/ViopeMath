@@ -9,7 +9,7 @@ import java.util.List;
  * Created by a1600519 on 30.10.2017.
  */
 
-public class Question {
+public class EquQuestion {
 
     private static final String TAG = "QuestionBean";
 
@@ -18,46 +18,46 @@ public class Question {
     private String questionText;
     private String answer;
     private int questionOrder;
-    private List<Phase> phaseList;
+    private List<EquPhase> equPhaseList;
 
-    public Question() {
+    public EquQuestion() {
         super();
         this.questionId = null;
         this.questionText = null;
         this.answer = null;
         this.questionOrder = 0;
-        this.phaseList = new ArrayList<Phase>();
+        this.equPhaseList = new ArrayList<EquPhase>();
     }
 
-    public Question(String questionId, String questionText, String answer, int questionOrder) {
+    public EquQuestion(String questionId, String questionText, String answer, int questionOrder) {
         this.questionId = questionId;
         this.questionText = questionText;
         this.answer = answer;
         this.questionOrder = questionOrder;
-        this.phaseList = new ArrayList<Phase>();
+        this.equPhaseList = new ArrayList<EquPhase>();
     }
 
-    public Question(String questionId, String questionText, String answer, int questionOrder, List<Phase> phaseList) {
+    public EquQuestion(String questionId, String questionText, String answer, int questionOrder, List<EquPhase> equPhaseList) {
         this.questionId = questionId;
         this.questionText = questionText;
         this.answer = answer;
         this.questionOrder = questionOrder;
-        if (phaseList == null) {
-            this.phaseList = new ArrayList<Phase>();
+        if (equPhaseList == null) {
+            this.equPhaseList = new ArrayList<EquPhase>();
         }else{
-            this.phaseList = phaseList;
+            this.equPhaseList = equPhaseList;
         }
     }
 
-    public void addPhase(Phase phase) {
-        if (phase != null) {
-            this.phaseList.add(phase);
+    public void addPhase(EquPhase equPhase) {
+        if (equPhase != null) {
+            this.equPhaseList.add(equPhase);
         }
     }
 
-    public Phase getPhase(int index) {
-        if (index >= 0 && index < this.phaseList.size()){
-            return this.phaseList.get(index);
+    public EquPhase getPhase(int index) {
+        if (index >= 0 && index < this.equPhaseList.size()){
+            return this.equPhaseList.get(index);
         }else{
             Log.d(TAG,"index not valid!");
         }
@@ -65,19 +65,19 @@ public class Question {
     }
 
     public void removeLastPhase(){
-        phaseList.remove(phaseList.size() -1);
+        equPhaseList.remove(equPhaseList.size() -1);
     }
 
     public void removeAllPhases() {
-        phaseList.clear();
+        equPhaseList.clear();
     }
 
-    public List<Phase> getPhaseList() {
-        return phaseList;
+    public List<EquPhase> getEquPhaseList() {
+        return equPhaseList;
     }
 
-    public void setPhaseList(List<Phase> phaseList) {
-        this.phaseList = phaseList;
+    public void setEquPhaseList(List<EquPhase> equPhaseList) {
+        this.equPhaseList = equPhaseList;
     }
 
     public String getQuestionId() {
@@ -114,7 +114,7 @@ public class Question {
 
     @Override
     public String toString() {
-        return "Question{" +
+        return "EquQuestion{" +
                 "questionId='" + questionId + '\'' +
                 ", questionText='" + questionText + '\'' +
                 ", answer=" + answer +

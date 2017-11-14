@@ -4,14 +4,14 @@ package application.viope.math.app.bean;
  * Created by a1600519 on 30.10.2017.
  */
 
-public class Phase {
+public class EquPhase {
 
     private int phaseId;
     private String questionId;
     private int userId;
     private String phaseText;
 
-    public Phase() {
+    public EquPhase() {
         super();
         this.phaseId = 0;
         this.questionId = null;
@@ -19,14 +19,14 @@ public class Phase {
         this.phaseText = null;
     }
 
-    public Phase(String questionId, String phaseText) {
+    public EquPhase(String questionId, String phaseText) {
         this.questionId = questionId;
         this.phaseText = phaseText;
         this.phaseId = 0;
         this.userId = 0;
     }
 
-    public Phase(int phaseId, String questionId, int userId, String phaseText) {
+    public EquPhase(int phaseId, String questionId, int userId, String phaseText) {
         this.phaseId = phaseId;
         this.questionId = questionId;
         this.userId = userId;
@@ -67,7 +67,7 @@ public class Phase {
 
     @Override
     public String toString() {
-        return "Phase{" +
+        return "EquPhase{" +
                 "phaseId=" + phaseId +
                 ", questionId=" + questionId +
                 ", userId=" + userId +

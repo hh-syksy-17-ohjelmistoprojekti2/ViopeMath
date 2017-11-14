@@ -9,16 +9,16 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/CustomActionBarTheme">
-        <activity android:name=".MainActivity">
+        <activity android:name=".EquMainActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".ListActivity" />
-        <activity android:name=".ListExercisesActivity" />
-        <activity android:name=".InfoActivity"></activity>
+        <activity android:name=".EquListActivity" />
+        <activity android:name=".EquListExercisesActivity" />
+        <activity android:name=".EquInfoActivity"></activity>
     </application>
 
 </manifest>

@@ -9,8 +9,9 @@ import com.google.firebase.database.ValueEventListener;
 
 import java.util.ArrayList;
 
-import application.viope.math.app.bean.User;
-import static application.viope.math.app.AppNetStatus.context;
+import application.viope.math.app.bean.EquUser;
+
+import static application.viope.math.app.EquAppNetStatus.context;
 
 
 /**
@@ -19,37 +20,37 @@ import static application.viope.math.app.AppNetStatus.context;
 
 
 
-public class FirebaseHelper {
+public class EquFirebaseHelper {
 
     private DatabaseReference kDatabase;
     private String testQuestion;
     private ArrayList<String> lista;
 
-    DatabaseHelper dbContextHelper = new DatabaseHelper(context);
+    EquDatabaseHelper dbContextHelper = new EquDatabaseHelper(context);
 
 
     public String getTestQuestion() {
         return testQuestion;
     }
 
-    public DatabaseHelper dbHelper;
-    //private DatabaseHelper dbHelper;
+    public EquDatabaseHelper dbHelper;
+    //private EquDatabaseHelper dbHelper;
 
     public void Post(String username) {
-        DatabaseReference mDatabase = FirebaseDatabase.getInstance().getReference("user");
-        //dbHelper = new DatabaseHelper(context);
-        //DatabaseHelper dbHelper = new DatabaseHelper();
-// Creating new user node, which returns the unique key value
-// new user node would be /users/$userid/
+        DatabaseReference mDatabase = FirebaseDatabase.getInstance().getReference("equUser");
+        //dbHelper = new EquDatabaseHelper(context);
+        //EquDatabaseHelper dbHelper = new EquDatabaseHelper();
+// Creating new equUser node, which returns the unique key value
+// new equUser node would be /users/$userid/
         String userid = mDatabase.push().getKey();
 
-// creating user object
-        //User user = new User(dbHelper.getPost());
-        User user = new User(username);
+// creating equUser object
+        //EquUser equUser = new EquUser(dbHelper.getPost());
+        EquUser equUser = new EquUser(username);
 
 
-// pushing user to 'users' node using the userId
-        mDatabase.child(userid).setValue(user);
+// pushing equUser to 'users' node using the userId
+        mDatabase.child(userid).setValue(equUser);
 
     }
 
@@ -63,7 +64,7 @@ public class FirebaseHelper {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
 
-                User user = dataSnapshot.getValue(User.class);
+                EquUser equUser = dataSnapshot.getValue(EquUser.class);
                 for (DataSnapshot messageSnapshot : dataSnapshot.getChildren()) {
                     String questionid = (String) messageSnapshot.getRef().getKey().toString();
                     String question = (String) messageSnapshot.child("question").getValue().toString();
@@ -88,7 +89,7 @@ public class FirebaseHelper {
         //for (int i = 0; i < lista.size(); i++) {
         //    System.out.println(lista.get(i));
         //}
-        //return new Question(questionid, question, answer, questionorder);
+        //return new EquQuestion(questionid, question, answer, questionorder);
     }
 }
 

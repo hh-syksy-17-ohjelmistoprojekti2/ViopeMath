@@ -8,38 +8,38 @@ import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
 import android.util.Log;
 
-import application.viope.math.app.bean.Answerstatus;
-import application.viope.math.app.bean.Question;
+import application.viope.math.app.bean.EquAnswerstatus;
+import application.viope.math.app.bean.EquQuestion;
 
 
-public class DatabaseHelper extends SQLiteOpenHelper {
+public class EquDatabaseHelper extends SQLiteOpenHelper {
 
-    private static final String TAG = "DatabaseHelper";
+    private static final String TAG = "EquDatabaseHelper";
 
     //Table names
     private static final String DATABASE_NAME = "LocalDB";
     private Cursor data;
-    private static final String TABLE_USER = "user";
-    private static final String TABLE_ANSWERSTATUS = "answerstatus";
-    private static final String TABLE_QUESTION = "question";
-    private static final String TABLE_PHASE = "phases";
+    private static final String TABLE_USER = "equUser";
+    private static final String TABLE_ANSWERSTATUS = "equAnswerstatus";
+    private static final String TABLE_QUESTION = "equQuestion";
+    private static final String TABLE_PHASE = "equPhase";
 
     //Common column names
     private static final String KEY_USERID = "userid";
     private static final String KEY_QUESTIONID = "questionid";
 
-    //User table columns
+    //EquUser table columns
     private static final String KEY_USERNAME = "username";
 
-    //Answerstatus table columns
-    private static final String KEY_ANSWERSTATUS = "answerstatus";
+    //EquAnswerstatus table columns
+    private static final String KEY_ANSWERSTATUS = "equAnswerstatus";
 
-    //Question table columns
-    private static final String KEY_QUESTION = "question";
+    //EquQuestion table columns
+    private static final String KEY_QUESTION = "equQuestion";
     private static final String KEY_ANSWER = "answer";
     private static final String KEY_QUESTIONORDER = "questionorder";
 
-    //Phase table columns
+    //EquPhase table columns
     private static final String KEY_PHASEID = "phaseid";
     private static final String KEY_PHASE = "phase";
 
@@ -63,11 +63,11 @@ public class DatabaseHelper extends SQLiteOpenHelper {
 
     private SQLiteDatabase db;
     private Cursor cursor;
-    private Question question;
-    private Answerstatus answerstatus;
+    private EquQuestion equQuestion;
+    private EquAnswerstatus equAnswerstatus;
     private int id;
 
-    public DatabaseHelper(Context context) {
+    public EquDatabaseHelper(Context context) {
         super(context, DATABASE_NAME, null, 1);
     }
 
@@ -169,7 +169,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         }
     }
 
-    public Question findFirstQuestion() {
+    public EquQuestion findFirstQuestion() {
         //String SQLQuery = "SELECT * FROM " + TABLE_QUESTION + " WHERE " + KEY_QUESTIONID + "=" + id;
         //Log.d(TAG, SQLQuery);
         id = 1;
@@ -181,12 +181,12 @@ public class DatabaseHelper extends SQLiteOpenHelper {
             Log.d(TAG, "cursor not null");
             cursor.moveToFirst();
         }
-        question = new Question(cursor.getString(0), cursor.getString(1), cursor.getString(2), cursor.getInt(3));
-        Log.d(TAG, question.getQuestionText());
-        return question;
+        equQuestion = new EquQuestion(cursor.getString(0), cursor.getString(1), cursor.getString(2), cursor.getInt(3));
+        Log.d(TAG, equQuestion.getQuestionText());
+        return equQuestion;
     }
 
-    public Question findQuestionById(int number) {
+    public EquQuestion findQuestionById(int number) {
         int questionId = number;
         id = questionId;
         Log.d(TAG, "FIND QUESTION BY ID => questionId = " + questionId + ", id = " + id);
@@ -198,12 +198,12 @@ public class DatabaseHelper extends SQLiteOpenHelper {
             Log.d(TAG, "cursor not null");
             cursor.moveToFirst();
         }
-        question = new Question(cursor.getString(0), cursor.getString(1), cursor.getString(2), cursor.getInt(3));
-        Log.d(TAG, question.getQuestionText());
-        return question;
+        equQuestion = new EquQuestion(cursor.getString(0), cursor.getString(1), cursor.getString(2), cursor.getInt(3));
+        Log.d(TAG, equQuestion.getQuestionText());
+        return equQuestion;
     }
 
-    public Answerstatus getAnswerStatus(int questionOrder) {
+    public EquAnswerstatus getAnswerStatus(int questionOrder) {
         SQLiteDatabase db = this.getReadableDatabase();
         String query = "SELECT * FROM " + TABLE_ANSWERSTATUS + " WHERE "
                 + KEY_QUESTIONORDER + "=" + questionOrder;
@@ -211,11 +211,11 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         if (cursor != null && cursor.getCount() > 0){
             cursor.moveToFirst();
         }
-        answerstatus = new Answerstatus(cursor.getString(0), cursor.getString(1), cursor.getInt(2), cursor.getInt(3));
-        return answerstatus;
+        equAnswerstatus = new EquAnswerstatus(cursor.getString(0), cursor.getString(1), cursor.getInt(2), cursor.getInt(3));
+        return equAnswerstatus;
     }
 
-    public Question findNextQuestion() {
+    public EquQuestion findNextQuestion() {
 
         id++;
         db = this.getReadableDatabase();
@@ -226,12 +226,12 @@ public class DatabaseHelper extends SQLiteOpenHelper {
             Log.d(TAG, "cursor not null");
             cursor.moveToFirst();
         }
-        question = new Question(cursor.getString(0), cursor.getString(1), cursor.getString(2), cursor.getInt(3));
-        Log.d(TAG, question.getQuestionText());
-        return question;
+        equQuestion = new EquQuestion(cursor.getString(0), cursor.getString(1), cursor.getString(2), cursor.getInt(3));
+        Log.d(TAG, equQuestion.getQuestionText());
+        return equQuestion;
     }
 
-    public Question findPreviousQuestion() {
+    public EquQuestion findPreviousQuestion() {
         Log.d(TAG, " " + id);
         if (id == 1){
             return null;
@@ -245,9 +245,9 @@ public class DatabaseHelper extends SQLiteOpenHelper {
             Log.d(TAG, "cursor not null");
             cursor.moveToFirst();
         }
-        question = new Question(cursor.getString(0), cursor.getString(1), cursor.getString(2), cursor.getInt(3));
-        Log.d(TAG, question.getQuestionText());
-        return question;
+        equQuestion = new EquQuestion(cursor.getString(0), cursor.getString(1), cursor.getString(2), cursor.getInt(3));
+        Log.d(TAG, equQuestion.getQuestionText());
+        return equQuestion;
     }
 
     public void deleteData() {

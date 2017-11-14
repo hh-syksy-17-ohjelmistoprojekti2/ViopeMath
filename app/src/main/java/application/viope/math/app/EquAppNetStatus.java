@@ -9,15 +9,15 @@ import android.net.NetworkInfo;
 import android.util.Log;
 
 
-public class AppNetStatus {
+public class EquAppNetStatus {
 
-    private static AppNetStatus instance = new AppNetStatus();
+    private static EquAppNetStatus instance = new EquAppNetStatus();
     static Context context;
     ConnectivityManager connectivityManager;
     NetworkInfo wifiInfo, mobileInfo;
     boolean connected = false;
 
-    public static AppNetStatus getInstance(Context ctx) {
+    public static EquAppNetStatus getInstance(Context ctx) {
         context = ctx.getApplicationContext();
         return instance;
     }
@@ -40,7 +40,7 @@ public class AppNetStatus {
         return connected;
     }
     /* ESIMERKKI TOIMINNALLISUUDELLE
-    if (AppNetStatus.getInstance(this).isOnline()) {
+    if (EquAppNetStatus.getInstance(this).isOnline()) {
     //yhteys
     Toast t = Toast.makeText(this,"You are online!!!!",8000).show();
 

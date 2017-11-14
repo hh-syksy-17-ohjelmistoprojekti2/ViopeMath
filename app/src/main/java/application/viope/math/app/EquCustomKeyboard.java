@@ -17,9 +17,9 @@ import android.widget.EditText;
 
 ;
 
-class CustomKeyboard {
+class EquCustomKeyboard {
 
-    /** A link to the KeyboardView that is used to render this CustomKeyboard. */
+    /** A link to the KeyboardView that is used to render this EquCustomKeyboard. */
     private KeyboardView mKeyboardView;
     /** A link to the activity that hosts the {@link #mKeyboardView}. */
     private Activity mHostActivity;
@@ -106,7 +106,7 @@ class CustomKeyboard {
      * @param viewid The id of the KeyboardView.
      * @param layoutid The id of the xml file containing the keyboard layout.
      */
-    public CustomKeyboard(Activity host, int viewid, int layoutid) {
+    public EquCustomKeyboard(Activity host, int viewid, int layoutid) {
         mHostActivity= host;
         mKeyboardView= (KeyboardView)mHostActivity.findViewById(viewid);
         mKeyboardView.setKeyboard(new Keyboard(mHostActivity, layoutid));
@@ -116,19 +116,19 @@ class CustomKeyboard {
         mHostActivity.getWindow().setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_STATE_ALWAYS_HIDDEN);
     }
 
-    /** Returns whether the CustomKeyboard is visible. */
+    /** Returns whether the EquCustomKeyboard is visible. */
     public boolean isCustomKeyboardVisible() {
         return mKeyboardView.getVisibility() == View.VISIBLE;
     }
 
-    /** Make the CustomKeyboard visible, and hide the system keyboard for view v. */
+    /** Make the EquCustomKeyboard visible, and hide the system keyboard for view v. */
     public void showCustomKeyboard( View v ) {
         mKeyboardView.setVisibility(View.VISIBLE);
         mKeyboardView.setEnabled(true);
         if( v!=null ) ((InputMethodManager)mHostActivity.getSystemService(Activity.INPUT_METHOD_SERVICE)).hideSoftInputFromWindow(v.getWindowToken(), 0);
     }
 
-    /** Make the CustomKeyboard invisible. */
+    /** Make the EquCustomKeyboard invisible. */
     public void hideCustomKeyboard() {
         mKeyboardView.setVisibility(View.GONE);
         mKeyboardView.setEnabled(false);

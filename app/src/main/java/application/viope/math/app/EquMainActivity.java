@@ -1,39 +1,30 @@
 package application.viope.math.app;
 
-import android.content.Context;
 import android.content.Intent;
 import android.support.v4.widget.DrawerLayout;
-import android.support.v7.app.ActionBar;
 import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
-import android.util.Log;
-import android.view.Menu;
-import android.view.MenuInflater;
-import android.view.MenuItem;
 import android.view.View;
-import android.view.ViewGroup;
-import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.ListView;
-import android.widget.TextView;
 
 
-public class MainActivity extends AppCompatActivity {
+public class EquMainActivity extends AppCompatActivity {
 
     private ListView mDrawerList;
     private DrawerLayout mDrawerLayout;
     private ActionBarDrawerToggle mDrawerToggle;
     private ArrayAdapter<String> mAdapter;
-    private DatabaseHelper dbHelper;
+    private EquDatabaseHelper dbHelper;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
 
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_main);
+        setContentView(R.layout.equ_activity_main);
 
-        dbHelper = new DatabaseHelper(this);
+        dbHelper = new EquDatabaseHelper(this);
         dbHelper.addTestDataForShowingQuestion("2(3x-4)+5=3(x+1)", "2", "esimerkkiid", 1);
         dbHelper.addTestDataForShowingQuestion("3(2x+3)-5=-4(-x+3)", "-8", "esimerkkiiid", 2);
         dbHelper.addTestDataForShowingQuestion("(3(5x-2))/4+4=(4(4x-3))/2", "2", "esimerkkiiiid", 3);
@@ -62,7 +53,7 @@ public class MainActivity extends AppCompatActivity {
 
 
     public void startExcercise(View view) {
-        Intent intent = new Intent(this, ListExercisesActivity.class);
+        Intent intent = new Intent(this, EquListExercisesActivity.class);
         //Intent intent = new Intent(this, TarkistuslogiikkaActivity.class);
         startActivity(intent);
     }

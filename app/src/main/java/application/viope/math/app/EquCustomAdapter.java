@@ -14,7 +14,7 @@ import java.util.List;
  * Created by valtteri on 11.9.2017.
  */
 
-public class CustomAdapter extends ArrayAdapter<String> {
+public class EquCustomAdapter extends ArrayAdapter<String> {
 
     private ArrayList<String> list = new ArrayList<String>();
     private Context context;
@@ -24,11 +24,11 @@ public class CustomAdapter extends ArrayAdapter<String> {
         this.context = context;
     }
 
-    public CustomAdapter(Context context, int textViewResourceId) {
+    public EquCustomAdapter(Context context, int textViewResourceId) {
         super(context, textViewResourceId);
     }
 
-    public CustomAdapter(Context context, int resource, List<String> items) {
+    public EquCustomAdapter(Context context, int resource, List<String> items) {
         super(context, resource, items);
     }
 
@@ -40,7 +40,7 @@ public class CustomAdapter extends ArrayAdapter<String> {
         if (v == null) {
             LayoutInflater vi;
             vi = LayoutInflater.from(getContext());
-            v = vi.inflate(R.layout.itemlistrow, null);
+            v = vi.inflate(R.layout.equ_itemlistrow, null);
         }
 
         String p = getItem(position);

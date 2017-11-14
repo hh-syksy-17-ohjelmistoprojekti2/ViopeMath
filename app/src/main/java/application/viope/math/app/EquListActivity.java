@@ -3,7 +3,6 @@ package application.viope.math.app;
 import android.app.Activity;
 import android.content.Intent;
 import android.database.Cursor;
-import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.Gravity;
@@ -18,48 +17,48 @@ import android.widget.Toast;
 import java.util.ArrayList;
 import java.util.List;
 
-import application.viope.math.app.bean.Answerstatus;
-import application.viope.math.app.bean.Phase;
-import application.viope.math.app.bean.Question;
+import application.viope.math.app.bean.EquAnswerstatus;
+import application.viope.math.app.bean.EquPhase;
+import application.viope.math.app.bean.EquQuestion;
 
-public class ListActivity extends Activity {
+public class EquListActivity extends Activity {
 
     private ArrayList<String> equasionList;
     private ListView listView;
     private EditText input;
     private String inputString;
-    private CustomAdapter customAdapter;
-    private CustomKeyboard customKeyboard;
+    private EquCustomAdapter equCustomAdapter;
+    private EquCustomKeyboard equCustomKeyboard;
 
-    private static final String TAG = "ListActivity";
+    private static final String TAG = "EquListActivity";
     private ImageView iView;
-    private Question question;
+    private EquQuestion equQuestion;
     private String answer;
     private TextView questionTextView;
     private String currentQuestionId;
-    private DatabaseHelper dbHelper;
-    private FirebaseHelper FbHelper;
+    private EquDatabaseHelper dbHelper;
+    private EquFirebaseHelper FbHelper;
     private int currentQuestionIdInt;
     private int statusYellow = 1;
     private int statusGreen = 2;
-    private Answerstatus answerstatus;
+    private EquAnswerstatus equAnswerstatus;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_list);
+        setContentView(R.layout.equ_activity_list);
 
         //ActionBar myActionBar = getSupportActionBar();
         //myActionBar.hide();
-        dbHelper = new DatabaseHelper(this);
-        FbHelper = new FirebaseHelper();
+        dbHelper = new EquDatabaseHelper(this);
+        FbHelper = new EquFirebaseHelper();
 
         equasionList = new ArrayList<String>();
 
         input = (EditText) findViewById(R.id.inputListItem);
 
-        customKeyboard = new CustomKeyboard(this, R.id.keyboardview, R.xml.hexkbd);
-        customKeyboard.registerEditText(R.id.inputListItem);
+        equCustomKeyboard = new EquCustomKeyboard(this, R.id.keyboardview, R.xml.equ_hexkbd);
+        equCustomKeyboard.registerEditText(R.id.inputListItem);
 
         listView = (ListView) findViewById(R.id.eList);
 
@@ -67,7 +66,7 @@ public class ListActivity extends Activity {
         // Select the questions ID that is selected from the main activity
 
         Intent intent = getIntent();
-        currentQuestionId = intent.getStringExtra(ListExercisesActivity.EXTRA_MESSAGE);
+        currentQuestionId = intent.getStringExtra(EquListExercisesActivity.EXTRA_MESSAGE);
         try {
             currentQuestionIdInt = Integer.parseInt(currentQuestionId);
         }catch (Exception e){
@@ -76,8 +75,8 @@ public class ListActivity extends Activity {
         Log.d(TAG, "THIS IS CURRENTQUESTIONIDINT = "+currentQuestionIdInt);
 
 
-        customAdapter = new CustomAdapter(this, R.layout.itemlistrow, equasionList);
-        listView.setAdapter(customAdapter);
+        equCustomAdapter = new EquCustomAdapter(this, R.layout.equ_itemlistrow, equasionList);
+        listView.setAdapter(equCustomAdapter);
 
 
 
@@ -96,15 +95,15 @@ public class ListActivity extends Activity {
         Log.d(TAG, "BEFORE IF ID IS NOT NULL");
         if (currentQuestionId != null) {
             Log.d(TAG, "INSIDE IF ID IS NOT NULL" + currentQuestionIdInt);
-            question = dbHelper.findQuestionById(currentQuestionIdInt);
+            equQuestion = dbHelper.findQuestionById(currentQuestionIdInt);
 
         }else{
-            question = dbHelper.findFirstQuestion();
+            equQuestion = dbHelper.findFirstQuestion();
         }
-        Log.d(TAG, question.toString());
-        answer = question.getAnswer();
+        Log.d(TAG, equQuestion.toString());
+        answer = equQuestion.getAnswer();
         questionTextView = (TextView) findViewById(R.id.equasionTextView);
-        questionTextView.setText(question.getQuestionText());
+        questionTextView.setText(equQuestion.getQuestionText());
 
         //FbHelper.Post("Pekka");
         FbHelper.Get();
@@ -117,11 +116,11 @@ public class ListActivity extends Activity {
     @Override
     protected void onStart() {
         super.onStart();
-        populateListView(question.getQuestionId());
+        populateListView(equQuestion.getQuestionId());
     }
 
     public void populateListView(String questionId) {
-        question.removeAllPhases();
+        equQuestion.removeAllPhases();
         Cursor data = dbHelper.getPhases(questionId);
         //ArrayList<String> equasionList = new ArrayList<String>();
         Log.d(TAG, "populating listview");
@@ -129,19 +128,19 @@ public class ListActivity extends Activity {
             while(data.moveToNext()){
                 //get value from the db, first column
                 //add it to the ArrayList
-                Phase phase = new Phase(questionId, data.getString(0));
-                question.addPhase(phase);
+                EquPhase equPhase = new EquPhase(questionId, data.getString(0));
+                equQuestion.addPhase(equPhase);
                 //equasionList.add(data.getString(3));
             }
         }
-        List<Phase> p = question.getPhaseList();
+        List<EquPhase> p = equQuestion.getEquPhaseList();
         List<String> phases = new ArrayList<String>();
         for (int i = 0; i < p.size(); i++){
             phases.add(p.get(i).getPhaseText());
         }
-        customAdapter = new CustomAdapter(this, R.layout.itemlistrow, phases);
+        equCustomAdapter = new EquCustomAdapter(this, R.layout.equ_itemlistrow, phases);
         listView = (ListView) findViewById(R.id.eList);
-        listView.setAdapter(customAdapter);
+        listView.setAdapter(equCustomAdapter);
     }
 
     public void AddData(String inputString, String questionId){
@@ -153,41 +152,41 @@ public class ListActivity extends Activity {
     public void addButtonClicked(View view){
 
         inputString = input.getText().toString().toLowerCase();
-        Testi testi = new Testi();
+        EquTesti equTesti = new EquTesti();
         iView = new ImageView(getApplicationContext());
         if(inputString.contains("x") && inputString.contains("=") && inputString.matches(".*\\d+.*")){
-            if(testi.testi(inputString, answer) == 1){
-                customKeyboard.hideCustomKeyboard();
+            if(equTesti.testi(inputString, answer) == 1){
+                equCustomKeyboard.hideCustomKeyboard();
 
                 showCorrectAnswerToast();
 
                 //add phase to db
-                AddData(inputString, question.getQuestionId());
-                customAdapter.notifyDataSetChanged();
+                AddData(inputString, equQuestion.getQuestionId());
+                equCustomAdapter.notifyDataSetChanged();
                 input.getText().clear();
-                listView.setSelection(customAdapter.getCount() -1);
+                listView.setSelection(equCustomAdapter.getCount() -1);
 
                 //update status to db
-                dbHelper.updateStatus(statusGreen, question.getQuestionId(), currentQuestionIdInt);
+                dbHelper.updateStatus(statusGreen, equQuestion.getQuestionId(), currentQuestionIdInt);
 
-            }else if(testi.testi(inputString, answer) == 2) {
+            }else if(equTesti.testi(inputString, answer) == 2) {
 
                 showCorrectPhaseToast();
 
                 //add phase to db
-                AddData(inputString, question.getQuestionId());
-                customAdapter.notifyDataSetChanged();
+                AddData(inputString, equQuestion.getQuestionId());
+                equCustomAdapter.notifyDataSetChanged();
                 input.getText().clear();
-                listView.setSelection(customAdapter.getCount() -1);
+                listView.setSelection(equCustomAdapter.getCount() -1);
 
                 //update status to db
-                dbHelper.updateStatus(statusYellow, question.getQuestionId(), currentQuestionIdInt);
+                dbHelper.updateStatus(statusYellow, equQuestion.getQuestionId(), currentQuestionIdInt);
 
-            }else if(testi.testi(inputString, answer) == 3){
-                //Incorrect Answer/Phase
+            }else if(equTesti.testi(inputString, answer) == 3){
+                //Incorrect Answer/EquPhase
                 showIncorrectToast();
 
-            }else if(testi.testi(inputString, answer) == 4){
+            }else if(equTesti.testi(inputString, answer) == 4){
                 //Syntax Error
                 showIncorrectToast();
             } else {
@@ -201,12 +200,12 @@ public class ListActivity extends Activity {
 
 
     public void deleteButtonClicked(View view){
-        if(!customAdapter.isEmpty()) {
-            //customAdapter.remove(customAdapter.getItem(customAdapter.getCount() - 1));
-            //customAdapter.notifyDataSetChanged();
-            question.removeLastPhase();
+        if(!equCustomAdapter.isEmpty()) {
+            //equCustomAdapter.remove(equCustomAdapter.getItem(equCustomAdapter.getCount() - 1));
+            //equCustomAdapter.notifyDataSetChanged();
+            equQuestion.removeLastPhase();
             dbHelper.deleteData();
-            populateListView(question.getQuestionId());
+            populateListView(equQuestion.getQuestionId());
         }
     }
 
@@ -221,33 +220,33 @@ public class ListActivity extends Activity {
     }
 
     public void menuButtonClicked(View view) {
-        Intent intent = new Intent(this, ListExercisesActivity.class);
+        Intent intent = new Intent(this, EquListExercisesActivity.class);
         startActivity(intent);
     }
 
     public void infoButtonClicked(View view) {
-        Intent intent = new Intent(this, InfoActivity.class);
+        Intent intent = new Intent(this, EquInfoActivity.class);
         startActivity(intent);
     }
 
     public void loadNextQuestion() {
-        question = dbHelper.findNextQuestion();
-        Log.d(TAG, question.toString());
-        answer = question.getAnswer();
-        populateListView(question.getQuestionId());
-        questionTextView.setText(question.getQuestionText());
-        customKeyboard.showCustomKeyboard(input);
+        equQuestion = dbHelper.findNextQuestion();
+        Log.d(TAG, equQuestion.toString());
+        answer = equQuestion.getAnswer();
+        populateListView(equQuestion.getQuestionId());
+        questionTextView.setText(equQuestion.getQuestionText());
+        equCustomKeyboard.showCustomKeyboard(input);
     }
 
     public void loadPreviousQuestion() {
-        question = dbHelper.findPreviousQuestion();
-        if (question == null){
+        equQuestion = dbHelper.findPreviousQuestion();
+        if (equQuestion == null){
             finish();
         }else{
-            questionTextView.setText(question.getQuestionText());
-            answer = question.getAnswer();
-            populateListView(question.getQuestionId());
-            customKeyboard.showCustomKeyboard(input);
+            questionTextView.setText(equQuestion.getQuestionText());
+            answer = equQuestion.getAnswer();
+            populateListView(equQuestion.getQuestionId());
+            equCustomKeyboard.showCustomKeyboard(input);
         }
 
     }

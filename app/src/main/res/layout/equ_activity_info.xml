@@ -6,7 +6,7 @@
     android:layout_height="match_parent"
     android:background="@color/bgLight"
     android:id="@+id/mainInfoView"
-    tools:context="application.viope.math.app.InfoActivity">
+    tools:context="application.viope.math.app.EquInfoActivity">
 
     <ListView
         android:layout_width="match_parent"

@@ -2,7 +2,6 @@ package application.viope.math.app;
 
 import android.app.Activity;
 import android.content.Context;
-import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -12,7 +11,7 @@ import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.TextView;
 
-public class InfoActivity extends Activity {
+public class EquInfoActivity extends Activity {
 
     private ListView listView;
     final String[] listItemArray = {
@@ -54,7 +53,7 @@ public class InfoActivity extends Activity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_info);
+        setContentView(R.layout.equ_activity_info);
         listView = (ListView) findViewById(R.id.infoView);
 
         InfoAdapter infoAdapter = new InfoAdapter(this, R.id.text, listItemArray);
@@ -113,13 +112,13 @@ public class InfoActivity extends Activity {
 
             if (convertView == null) {
                 if (position == 0 || position == 11 || position == 15) {
-                    convertView = LayoutInflater.from(getContext()).inflate(R.layout.activity_info_titlerow, null, false);
+                    convertView = LayoutInflater.from(getContext()).inflate(R.layout.equ_activity_info_titlerow, null, false);
                 } else if (position > 0 && position < 11) {
-                    convertView = LayoutInflater.from(getContext()).inflate(R.layout.activity_info_contentrow_symbol, null, false);
+                    convertView = LayoutInflater.from(getContext()).inflate(R.layout.equ_activity_info_contentrow_symbol, null, false);
                     ImageView imageView = (ImageView) convertView. findViewById(R.id.symbol);
                     imageView.setImageResource(symbolList[position - 1]);
                 } else {
-                    convertView = LayoutInflater.from(getContext()).inflate(R.layout.activity_info_contentrow, null, false);
+                    convertView = LayoutInflater.from(getContext()).inflate(R.layout.equ_activity_info_contentrow, null, false);
                 }
 
                 TextView textView = (TextView) convertView.findViewById(R.id.text);

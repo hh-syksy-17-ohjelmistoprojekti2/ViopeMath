@@ -4,7 +4,7 @@ package application.viope.math.app;
  * Created by a1600547 on 26.9.2017.
  */
 
-public class Testi {
+public class EquTesti {
 
     public double eval(final String str) {
         return new Object() {
