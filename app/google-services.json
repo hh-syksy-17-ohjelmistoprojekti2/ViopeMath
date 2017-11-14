@@ -1,0 +1,73 @@
+{
+  "project_info": {
+    "project_number": "33929732372",
+    "firebase_url": "https://viopeequations.firebaseio.com",
+    "project_id": "viopeequations",
+    "storage_bucket": "viopeequations.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:33929732372:android:0b16101ec7cbf529",
+        "android_client_info": {
+          "package_name": "com.viope.saskia.viope0"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "33929732372-mb7to77aofk9vr97l3i0djm2cam1r9e3.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBVEfn8khx7TPr73T5VayUAh-c0W_zJhjM"
+        }
+      ],
+      "services": {
+        "analytics_service": {
+          "status": 1
+        },
+        "appinvite_service": {
+          "status": 1,
+          "other_platform_oauth_client": []
+        },
+        "ads_service": {
+          "status": 2
+        }
+      }
+    },
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:33929732372:android:eb979fb311d72cdc",
+        "android_client_info": {
+          "package_name": "application.viope.math.app"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "33929732372-mb7to77aofk9vr97l3i0djm2cam1r9e3.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBVEfn8khx7TPr73T5VayUAh-c0W_zJhjM"
+        }
+      ],
+      "services": {
+        "analytics_service": {
+          "status": 1
+        },
+        "appinvite_service": {
+          "status": 1,
+          "other_platform_oauth_client": []
+        },
+        "ads_service": {
+          "status": 2
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

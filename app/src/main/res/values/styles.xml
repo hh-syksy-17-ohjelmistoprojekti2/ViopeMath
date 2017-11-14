@@ -1,0 +1,107 @@
+<resources>
+
+    <!-- Base application theme. -->
+    <style name="AppTheme" parent="Theme.AppCompat.Light.DarkActionBar">
+        <!-- Customize your theme here. -->
+        <item name="colorPrimary">@color/colorPrimary</item>
+        <item name="colorPrimaryDark">@color/colorPrimaryDark</item>
+        <item name="colorAccent">@color/colorAccent</item>
+    </style>
+    <!-- ACTION BAR -->
+    <style name="CustomActionBarTheme" parent="Theme.AppCompat.Light">
+        <item name="android:actionBarStyle">@style/ActionBarStyle</item>
+        <!-- Support library compatibility -->
+        <item name="actionBarStyle">@style/ActionBarStyle</item>
+    </style>
+
+    <style name="ActionBarStyle" parent="@style/Widget.AppCompat.ActionBar">
+        <item name="android:background">@drawable/actionbar_bg</item>
+        <item name="background">@drawable/actionbar_bg</item>
+
+        <item name="android:titleTextStyle">@style/ActionBarStyle.TitleTextStyle</item>
+        <item name="titleTextStyle">@style/ActionBarStyle.TitleTextStyle</item>
+
+        <item name="subtitleTextStyle">@style/ActionBarStyle.TitleTextStyle</item>
+        <item name="android:subtitleTextStyle">@style/ActionBarStyle.TitleTextStyle</item>
+    </style>
+
+    <style name="ActionBarStyle.TitleTextStyle" parent="@android:style/TextAppearance">
+        <item name="android:textColor">@color/bgGrey</item>
+        <item name="android:textStyle">bold</item>
+        <item name="android:gravity">right</item>
+    </style>
+
+    <!-- ALOITUSNÄKYMÄN TYYLIT -->
+    <style name="StartButtonTheme">
+        <item name="android:layout_width">wrap_content</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:layout_gravity">center</item>
+        <item name="android:layout_marginLeft">36dp</item>
+        <item name="android:layout_marginRight">36dp</item>
+        <item name="android:layout_marginTop">50dp</item>
+        <item name="android:paddingLeft">20dp</item>
+        <item name="android:paddingRight">20dp</item>
+        <item name="android:paddingTop">10dp</item>
+        <item name="android:paddingBottom">10dp</item>
+        <item name="android:background">@drawable/custombutton</item>
+        <item name="android:gravity">center</item>
+        <item name="android:typeface">normal</item>
+        <item name="android:textStyle">bold</item>
+        <item name="android:textColor">@color/bgGrey</item>
+        <item name="android:textSize">26sp</item>
+    </style>
+    <style name="WelcomeTextTheme">
+        <item name="android:layout_width">249dp</item>
+        <item name="android:layout_height">60dp</item>
+        <item name="android:layout_marginLeft">36dp</item>
+        <item name="android:layout_marginRight">36dp</item>
+        <item name="android:typeface">serif</item>
+        <item name="android:textColor">@color/textDark</item>
+        <item name="android:textSize">24sp</item>
+        <item name="android:gravity">center_horizontal</item>
+    </style>
+
+    <!-- TEHTÄVÄNÄKYMÄN TYYLIT -->
+    <style name="EquasionTextTheme">
+        <item name="android:gravity">center_horizontal</item>
+        <item name="android:textColor">@color/headerBlueDark</item>
+        <item name="android:textSize">32sp</item>
+        <item name="android:textStyle">italic</item>
+        <item name="android:typeface">serif</item>
+    </style>
+    <style name="NavButtonTheme">
+        <item name="android:background">@drawable/custombutton2</item>
+        <item name="android:textColor">@color/bgLight</item>
+        <item name="android:textSize">20sp</item>
+        <item name="android:layout_marginLeft">30dp</item>
+    </style>
+    <style name="PreviousButtonTheme" parent="@style/NavButtonTheme">
+        <item name="android:src">@drawable/equ_back</item>
+    </style>
+    <style name="NextButtonTheme" parent="@style/NavButtonTheme">
+        <item name="android:src">@drawable/equ_next</item>
+    </style>
+    <style name="AddButtonTheme">
+        <item name="android:src">@drawable/equ_add</item>
+        <item name="android:background">@drawable/custombutton</item>
+        <item name="android:textColor">@android:color/background_light</item>
+        <item name="android:textSize">20sp</item>
+    </style>
+    <style name="DelButtonTheme">
+        <item name="android:textColor">@android:color/background_light</item>
+        <item name="android:textSize">10sp</item>
+        <item name="android:src">@drawable/equ_undo</item>
+        <item name="android:background">@drawable/custombutton3</item>
+    </style>
+    <style name="ExerciseButtonTheme">
+        <item name="android:textColor">#FFFFFF</item>
+        <item name="android:textSize">22sp</item>
+        <item name="android:background">@drawable/exercisebutton</item>
+    </style>
+    <style name="KeyboardTheme">
+        <item name="android:background">@color/silver</item>
+        <item name="android:keyBackground">@color/silver</item>
+        <item name="android:keyTextColor">@color/black</item>
+    </style>
+
+</resources>

@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+    <RelativeLayout
+        xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:tools="http://schemas.android.com/tools"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <TextView
+            android:id="@+id/welcomeTextView"
+            style="@style/WelcomeTextTheme"
+            android:layout_width="314dp"
+            android:layout_height="100dp"
+            android:layout_above="@+id/startButton"
+            android:layout_centerHorizontal="true"
+            android:layout_marginTop="20dp"
+            android:text="Select course:"
+            android:textAlignment="center" />
+
+        <Button
+            android:id="@+id/startButton"
+            android:onClick="startExcercise"
+            android:text="Equations"
+            android:layout_width="314dp"
+            android:layout_height="80dp"
+            android:layout_marginTop="20dp"
+            android:layout_centerHorizontal="true"
+            android:layout_centerVertical="true"/>
+    </RelativeLayout>
+
+
+
+
