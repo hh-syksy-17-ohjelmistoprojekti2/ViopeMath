@@ -9,13 +9,13 @@ public class EquAnswerstatus {
     private String questionId;
     private String userId;
     private int answerStatus;
-    private int questionOrder;
 
-    public EquAnswerstatus(String questionId, String userId, int answerStatus, int questionOrder) {
+
+    public EquAnswerstatus(String questionId, String userId, int answerStatus) {
         this.questionId = questionId;
         this.userId = userId;
         this.answerStatus = answerStatus;
-        this.questionOrder = questionOrder;
+
     }
 
     public String getQuestionId() {
@@ -34,14 +34,6 @@ public class EquAnswerstatus {
         this.userId = userId;
     }
 
-    public int getQuestionOrder() {
-        return questionOrder;
-    }
-
-    public void setQuestionOrder(int questionOrder) {
-        this.questionOrder = questionOrder;
-    }
-
     public int getAnswerStatus() {
         return answerStatus;
     }
@@ -56,7 +48,6 @@ public class EquAnswerstatus {
                 "questionId='" + questionId + '\'' +
                 ", userId='" + userId + '\'' +
                 ", answerStatus=" + answerStatus +
-                ", questionOrder=" + questionOrder +
                 '}';
     }
 }

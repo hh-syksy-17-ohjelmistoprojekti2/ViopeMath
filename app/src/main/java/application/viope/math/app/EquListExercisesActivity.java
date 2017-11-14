@@ -3,13 +3,17 @@ package application.viope.math.app;
 import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.support.v7.widget.PopupMenu;
 import android.util.Log;
 import android.view.ContextThemeWrapper;
 import android.view.Gravity;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
+import android.widget.ImageButton;
 import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
+import android.widget.Toast;
 
 import application.viope.math.app.bean.EquAnswerstatus;
 
@@ -17,6 +21,7 @@ public class EquListExercisesActivity extends AppCompatActivity {
 
     public static final String EXTRA_MESSAGE = "com.viope.saskia.viope0.MESSAGE";
     private EquDatabaseHelper dbHelper;
+    private EquFirebaseHelper FbHelper;
     private String id;
     private Button eBtn;
     private int numberofquestions;
@@ -27,12 +32,19 @@ public class EquListExercisesActivity extends AppCompatActivity {
     private int answerStatus;
     private EquAnswerstatus equAnswerstatus;
 
+    private ImageButton settingsButton;
     private RelativeLayout mRelativeLayout;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
+        dbHelper = new EquDatabaseHelper(this);
+        FbHelper = new EquFirebaseHelper();
+        System.out.println("Pääseeks tähä?");
+        FbHelper.Get();
         super.onCreate(savedInstanceState);
         setContentView(R.layout.equ_activity_list_exercises);
+        getSupportActionBar().setDisplayShowCustomEnabled(true);
+        getSupportActionBar().setCustomView(R.layout.equ_toolbar_custom);
 
         dbHelper = new EquDatabaseHelper(this);
         long getnumberofquestions = dbHelper.getQuestionCount();
@@ -41,9 +53,50 @@ public class EquListExercisesActivity extends AppCompatActivity {
         rowsfloat = (float) numberofquestions / 3;
         prows = rowsfloat - (float) frows;
         onStart();
+
+        //setupping the settings menu icon and popup
+        settingsButton = (ImageButton) findViewById(R.id.settingsButton);
+        settingsButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                PopupMenu popupMenu = new PopupMenu(EquListExercisesActivity.this, settingsButton);
+                popupMenu.getMenuInflater().inflate(R.menu.equ_toolbar_custom_popupmenu, popupMenu.getMenu());
+                popupMenu.setOnMenuItemClickListener(new PopupMenu.OnMenuItemClickListener() {
+                    Intent intent;
+                    public boolean onMenuItemClick(MenuItem item) {
+                        CharSequence itemTitle = item.getTitle();
+                        if (itemTitle.equals("Info")) {
+                            intent = new Intent(EquListExercisesActivity.this, EquInfoActivity.class);
+                            intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+                            startActivity(intent);
+                        } else if (itemTitle.equals("Carregar as respostas")) {
+                            if (EquAppNetStatus.getInstance(EquListExercisesActivity.this).isOnline()) {
+
+                                //VASTAUSTEN UPPAAMINEN TULEE TÄHÄN
+
+                                Toast.makeText(EquListExercisesActivity.this, "Answers uploaded", Toast.LENGTH_SHORT).show();
+                            } else {
+                                Toast.makeText(EquListExercisesActivity.this, "Internet connection not detected", Toast.LENGTH_SHORT).show();
+                            }
+                        } else {
+                            if (EquAppNetStatus.getInstance(EquListExercisesActivity.this).isOnline()) {
+
+                                //KYSYMYSTEN LATAAMINEN TULEE TÄHÄN
+
+                                Toast.makeText(EquListExercisesActivity.this, "Questions downloaded", Toast.LENGTH_SHORT).show();
+                            } else {
+                                Toast.makeText(EquListExercisesActivity.this, "Internet connection not detected", Toast.LENGTH_SHORT).show();
+                            }
+                        }
+                        return true;
+                    }
+                });
+                popupMenu.show();
+            }
+        });
     }
 
-    protected void onStart() {
+    protected  void onStart() {
         super.onStart();
         inflateButtons();
     }
@@ -90,7 +143,7 @@ public class EquListExercisesActivity extends AppCompatActivity {
                 Log.d("ANSWER STATUS: ", " " + answerStatus);
                 if (answerStatus == 1) {
                     eBtn.setBackgroundResource(R.drawable.equ_exercisebuttonyellow);
-                } else if (answerStatus == 2) {
+                } else if (answerStatus == 2){
                     eBtn.setBackgroundResource(R.drawable.equ_exercisebuttongreen);
                 } else {
                     eBtn.setBackgroundResource(R.drawable.equ_exercisebutton);
@@ -141,7 +194,7 @@ public class EquListExercisesActivity extends AppCompatActivity {
                     Log.d("ANSWER STATUS: ", " " + answerStatus);
                     if (answerStatus == 1) {
                         eBtn.setBackgroundResource(R.drawable.equ_exercisebuttonyellow);
-                    } else if (answerStatus == 2) {
+                    } else if (answerStatus == 2){
                         eBtn.setBackgroundResource(R.drawable.equ_exercisebuttongreen);
                     } else {
                         eBtn.setBackgroundResource(R.drawable.equ_exercisebutton);

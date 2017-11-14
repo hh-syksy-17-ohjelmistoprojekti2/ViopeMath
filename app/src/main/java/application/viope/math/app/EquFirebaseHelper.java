@@ -66,13 +66,20 @@ public class EquFirebaseHelper {
 
                 EquUser equUser = dataSnapshot.getValue(EquUser.class);
                 for (DataSnapshot messageSnapshot : dataSnapshot.getChildren()) {
-                    String questionid = (String) messageSnapshot.getRef().getKey().toString();
-                    String question = (String) messageSnapshot.child("question").getValue().toString();
-                    String answer = (String) messageSnapshot.child("answer").getValue().toString();
-                    String questionorder = (String) messageSnapshot.child("questionorder").getValue().toString();
+                    try {
+                        int status = 0;
+                        String questionid = (String) messageSnapshot.getRef().getKey().toString();
+                        String question = (String) messageSnapshot.child("question").getValue().toString();
+                        String answer = (String) messageSnapshot.child("answer").getValue().toString();
+                        String questionorder = (String) messageSnapshot.child("questionorder").getValue().toString();
 
-                    //System.out.println(questionid + question + answer + questionorder);
-                    dbContextHelper.toLocalFromFirebase(questionid, question, answer, Integer.parseInt(questionorder));
+                        System.out.println(questionid + question + answer + questionorder);
+                        dbContextHelper.toLocalFromFirebase(questionid, question, answer, Integer.parseInt(questionorder));
+                        dbContextHelper.testiAdd(questionid, status);
+                    }
+                    catch(Exception e){
+                        System.out.println("dbContextHelper error: " + e);
+                    }
                 }
 
             }
@@ -83,6 +90,8 @@ public class EquFirebaseHelper {
             }
 
 
+
+
         });
 
         //System.out.println(mDatabase.orderByValue().toString());
@@ -91,5 +100,6 @@ public class EquFirebaseHelper {
         //}
         //return new EquQuestion(questionid, question, answer, questionorder);
     }
+
 }
 

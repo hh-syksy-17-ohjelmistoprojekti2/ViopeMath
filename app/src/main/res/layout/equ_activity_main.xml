@@ -1,8 +1,13 @@
 <?xml version="1.0" encoding="utf-8"?>
+<android.support.v4.widget.DrawerLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/drawer_layout"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
 
     <RelativeLayout
-        xmlns:android="http://schemas.android.com/apk/res/android"
-        xmlns:tools="http://schemas.android.com/tools"
+        tools:context="application.viope.math.app.EquMainActivity"
         android:layout_width="match_parent"
         android:layout_height="match_parent">
 
@@ -14,13 +19,14 @@
             android:layout_above="@+id/startButton"
             android:layout_centerHorizontal="true"
             android:layout_marginTop="20dp"
-            android:text="Select course:"
+            android:text="@string/welcome_br"
             android:textAlignment="center" />
 
         <Button
+            style="@style/StartButtonTheme"
             android:id="@+id/startButton"
             android:onClick="startExcercise"
-            android:text="Equations"
+            android:text="@string/start_br"
             android:layout_width="314dp"
             android:layout_height="80dp"
             android:layout_marginTop="20dp"
@@ -28,6 +34,13 @@
             android:layout_centerVertical="true"/>
     </RelativeLayout>
 
+    <ListView
+        android:id="@+id/navList"
+        android:drawSelectorOnTop="true"
+        android:layout_width="200dp"
+        android:layout_height="match_parent"
+        android:layout_gravity="start"
+        android:background="@color/bgLight">
+    </ListView>
 
-
-
+</android.support.v4.widget.DrawerLayout>

@@ -50,8 +50,9 @@ public class EquDatabaseHelper extends SQLiteOpenHelper {
 
     private static final String CREATE_TABLE_ANSWERSTATUS = "CREATE TABLE "
             + TABLE_ANSWERSTATUS + "(" + KEY_QUESTIONID + " TEXT," + KEY_USERID
-            + " TEXT," + KEY_ANSWERSTATUS + " INTEGER," + KEY_QUESTIONORDER
-            + " INTEGER, PRIMARY KEY("+ KEY_QUESTIONID +", " + KEY_USERID +"))";
+            + " TEXT," + KEY_ANSWERSTATUS + " INTEGER, PRIMARY KEY("+ KEY_QUESTIONID +", " + KEY_USERID +"), "
+            + "FOREIGN KEY (" + KEY_QUESTIONID + ") REFERENCES " + TABLE_QUESTION + "(" + KEY_QUESTIONID + "), "
+            + "FOREIGN KEY (" + KEY_USERID + ") REFERENCES " + TABLE_USER + "(" + KEY_USERID + "))";
 
     private static final String CREATE_TABLE_QUESTION = "CREATE TABLE "
             + TABLE_QUESTION + "(" + KEY_QUESTIONID + " TEXT PRIMARY KEY," + KEY_QUESTION
@@ -59,7 +60,8 @@ public class EquDatabaseHelper extends SQLiteOpenHelper {
 
     private static final String CREATE_TABLE_PHASE = "CREATE TABLE "
             + TABLE_PHASE + "(" + KEY_PHASEID + " INTEGER PRIMARY KEY AUTOINCREMENT," + KEY_QUESTIONID
-            + " TEXT," + KEY_USERID + " INTEGER," + KEY_PHASE + " TEXT)";
+            + " TEXT," + KEY_USERID + " INTEGER," + KEY_PHASE + " TEXT, "
+            + "FOREIGN KEY (" + KEY_QUESTIONID + ") REFERENCES " + TABLE_QUESTION + "(" + KEY_QUESTIONID + "))";
 
     private SQLiteDatabase db;
     private Cursor cursor;
@@ -133,40 +135,50 @@ public class EquDatabaseHelper extends SQLiteOpenHelper {
 
     public boolean addStatus(int status, String id, int order) {
         db = this.getWritableDatabase();
+        ContentValues contentValues2 = new ContentValues();
         ContentValues contentValues = new ContentValues();
         contentValues.put(KEY_ANSWERSTATUS, status);
         contentValues.put(KEY_QUESTIONID, id);
-        contentValues.put(KEY_QUESTIONORDER, order);
+        contentValues2.put(KEY_QUESTIONORDER, order);
         Log.d(TAG, "addStatus: Adding " + status + " " + id
                 + " " + order + " to " + TABLE_ANSWERSTATUS);
 
         long result = db.insert(TABLE_ANSWERSTATUS, null, contentValues);
+        //long result2 = db.insert(TABLE_QUESTION, null, contentValues2);
 
-        if (result == -1){
+        if (result == -1 /*|| result2 == -1*/){
             Log.d(TAG, "insert failed");
             return false;
         }else {
             Log.d(TAG, "insert successful");
             return true;
         }
+
+    }
+    public void testiAdd(String questionid, int status){
+        SQLiteDatabase db = this.getWritableDatabase();
+        db.execSQL("INSERT INTO "+ TABLE_ANSWERSTATUS + " (" + KEY_QUESTIONID + ", " + KEY_ANSWERSTATUS + ")Values ('" + questionid + "', '"+ status +"')");
     }
 
-    public boolean updateStatus(int status, String id, int order) {
+    public void updateStatus(int status, String id, int order) {
         db = this.getWritableDatabase();
-        ContentValues contentValues = new ContentValues();
+        /*ContentValues contentValues = new ContentValues();
         contentValues.put(KEY_ANSWERSTATUS, status);
         Log.d(TAG, "addStatus: updating " + status + " " + id
-                + " " + order + " to " + TABLE_ANSWERSTATUS);
+                + " " + order + " to " + TABLE_ANSWERSTATUS);*/
 
-        long result = db.update(TABLE_ANSWERSTATUS, contentValues, "questionorder="+order, null);
 
+
+        //long result = db.update(TABLE_ANSWERSTATUS, contentValues, "questionorder="+order, null);
+        db.execSQL("UPDATE " + TABLE_ANSWERSTATUS + " SET " + KEY_ANSWERSTATUS + "=" + status + " WHERE " + TABLE_ANSWERSTATUS + "." + KEY_QUESTIONID + " IN (SELECT " + KEY_QUESTIONID + " FROM " + TABLE_QUESTION + " WHERE " + KEY_QUESTIONORDER + " = " + order + ")");
+        /*
         if (result == -1){
             Log.d(TAG, "insert failed");
             return false;
         }else {
             Log.d(TAG, "insert successful");
             return true;
-        }
+        }*/
     }
 
     public EquQuestion findFirstQuestion() {
@@ -205,13 +217,13 @@ public class EquDatabaseHelper extends SQLiteOpenHelper {
 
     public EquAnswerstatus getAnswerStatus(int questionOrder) {
         SQLiteDatabase db = this.getReadableDatabase();
-        String query = "SELECT * FROM " + TABLE_ANSWERSTATUS + " WHERE "
-                + KEY_QUESTIONORDER + "=" + questionOrder;
+        String query = "SELECT * FROM " + TABLE_ANSWERSTATUS+ " A WHERE A."
+                + KEY_QUESTIONID + " IN (SELECT " + KEY_QUESTIONID + " FROM " + TABLE_QUESTION +" WHERE "+KEY_QUESTIONORDER+"="+ questionOrder+")";
         cursor = db.rawQuery(query, null);
         if (cursor != null && cursor.getCount() > 0){
             cursor.moveToFirst();
         }
-        equAnswerstatus = new EquAnswerstatus(cursor.getString(0), cursor.getString(1), cursor.getInt(2), cursor.getInt(3));
+        equAnswerstatus = new EquAnswerstatus(cursor.getString(0), cursor.getString(1), cursor.getInt(2));
         return equAnswerstatus;
     }
 
@@ -310,11 +322,11 @@ public class EquDatabaseHelper extends SQLiteOpenHelper {
         return str;
     }
 
-    public  void toLocalFromFirebase(String questionid, String question, String answer ,int questionorder){
+    public  void toLocalFromFirebase(String questionid, String question, String answer, int questionorder){
         try{
             SQLiteDatabase db = this.getWritableDatabase();
             db.execSQL("INSERT INTO "+ TABLE_QUESTION +" (" + KEY_QUESTIONID + ", " + KEY_QUESTION +", " + KEY_ANSWER + ", " + KEY_QUESTIONORDER + ")Values ('" + questionid + "', '" + question + "', '"+ answer + "', " + questionorder +")");
-
+            //db.execSQL("INSERT INTO "+ TABLE_ANSWERSTATUS + " (" + KEY_QUESTIONID + ", " + KEY_ANSWERSTATUS + ")Values ('" + questionid + "', '"+ status +"')");
         }
         catch(Exception e){
             System.out.println("dbHelper error:" + e);

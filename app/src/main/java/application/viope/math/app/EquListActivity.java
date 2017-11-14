@@ -89,9 +89,9 @@ public class EquListActivity extends Activity {
 
         // KOMENTO ASETTAA KOLME KYSYMYSTÄ PUHELIMEN LOKAALIIN TIETOKANTAAN TESTAUSTA VARTEN
 
-        dbHelper.addTestDataForShowingQuestion("2(3x-4)+5=3(x+1)", "2", "esimerkkiid", 1);
-        dbHelper.addTestDataForShowingQuestion("3(2x+3)-5=-4(-x+3)", "-8", "esimerkkiiid", 2);
-        dbHelper.addTestDataForShowingQuestion("(3(5x-2))/4+4=(4(4x-3))/2", "2", "esimerkkiiiid", 3);
+        //dbHelper.addTestDataForShowingQuestion("2(3x-4)+5=3(x+1)", "2", "esimerkkiid", 1);
+        //dbHelper.addTestDataForShowingQuestion("3(2x+3)-5=-4(-x+3)", "-8", "esimerkkiiid", 2);
+        //dbHelper.addTestDataForShowingQuestion("(3(5x-2))/4+4=(4(4x-3))/2", "2", "esimerkkiiiid", 3);
         Log.d(TAG, "BEFORE IF ID IS NOT NULL");
         if (currentQuestionId != null) {
             Log.d(TAG, "INSIDE IF ID IS NOT NULL" + currentQuestionIdInt);
@@ -106,10 +106,8 @@ public class EquListActivity extends Activity {
         questionTextView.setText(equQuestion.getQuestionText());
 
         //FbHelper.Post("Pekka");
-        FbHelper.Get();
-        dbHelper.addStatus(0, "1245",12);
-        dbHelper.addStatus(0, "12415",13);
-        dbHelper.addStatus(0, "154215",14);
+        //FbHelper.Get();
+
         //FbHelper.Post(dbHelper.getPost());
     }
 
