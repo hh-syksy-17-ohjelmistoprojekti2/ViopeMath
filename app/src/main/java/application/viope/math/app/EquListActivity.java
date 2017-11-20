@@ -228,13 +228,20 @@ public class EquListActivity extends Activity {
     }
 
     public void loadNextQuestion() {
-        equQuestion = dbHelper.findNextQuestion();
-        currentQuestionIdInt++;
-        Log.d(TAG, equQuestion.toString());
-        answer = equQuestion.getAnswer();
-        populateListView(equQuestion.getQuestionId());
-        questionTextView.setText(equQuestion.getQuestionText());
-        //equCustomKeyboard.showCustomKeyboard(input);
+        int count = (int) dbHelper.getQuestionCount();
+        int order = equQuestion.getQuestionOrder();
+        Log.d(TAG, "QUESTION COUNT IS === " + count + " AND");
+        Log.d(TAG, "QUESTION ORDER IS === " + order);
+        if (order == count){
+            finish();
+        }else{
+            equQuestion = dbHelper.findNextQuestion();
+            currentQuestionIdInt++;
+            Log.d(TAG, equQuestion.toString());
+            answer = equQuestion.getAnswer();
+            populateListView(equQuestion.getQuestionId());
+            questionTextView.setText(equQuestion.getQuestionText());
+        }
     }
 
     public void loadPreviousQuestion() {
