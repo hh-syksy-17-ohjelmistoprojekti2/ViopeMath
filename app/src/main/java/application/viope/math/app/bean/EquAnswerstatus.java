@@ -7,13 +7,13 @@ package application.viope.math.app.bean;
 public class EquAnswerstatus {
 
     private String questionId;
-    private String userId;
+    //private String userId;
     private int answerStatus;
 
 
-    public EquAnswerstatus(String questionId, String userId, int answerStatus) {
+    public EquAnswerstatus(String questionId, int answerStatus) {
         this.questionId = questionId;
-        this.userId = userId;
+        //this.userId = userId;
         this.answerStatus = answerStatus;
 
     }
@@ -26,13 +26,13 @@ public class EquAnswerstatus {
         this.questionId = questionId;
     }
 
-    public String getUserId() {
+    /*public String getUserId() {
         return userId;
     }
 
     public void setUserId(String userId) {
         this.userId = userId;
-    }
+    }*/
 
     public int getAnswerStatus() {
         return answerStatus;
@@ -46,7 +46,6 @@ public class EquAnswerstatus {
     public String toString() {
         return "EquAnswerstatus{" +
                 "questionId='" + questionId + '\'' +
-                ", userId='" + userId + '\'' +
                 ", answerStatus=" + answerStatus +
                 '}';
     }

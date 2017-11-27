@@ -4,9 +4,21 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:layout_marginTop="10dp">
+
+    <TextView
+        android:id="@+id/downloadQuestions"
+        android:layout_width="wrap_content"
+        android:layout_height="match_parent"
+        android:layout_weight="2"
+        android:gravity="center"
+        android:text="No questions downloaded"
+        android:textSize="24sp" />
+
     <ScrollView
+        android:id="@+id/scrollButtons"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content">
+        android:layout_height="wrap_content"
+        android:visibility="gone">
         <RelativeLayout
             android:id="@+id/relative"
             android:layout_marginLeft="10dp"

@@ -1,6 +1,8 @@
 package application.viope.math.app;
 
 
+import android.util.Log;
+
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
@@ -12,6 +14,7 @@ import java.util.ArrayList;
 import application.viope.math.app.bean.EquUser;
 
 import static application.viope.math.app.EquAppNetStatus.context;
+import application.viope.math.app.bean.EquAnswerstatus;
 
 
 /**
@@ -29,28 +32,34 @@ public class EquFirebaseHelper {
     EquDatabaseHelper dbContextHelper = new EquDatabaseHelper(context);
 
 
+
     public String getTestQuestion() {
         return testQuestion;
     }
 
     public EquDatabaseHelper dbHelper;
-    //private EquDatabaseHelper dbHelper;
-
-    public void Post(String username) {
-        DatabaseReference mDatabase = FirebaseDatabase.getInstance().getReference("equUser");
-        //dbHelper = new EquDatabaseHelper(context);
-        //EquDatabaseHelper dbHelper = new EquDatabaseHelper();
-// Creating new equUser node, which returns the unique key value
-// new equUser node would be /users/$userid/
-        String userid = mDatabase.push().getKey();
-
-// creating equUser object
-        //EquUser equUser = new EquUser(dbHelper.getPost());
-        EquUser equUser = new EquUser(username);
 
 
-// pushing equUser to 'users' node using the userId
-        mDatabase.child(userid).setValue(equUser);
+    public String getKey(){
+        DatabaseReference mDatabase = FirebaseDatabase.getInstance().getReference("user");
+        return mDatabase.push().getKey();
+    }
+
+    public void Post(ArrayList<EquAnswerstatus> AnswerstatusList, String username, String userid) {
+        DatabaseReference mDatabase = FirebaseDatabase.getInstance().getReference("user");
+
+        for(int i=0;i<AnswerstatusList.size();i++){
+            Log.d("Data test from local:", AnswerstatusList.get(i).getQuestionId() + " " + AnswerstatusList.get(i).getAnswerStatus());
+            int answerstatus = AnswerstatusList.get(i).getAnswerStatus() ;
+            String answerstatusString = "empty";
+            if(answerstatus==1){
+                answerstatusString = "tried";
+            }else if(answerstatus==2){
+                answerstatusString = "done";
+            }
+            mDatabase.child(userid).child("answerstatus").child(AnswerstatusList.get(i).getQuestionId()).setValue(answerstatusString);
+        }
+        mDatabase.child(userid).child("username").setValue(username);
 
     }
 
@@ -73,12 +82,14 @@ public class EquFirebaseHelper {
                         String answer = (String) messageSnapshot.child("answer").getValue().toString();
                         String questionorder = (String) messageSnapshot.child("questionorder").getValue().toString();
 
-                        System.out.println(questionid + question + answer + questionorder);
+
+                        Log.d("Data test: ", questionid + question + answer + questionorder);
                         dbContextHelper.toLocalFromFirebase(questionid, question, answer, Integer.parseInt(questionorder));
-                        dbContextHelper.testiAdd(questionid, status);
+                        dbContextHelper.addStatus(questionid, status);
                     }
                     catch(Exception e){
-                        System.out.println("dbContextHelper error: " + e);
+                        e.printStackTrace();
+
                     }
                 }
 
@@ -93,13 +104,6 @@ public class EquFirebaseHelper {
 
 
         });
-
-        //System.out.println(mDatabase.orderByValue().toString());
-        //for (int i = 0; i < lista.size(); i++) {
-        //    System.out.println(lista.get(i));
-        //}
-        //return new EquQuestion(questionid, question, answer, questionorder);
     }
-
 }
 

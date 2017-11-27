@@ -1,6 +1,7 @@
 package application.viope.math.app;
 
 import android.content.Intent;
+import android.os.Handler;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.PopupMenu;
@@ -13,6 +14,7 @@ import android.widget.Button;
 import android.widget.ImageButton;
 import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import application.viope.math.app.bean.EquAnswerstatus;
@@ -30,6 +32,7 @@ public class EquListExercisesActivity extends AppCompatActivity {
     private float prows;
     private int buttonsbeforepartials;
     private int answerStatus;
+    private long getnumberofquestions;
     private EquAnswerstatus equAnswerstatus;
 
     private ImageButton settingsButton;
@@ -37,21 +40,13 @@ public class EquListExercisesActivity extends AppCompatActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
-        dbHelper = new EquDatabaseHelper(this);
-        FbHelper = new EquFirebaseHelper();
 
         super.onCreate(savedInstanceState);
+        dbHelper = new EquDatabaseHelper(this);
+        FbHelper = new EquFirebaseHelper();
         setContentView(R.layout.equ_activity_list_exercises);
         getSupportActionBar().setDisplayShowCustomEnabled(true);
         getSupportActionBar().setCustomView(R.layout.equ_toolbar_custom);
-
-        dbHelper = new EquDatabaseHelper(this);
-        long getnumberofquestions = dbHelper.getQuestionCount();
-        numberofquestions = (int) getnumberofquestions;
-        frows = numberofquestions / 3;
-        rowsfloat = (float) numberofquestions / 3;
-        prows = rowsfloat - (float) frows;
-        onStart();
 
         //setupping the settings menu icon and popup
         settingsButton = (ImageButton) findViewById(R.id.settingsButton);
@@ -71,7 +66,13 @@ public class EquListExercisesActivity extends AppCompatActivity {
                         } else if (itemTitle.equals("Carregar as respostas")) {
                             if (EquAppNetStatus.getInstance(EquListExercisesActivity.this).isOnline()) {
 
-                                //VASTAUSTEN UPPAAMINEN TULEE TÄHÄN
+                                if(dbHelper.checkIfUseridExists() == true){
+                                    FbHelper.Post(dbHelper.toFirebaseFromLocalAnswerstatus(), dbHelper.getPost(), dbHelper.getUserid());
+                                }else{
+                                    String userid = FbHelper.getKey();
+                                    dbHelper.updateUserid(userid);
+                                    FbHelper.Post(dbHelper.toFirebaseFromLocalAnswerstatus(), dbHelper.getPost(), userid);
+                                }
 
                                 Toast.makeText(EquListExercisesActivity.this, "Answers uploaded", Toast.LENGTH_SHORT).show();
                             } else {
@@ -79,14 +80,23 @@ public class EquListExercisesActivity extends AppCompatActivity {
                             }
                         } else {
                             if (EquAppNetStatus.getInstance(EquListExercisesActivity.this).isOnline()) {
-                                FbHelper.Get();
-                                Intent intent = getIntent();
-                                intent.addFlags(Intent.FLAG_ACTIVITY_NO_ANIMATION);
-                                finish();
-                                startActivity(intent);
+
                                 //KYSYMYSTEN LATAAMINEN TULEE TÄHÄN
 
-                                Toast.makeText(EquListExercisesActivity.this, "Questions downloaded", Toast.LENGTH_SHORT).show();
+                                FbHelper.Get();
+                                TextView tView = (TextView) findViewById(R.id.downloadQuestions);
+                                tView.setText("Loading questions...");
+
+                                final Handler handler = new Handler();
+                                handler.postDelayed(new Runnable() {
+                                    @Override
+                                    public void run() {
+                                        getnumberofquestions = dbHelper.getQuestionCount();
+                                        inflateButtons();
+                                        Toast.makeText(EquListExercisesActivity.this, "Questions downloaded", Toast.LENGTH_SHORT).show();
+                                    }
+                                }, 5000);
+
                             } else {
                                 Toast.makeText(EquListExercisesActivity.this, "Internet connection not detected", Toast.LENGTH_SHORT).show();
                             }
@@ -99,12 +109,23 @@ public class EquListExercisesActivity extends AppCompatActivity {
         });
     }
 
-    protected  void onStart() {
+    @Override
+    protected void onStart() {
         super.onStart();
         inflateButtons();
     }
 
     public void inflateButtons() {
+        if (mRelativeLayout != null) {
+            mRelativeLayout.removeAllViews();
+        }
+
+        dbHelper = new EquDatabaseHelper(this);
+        getnumberofquestions = dbHelper.getQuestionCount();
+        numberofquestions = (int) getnumberofquestions;
+        frows = numberofquestions / 3;
+        rowsfloat = (float) numberofquestions / 3;
+        prows = rowsfloat - (float) frows;
 
         int partialbuttons;
         if (prows < 0.5 && prows > 0) {
@@ -113,6 +134,13 @@ public class EquListExercisesActivity extends AppCompatActivity {
             partialbuttons = 2;
         } else {
             partialbuttons = 0;
+        }
+
+        if (numberofquestions != 0) {
+            View downloadText = findViewById(R.id.downloadQuestions);
+            View scrollView = findViewById(R.id.scrollButtons);
+            scrollView.setVisibility(View.VISIBLE);
+            downloadText.setVisibility(View.GONE);
         }
 
         // findViewById for RelativeLayout
@@ -163,6 +191,7 @@ public class EquListExercisesActivity extends AppCompatActivity {
                         Intent intent = new Intent(getApplicationContext(), EquListActivity.class);
                         id = "" + view.getId();
                         intent.putExtra(EXTRA_MESSAGE, id);
+                        finish();
                         startActivity(intent);
                     }
                 });

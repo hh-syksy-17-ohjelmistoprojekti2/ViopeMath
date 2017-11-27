@@ -8,6 +8,7 @@ import android.util.Log;
 import android.view.Gravity;
 import android.view.View;
 import android.widget.EditText;
+import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.RelativeLayout;
@@ -105,8 +106,6 @@ public class EquListActivity extends Activity {
         questionTextView = (TextView) findViewById(R.id.equasionTextView);
         questionTextView.setText(equQuestion.getQuestionText());
 
-        //FbHelper.Post("Pekka");
-        //FbHelper.Get();
 
         //FbHelper.Post(dbHelper.getPost());
     }
@@ -115,6 +114,28 @@ public class EquListActivity extends Activity {
     protected void onStart() {
         super.onStart();
         populateListView(equQuestion.getQuestionId());
+
+    }
+
+    @Override
+    public void onBackPressed() {
+        if (equCustomKeyboard.isCustomKeyboardVisible()){
+            equCustomKeyboard.hideCustomKeyboard();
+        }else {
+            Intent intent = new Intent(this, EquListExercisesActivity.class);
+            finish();
+            startActivity(intent);
+        }
+    }
+
+    public void isKeyboardActive() {
+        if (equCustomKeyboard.isCustomKeyboardVisible()){
+            ImageButton backButton = findViewById(R.id.backButton);
+            backButton.setVisibility(View.GONE);
+        }else{
+            ImageButton backButton = findViewById(R.id.backButton);
+            backButton.setVisibility(View.GONE);
+        }
     }
 
     public void populateListView(String questionId) {
@@ -146,9 +167,7 @@ public class EquListActivity extends Activity {
         populateListView(questionId);
     }
 
-
-    public void addButtonClicked(View view){
-
+    public void addButtonClicked(View view) {
         inputString = input.getText().toString().toLowerCase();
         EquTesti equTesti = new EquTesti();
         iView = new ImageView(getApplicationContext());
@@ -197,8 +216,8 @@ public class EquListActivity extends Activity {
     }
 
 
-    public void deleteButtonClicked(View view){
-        if(!equCustomAdapter.isEmpty()) {
+    public void deleteButtonClicked(View view) {
+        if (!equCustomAdapter.isEmpty()) {
             //equCustomAdapter.remove(equCustomAdapter.getItem(equCustomAdapter.getCount() - 1));
             //equCustomAdapter.notifyDataSetChanged();
             equQuestion.removeLastPhase();
@@ -206,7 +225,6 @@ public class EquListActivity extends Activity {
             populateListView(equQuestion.getQuestionId());
         }
     }
-
 
     public void nextButtonClicked(View view) {
         loadNextQuestion();
@@ -219,6 +237,7 @@ public class EquListActivity extends Activity {
 
     public void menuButtonClicked(View view) {
         Intent intent = new Intent(this, EquListExercisesActivity.class);
+        finish();
         startActivity(intent);
     }
 
@@ -233,7 +252,9 @@ public class EquListActivity extends Activity {
         Log.d(TAG, "QUESTION COUNT IS === " + count + " AND");
         Log.d(TAG, "QUESTION ORDER IS === " + order);
         if (order == count){
+            Intent intent = new Intent(this, EquListExercisesActivity.class);
             finish();
+            startActivity(intent);
         }else{
             equQuestion = dbHelper.findNextQuestion();
             currentQuestionIdInt++;
@@ -248,7 +269,9 @@ public class EquListActivity extends Activity {
         equQuestion = dbHelper.findPreviousQuestion();
         currentQuestionIdInt--;
         if (equQuestion == null){
+            Intent intent = new Intent(this, EquListExercisesActivity.class);
             finish();
+            startActivity(intent);
         }else{
             questionTextView.setText(equQuestion.getQuestionText());
             answer = equQuestion.getAnswer();

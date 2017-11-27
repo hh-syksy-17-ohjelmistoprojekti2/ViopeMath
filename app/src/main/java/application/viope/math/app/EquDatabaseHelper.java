@@ -8,6 +8,8 @@ import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
 import android.util.Log;
 
+import java.util.ArrayList;
+
 import application.viope.math.app.bean.EquAnswerstatus;
 import application.viope.math.app.bean.EquQuestion;
 
@@ -45,14 +47,13 @@ public class EquDatabaseHelper extends SQLiteOpenHelper {
 
     //Table create statements
     private static final String CREATE_TABLE_USER = "CREATE TABLE "
-            + TABLE_USER + "(" + KEY_USERID + " TEXT PRIMARY KEY," + KEY_USERNAME
+            + TABLE_USER + "(" + KEY_USERID + " TEXT," + KEY_USERNAME
             + " TEXT)";
 
     private static final String CREATE_TABLE_ANSWERSTATUS = "CREATE TABLE "
-            + TABLE_ANSWERSTATUS + "(" + KEY_QUESTIONID + " TEXT," + KEY_USERID
-            + " TEXT," + KEY_ANSWERSTATUS + " INTEGER, PRIMARY KEY("+ KEY_QUESTIONID +", " + KEY_USERID +"), "
-            + "FOREIGN KEY (" + KEY_QUESTIONID + ") REFERENCES " + TABLE_QUESTION + "(" + KEY_QUESTIONID + "), "
-            + "FOREIGN KEY (" + KEY_USERID + ") REFERENCES " + TABLE_USER + "(" + KEY_USERID + "))";
+            + TABLE_ANSWERSTATUS + "(" + KEY_QUESTIONID + " TEXT," + KEY_ANSWERSTATUS + " INTEGER, PRIMARY KEY("+ KEY_QUESTIONID + "), "
+            + "FOREIGN KEY (" + KEY_QUESTIONID + ") REFERENCES " + TABLE_QUESTION + "(" + KEY_QUESTIONID + "))";
+    //+ "FOREIGN KEY (" + KEY_USERID + ") REFERENCES " + TABLE_USER + "(" + KEY_USERID + "))";
 
     private static final String CREATE_TABLE_QUESTION = "CREATE TABLE "
             + TABLE_QUESTION + "(" + KEY_QUESTIONID + " TEXT PRIMARY KEY," + KEY_QUESTION
@@ -60,8 +61,9 @@ public class EquDatabaseHelper extends SQLiteOpenHelper {
 
     private static final String CREATE_TABLE_PHASE = "CREATE TABLE "
             + TABLE_PHASE + "(" + KEY_PHASEID + " INTEGER PRIMARY KEY AUTOINCREMENT," + KEY_QUESTIONID
-            + " TEXT," + KEY_USERID + " INTEGER," + KEY_PHASE + " TEXT, "
+            + " TEXT," + KEY_PHASE + " TEXT, "
             + "FOREIGN KEY (" + KEY_QUESTIONID + ") REFERENCES " + TABLE_QUESTION + "(" + KEY_QUESTIONID + "))";
+    //+ "FOREIGN KEY (" + KEY_USERID + ") REFERENCES " + TABLE_USER + "(" + KEY_USERID + "))";
 
     private SQLiteDatabase db;
     private Cursor cursor;
@@ -133,7 +135,7 @@ public class EquDatabaseHelper extends SQLiteOpenHelper {
 
     }
 
-    public boolean addStatus(int status, String id, int order) {
+    /*public boolean addStatussssss(int status, String id, int order) {
         db = this.getWritableDatabase();
         ContentValues contentValues2 = new ContentValues();
         ContentValues contentValues = new ContentValues();
@@ -146,18 +148,70 @@ public class EquDatabaseHelper extends SQLiteOpenHelper {
         long result = db.insert(TABLE_ANSWERSTATUS, null, contentValues);
         //long result2 = db.insert(TABLE_QUESTION, null, contentValues2);
 
-        if (result == -1 /*|| result2 == -1*/){
+        if (result == -1 || result2 == -1){
             Log.d(TAG, "insert failed");
             return false;
         }else {
             Log.d(TAG, "insert successful");
             return true;
         }
-
+    }*/
+    public void checkUsername(){
+        db = this.getReadableDatabase();
+        cursor = db.rawQuery("SELECT " + KEY_USERID + " FROM " + TABLE_USER + "", null);
+        if (cursor!=null && cursor.getCount() < 1){
+            SQLiteDatabase db = this.getWritableDatabase();
+            db.execSQL("INSERT INTO " +TABLE_USER+ " ( " + KEY_USERID + ", " + KEY_USERNAME + ") VALUES ('unknown', '" + Nickname.getName() + "')");
+        }
     }
-    public void testiAdd(String questionid, int status){
+    public boolean checkIfUseridExists(){
+        db = this.getReadableDatabase();
+        cursor = db.rawQuery("SELECT * FROM " + TABLE_USER + "", null);
+
+
+        if (cursor !=null && cursor.getCount() > 0){
+            //userid ei ole lokaalisti
+            //return true;
+            if (cursor.moveToFirst()) {
+                if(cursor.getString(cursor.getColumnIndex(KEY_USERID)).equals("unknown")){
+                    return false;
+                }else{
+                    return true;
+                }
+            }
+        }/*else {
+            //userid on lokaalisti
+            return false;
+        }*/
+        return false;
+    }
+
+    public void updateUserid(String userid){ //update userid
+        SQLiteDatabase db = this.getWritableDatabase();
+        db.execSQL("UPDATE " +TABLE_USER+ " SET " + KEY_USERID + " = '" + userid + "'");
+    }
+    public String getUserid(){
+        db = this.getReadableDatabase();
+        cursor = db.rawQuery("SELECT " + KEY_USERID + " FROM " + TABLE_USER + "", null);
+        String userid = "";
+
+        SQLiteDatabase db = this.getWritableDatabase();
+        String query = "SELECT " + KEY_USERID + " FROM " + TABLE_USER;
+        data = db.rawQuery(query, null);
+        if (data.moveToFirst()) {
+            userid = data.getString(data.getColumnIndex(KEY_USERID));
+        }
+        return userid;
+    }
+    public void addStatus(String questionid, int status){
         SQLiteDatabase db = this.getWritableDatabase();
         db.execSQL("INSERT INTO "+ TABLE_ANSWERSTATUS + " (" + KEY_QUESTIONID + ", " + KEY_ANSWERSTATUS + ")Values ('" + questionid + "', '"+ status +"')");
+    }
+
+    public int getQuestionStatus(int questionOrder) {
+        db = this.getReadableDatabase();
+        //db.execSQL("SELECT * FROM " + TABLE_ANSWERSTATUS + );
+        return 0;
     }
 
     public void updateStatus(int status, String id, int order) {
@@ -223,8 +277,21 @@ public class EquDatabaseHelper extends SQLiteOpenHelper {
         if (cursor != null && cursor.getCount() > 0){
             cursor.moveToFirst();
         }
-        equAnswerstatus = new EquAnswerstatus(cursor.getString(0), cursor.getString(1), cursor.getInt(2));
+        equAnswerstatus = new EquAnswerstatus(cursor.getString(0), cursor.getInt(1));
         return equAnswerstatus;
+    }
+
+    public ArrayList toFirebaseFromLocalAnswerstatus(){
+        ArrayList<EquAnswerstatus> AnswerstatusList = new ArrayList<EquAnswerstatus>();
+        SQLiteDatabase db = this.getReadableDatabase();
+        String query = "SELECT * FROM " + TABLE_ANSWERSTATUS;
+        cursor = db.rawQuery(query, null);
+        for(cursor.moveToFirst(); !cursor.isAfterLast(); cursor.moveToNext()) {
+            System.out.println(cursor.getString(0)+ " " + cursor.getInt(1));
+            equAnswerstatus = new EquAnswerstatus(cursor.getString(0), cursor.getInt(1));
+            AnswerstatusList.add(equAnswerstatus);
+        }
+        return AnswerstatusList;
     }
 
     public EquQuestion findNextQuestion() {
@@ -281,8 +348,8 @@ public class EquDatabaseHelper extends SQLiteOpenHelper {
 
     public long getQuestionCount() {
         SQLiteDatabase db = this.getReadableDatabase();
-        long cnt  = DatabaseUtils.queryNumEntries(db, TABLE_QUESTION);
-        return cnt;
+        long count  = DatabaseUtils.queryNumEntries(db, TABLE_QUESTION);
+        return count;
     }
 
     //return the data from db
@@ -292,29 +359,12 @@ public class EquDatabaseHelper extends SQLiteOpenHelper {
         data = db.rawQuery(query, null);
         return data;
     }
-    /*
-        public String getPost() {
-            String str = "eitoimi";
 
-            SQLiteDatabase db = this.getWritableDatabase();
-
-            //insert lause, joka lisää onko kysymys empty, tried, done riippuen onko vastattu oikein ja onko välivaiheita.
-            String answerstatusquery ="INSER INTO "
-
-            String userquery = "SELECT " + KEY_USERNAME + " FROM " + TABLE_USER;
-            data = db.rawQuery(userquery, null);
-
-            if (data.moveToFirst()) {
-                str = data.getString(data.getColumnIndex(KEY_USERNAME));
-            }
-            return str;
-        */
-    // ESIMERKKI
     public String getPost() {
         String str = "";
 
         SQLiteDatabase db = this.getWritableDatabase();
-        String query = "SELECT " + KEY_USERNAME + " FROM " + TABLE_USER + " WHERE " + KEY_USERNAME + " = 'Jaakko'";
+        String query = "SELECT " + KEY_USERNAME + " FROM " + TABLE_USER;
         data = db.rawQuery(query, null);
         if (data.moveToFirst()) {
             str = data.getString(data.getColumnIndex(KEY_USERNAME));
