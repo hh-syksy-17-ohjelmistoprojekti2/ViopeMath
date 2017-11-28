@@ -24,4 +24,7 @@
     <color name="pink">#FF69B4</color>
     <color name="silver">#eff0f2</color>
     <color name="black">#000000</color>
+    <color name="colorGreen">#5ab637</color>
+    <color name="colorWhite">#FFFFFF</color>
+    <color name="colorGreyborder">#d0cdcd</color>
 </resources>

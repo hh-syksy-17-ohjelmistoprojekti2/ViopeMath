@@ -7,7 +7,7 @@
     android:layout_height="match_parent">
 
     <RelativeLayout
-        tools:context="application.viope.math.app.EquMainActivity"
+        tools:context="application.viope.math.combinedapp.EquMainActivity"
         android:layout_width="match_parent"
         android:layout_height="match_parent">
 
@@ -27,6 +27,18 @@
             android:id="@+id/startButton"
             android:onClick="startExcercise"
             android:text="@string/start_br"
+            android:layout_width="314dp"
+            android:layout_height="80dp"
+            android:layout_marginTop="30dp"
+            android:layout_centerHorizontal="true"
+            android:layout_centerVertical="true"/>
+
+        <Button
+            style="@style/StartButtonTheme"
+            android:id="@+id/bonsaiButton"
+            android:onClick="startBonsai"
+            android:text="Consumer mathapp"
+            android:layout_below="@+id/startButton"
             android:layout_width="314dp"
             android:layout_height="80dp"
             android:layout_marginTop="20dp"

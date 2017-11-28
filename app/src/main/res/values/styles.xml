@@ -103,5 +103,28 @@
         <item name="android:keyBackground">@color/silver</item>
         <item name="android:keyTextColor">@color/black</item>
     </style>
+       <style name="AppTheme.NoActionBar">
+        <item name="windowActionBar">false</item>
+        <item name="windowNoTitle">true</item>
+    </style>
+
+    <style name="AppTheme.AppBarOverlay" parent="ThemeOverlay.AppCompat.Dark.ActionBar" />
+
+    <style name="AppTheme.PopupOverlay" parent="ThemeOverlay.AppCompat.Light" />
+
+    <style name="MyButton" parent="Theme.AppCompat.Light">
+        <item name="android:background">@drawable/bb_custom_button</item>
+        <item name="android:buttonStyle">@drawable/bb_custom_button</item>
+    </style>
+
+    <style name="MyLargeButton" parent="Theme.AppCompat.Light">
+        <item name="android:background">@drawable/bb_custom_largebutton</item>
+        <item name="android:buttonStyle">@drawable/bb_custom_largebutton</item>
+    </style>
+
+    <style name="MyXlButton" parent="Theme.AppCompat.Light">
+        <item name="android:background">@drawable/bb_custom_xlbutton</item>
+        <item name="android:buttonStyle">@drawable/bb_custom_xlbutton</item>
+    </style>
 
 </resources>

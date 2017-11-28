@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <group android:checkableBehavior="single">
+        <item
+            android:id="@+id/nav_frontpage"
+            android:icon="@drawable/ic_homepage"
+            android:title="@string/homeTitle" />
+        <item
+            android:id="@+id/nav_formulapage"
+            android:icon="@drawable/bb_ic_formulas"
+            android:title="@string/formHeader" />
+        <item
+            android:id="@+id/nav_exercisepage"
+            android:icon="@drawable/bb_ic_menu_slideshow"
+            android:title="@string/exercisePage" />
+        <item
+            android:id="@+id/nav_settingspage"
+            android:icon="@drawable/bb_ic_settings_black_24dp"
+            android:title="@string/settings_page" />
+    </group>
+
+
+</menu>

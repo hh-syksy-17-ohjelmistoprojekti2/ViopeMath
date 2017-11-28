@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">Viope Math App</string>
+    <string name="welcome">Bem-Vindo!</string>
+    <string name="consumer_app">Aplicativo matemático de aprendizagem ao consumidor</string>
+    <string name="home">Página inicial</string>
+    <string name="formulas">Fórmulas</string>
+    <string name="exercises">Exercícios</string>
+    <string name="hint">Dica</string>
+    <string name="answer">Resposta</string>
+    <string name="welcome_app">Bem-vindo ao aplicativo de matemática Viope!</string>
+    <string name="question1TextView">Sapatos em liquidação – 159 RS de disconto or 60 RS de disconto em sapatos Quanto custará os sapatos depois do disconto?</string>
+    <string name="question2TextView">O preço da capa de celular é 19RS. Está em disconto de 25%. Qual o preço correto depois do disconto?</string>
+    <string name="question3TextView">O preço do celular é 999RS. O celular foi comprado em liquidação por 699RS. Qual é a taxa de disconto?</string>
+    <string name="formulaPage">Fórmulas Página</string>
+    <string name="formHeader">Fórmulas Página</string>
+    <string name="exercisePage">Exercícios Página</string>
+    <string name="homeTitle">Página inicial</string>
+    <string name="question1Hint">Dica: O preço normal é 159 RS – Desconto de 60 RS</string>
+    <string name="question2Hint">Dica: O preço normal é 19RS. A taxa de disconto é 25%</string>
+    <string name="question3Hint">Dica: Disconto é 999RS - 699RS= 300RS. Preço normal é 999RS</string>
+    <string name="forms">Fórmulas</string>
+    <string name="answer_hint">Resposta aqui!</string>
+    <string name="answerBtn">Enviar</string>
+
+    <string name="navigation_drawer_open">Open navigation drawer</string>
+    <string name="navigation_drawer_close">Close navigation drawer</string>
+
+
+    <string name="discount">Desconto= preço x taxa de desconto %</string>
+    <string name="salesTax">Sales tax = price of item × tax rate</string>
+    <string name="interest">Interest = principal × rate of interest × time</string>
+    <string name="tips">Tips = cost of meals × tip rate</string>
+    <string name="comission">Commission = cost of service × commission rate</string>
+
+    <string name="sale">Preço de venda=  preço - desconto</string>
+    <string name="discountRate">taxa de desconto= desconto / preço</string>
+    <string name="settings_page">Página Configurações</string>
+    <string name="start">Iniciar</string>
+    <string name="press_start">Pressione começar a jogar o jogo</string>
+    <string name="action_settings">Configurações</string>
+
+    <string name="download">Baixar</string>
+    <string name="upload">Envio</string>
+    <string name="download_complete">Baixar completo</string>
+    <string name="upload_complete">Envio completo</string>
+
+    <string name="please_insert">Insira e responda</string>
+    <string name="formula_hint">Input formula here!</string>
+
+</resources>
