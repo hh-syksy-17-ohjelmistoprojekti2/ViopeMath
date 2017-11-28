@@ -62,7 +62,7 @@ public class ConsSettingsPage extends Fragment {
 
 
         FirebaseDatabase database = FirebaseDatabase.getInstance();
-        final DatabaseReference myRef = database.getReference("cons_answers");
+        final DatabaseReference myRef = database.getReference("consumermath").child("cons_answers");
         final EditText text = myView.findViewById(R.id.todoText);
         for (ConsAnswer answer : mydb.ConsGetAllElements()){
             allAnswers += answer.toString() + " ";
@@ -82,8 +82,9 @@ public class ConsSettingsPage extends Fragment {
                     }
 
                     else {
+
                         DatabaseReference childRef = myRef.push();
-                        childRef.child("cons_answers").setValue(allAnswers);
+                        childRef.child("answers").setValue(allAnswers);
                         childRef.child("name").setValue(text.getText().toString());
                         progressBar.setVisibility(View.VISIBLE);
                         new CountDownTimer(3000, 1000) {
@@ -111,11 +112,10 @@ public class ConsSettingsPage extends Fragment {
 
 
                 if (isConnected(getActivity()) == true) {
-                    qref.child("cons_questions").addChildEventListener(new ChildEventListener() {
+                    qref.child("consumermath").child("cons_questions").addChildEventListener(new ChildEventListener() {
 
                         @Override
                         public void onChildAdded(DataSnapshot dataSnapshot, String s) {
-                        System.out.println("FIREBAAAAAAAAASSSI"+dataSnapshot.getChildrenCount());
                         System.out.println(firebasequestions);
 
                             if (mydb.ConsGetAllQuestions().isEmpty()) {

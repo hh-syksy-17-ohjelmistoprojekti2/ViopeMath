@@ -3,7 +3,9 @@
   <component name="ProjectModuleManager">
     <modules>
       <module fileurl="file://$PROJECT_DIR$/ViopeMath.iml" filepath="$PROJECT_DIR$/ViopeMath.iml" />
+      <module fileurl="file://C:\Users\a1600552\git\ViopeMath\ViopeMath.iml" filepath="C:\Users\a1600552\git\ViopeMath\ViopeMath.iml" />
       <module fileurl="file://$PROJECT_DIR$/app/app.iml" filepath="$PROJECT_DIR$/app/app.iml" />
+      <module fileurl="file://C:\Users\a1600552\git\ViopeMath\app\app.iml" filepath="C:\Users\a1600552\git\ViopeMath\app\app.iml" />
     </modules>
   </component>
 </project>
