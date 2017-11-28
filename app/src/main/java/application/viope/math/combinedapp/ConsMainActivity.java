@@ -116,12 +116,14 @@ public class ConsMainActivity extends AppCompatActivity
                     break;
                 case R.id.nav_formulapage:
                     fragment = new ConsFormulaPage();
+                    ft.addToBackStack(null);
                     break;
                 case R.id.nav_exercisepage:
                     Toast.makeText(getApplicationContext(),"Download questions from settingspage", Toast.LENGTH_LONG).show();
                     break;
                 case R.id.nav_settingspage:
                     fragment = new ConsSettingsPage();
+                    ft.addToBackStack(null);
                     break;
             }
         }else {
@@ -131,12 +133,15 @@ public class ConsMainActivity extends AppCompatActivity
                     break;
                 case R.id.nav_formulapage:
                     fragment = new ConsFormulaPage();
+                    ft.addToBackStack(null);
                     break;
                 case R.id.nav_exercisepage:
                     fragment = new ConsExercisePage();
+                    ft.addToBackStack(null);
                     break;
                 case R.id.nav_settingspage:
                     fragment = new ConsSettingsPage();
+                    ft.addToBackStack(null);
                     break;
             }
 
@@ -144,7 +149,6 @@ public class ConsMainActivity extends AppCompatActivity
 
         if(fragment != null) {
             ft.replace(R.id.content_frame, fragment);
-            ft.addToBackStack(null);
             ft.commit();
         }
         DrawerLayout drawer = (DrawerLayout) findViewById  (R.id.drawer_layout);
