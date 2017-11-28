@@ -65,7 +65,7 @@ public class ConsSettingsPage extends Fragment {
         final DatabaseReference myRef = database.getReference("consumermath").child("cons_answers");
         final EditText text = myView.findViewById(R.id.todoText);
         for (ConsAnswer answer : mydb.ConsGetAllElements()){
-            allAnswers += answer.toString() + " ";
+            allAnswers += "Answers: " + answer.toString() + " ";
         }
 
 
