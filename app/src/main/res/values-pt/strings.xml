@@ -46,6 +46,6 @@
     <string name="upload_complete">Envio completo</string>
 
     <string name="please_insert">Insira e responda</string>
-    <string name="formula_hint">Input formula here!</string>
+    <string name="formula_hint">Escreva fórmula aqui</string>
 
 </resources>

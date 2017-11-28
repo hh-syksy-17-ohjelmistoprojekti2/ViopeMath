@@ -122,7 +122,7 @@ public class ConsExercisePage extends Fragment {
         String exerciseNumber= String.valueOf(questionNumber + 1);
         String allExercises = String.valueOf(questionList.size());
         exerciseCountertextView.setText(exerciseNumber + "/" + allExercises);
-        currentExercise.setText("Exercise " + exerciseNumber);
+        currentExercise.setText("Exercício " + exerciseNumber);
         question1TextView.setText(questionList.get(questionNumber).getQuestion().toString());
         final ImageButton hintBtn = (ImageButton) myView.findViewById(R.id.hintBtn);
         hintBtn.setVisibility(View.INVISIBLE);

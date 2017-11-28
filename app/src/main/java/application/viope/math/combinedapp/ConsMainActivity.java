@@ -119,7 +119,7 @@ public class ConsMainActivity extends AppCompatActivity
                     ft.addToBackStack(null);
                     break;
                 case R.id.nav_exercisepage:
-                    Toast.makeText(getApplicationContext(),"Download questions from settingspage", Toast.LENGTH_LONG).show();
+                    Toast.makeText(getApplicationContext(),"Baixe perguntas da página de configurações", Toast.LENGTH_LONG).show();
                     break;
                 case R.id.nav_settingspage:
                     fragment = new ConsSettingsPage();

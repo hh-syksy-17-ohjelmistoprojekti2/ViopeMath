@@ -76,9 +76,9 @@ public class ConsSettingsPage extends Fragment {
 
                 if (isConnected(getActivity()) == true){
                     if (text.getText().toString().equals("")) {
-                        Toast.makeText(getContext(), "Please enter your name or student number", Toast.LENGTH_LONG).show();
+                        Toast.makeText(getContext(), "Digite seu nome ou número de estudante", Toast.LENGTH_LONG).show();
                     } else if(allAnswers.isEmpty()){
-                        Toast.makeText(getContext(), "No saved answers", Toast.LENGTH_LONG).show();
+                        Toast.makeText(getContext(), "Nenhuma resposta salva", Toast.LENGTH_LONG).show();
                     }
 
                     else {
@@ -100,7 +100,7 @@ public class ConsSettingsPage extends Fragment {
                         }.start();
                     }
                 }else{
-                    Toast.makeText(getContext(), "No internet connection", Toast.LENGTH_LONG).show();
+                    Toast.makeText(getContext(), "Sem conexão à internet", Toast.LENGTH_LONG).show();
                 }
             }
 
@@ -170,7 +170,7 @@ public class ConsSettingsPage extends Fragment {
                     }
                 }.start();
             }else{
-                    Toast.makeText(getContext(), "No internet connection", Toast.LENGTH_LONG).show();
+                    Toast.makeText(getContext(), "Sem conexão à internet", Toast.LENGTH_LONG).show();
                 }
             }
         });

@@ -56,7 +56,7 @@ public class ConsFirstPage extends Fragment{
 
     public void toExercises() {
         if(mydb.ConsGetAllQuestions().isEmpty()){
-            Toast.makeText(getContext(),"Go to settings page and download", Toast.LENGTH_LONG).show();
+            Toast.makeText(getContext(),"Baixe perguntas da página de configurações", Toast.LENGTH_LONG).show();
         }
         else {
             Fragment fragment = new ConsExercisePage();
