@@ -53,8 +53,8 @@ public class ConsAnswer {
 
     @Override
     public String toString() {
-        return " questionnumber: " + questionnumber +
-                " answer: " + answer +
-                " formula: " + formula;
+        return " Question: " + questionnumber +
+                " Answer: " + answer +
+                " Formula: " + formula +" |";
     }
 }

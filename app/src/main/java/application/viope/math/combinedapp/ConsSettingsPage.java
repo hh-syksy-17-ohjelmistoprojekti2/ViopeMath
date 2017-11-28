@@ -65,7 +65,7 @@ public class ConsSettingsPage extends Fragment {
         final DatabaseReference myRef = database.getReference("consumermath").child("cons_answers");
         final EditText text = myView.findViewById(R.id.todoText);
         for (ConsAnswer answer : mydb.ConsGetAllElements()){
-            allAnswers += "Answers: " + answer.toString() + " ";
+            allAnswers +=  answer.toString() + " ";
         }
 
 
@@ -84,7 +84,7 @@ public class ConsSettingsPage extends Fragment {
                     else {
 
                         DatabaseReference childRef = myRef.push();
-                        childRef.child("answers").setValue(allAnswers);
+                        childRef.child("answers").setValue("Answers: "+allAnswers);
                         childRef.child("name").setValue(text.getText().toString());
                         progressBar.setVisibility(View.VISIBLE);
                         new CountDownTimer(3000, 1000) {
