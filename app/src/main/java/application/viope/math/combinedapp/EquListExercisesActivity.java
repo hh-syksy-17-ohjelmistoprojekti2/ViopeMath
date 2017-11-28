@@ -47,6 +47,7 @@ public class EquListExercisesActivity extends AppCompatActivity {
         setContentView(R.layout.equ_activity_list_exercises);
         getSupportActionBar().setDisplayShowCustomEnabled(true);
         getSupportActionBar().setCustomView(R.layout.equ_toolbar_custom);
+        dbHelper.checkUsername();
 
         //setupping the settings menu icon and popup
         settingsButton = (ImageButton) findViewById(R.id.settingsButton);
