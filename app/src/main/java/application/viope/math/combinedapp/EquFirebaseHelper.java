@@ -41,15 +41,15 @@ public class EquFirebaseHelper {
 
 
     public String getKey(){
-        DatabaseReference mDatabase = FirebaseDatabase.getInstance().getReference("user");
-        return mDatabase.push().getKey();
+        DatabaseReference mDatabase = FirebaseDatabase.getInstance().getReference("equations");
+        return mDatabase.child("equ_user").push().getKey();
     }
-
+    //Moves username,answerstatus from local database to Firebase. Also changes answerstatus to empty, tried or done depending on its status.
     public void Post(ArrayList<EquAnswerstatus> AnswerstatusList, String username, String userid) {
-        DatabaseReference mDatabase = FirebaseDatabase.getInstance().getReference("user");
+        DatabaseReference mDatabase = FirebaseDatabase.getInstance().getReference("equations");
 
         for(int i=0;i<AnswerstatusList.size();i++){
-            Log.d("Data test from local:", AnswerstatusList.get(i).getQuestionId() + " " + AnswerstatusList.get(i).getAnswerStatus());
+            Log.d("Data test from local", AnswerstatusList.get(i).getQuestionId() + " " + AnswerstatusList.get(i).getAnswerStatus());
             int answerstatus = AnswerstatusList.get(i).getAnswerStatus() ;
             String answerstatusString = "empty";
             if(answerstatus==1){
@@ -57,16 +57,16 @@ public class EquFirebaseHelper {
             }else if(answerstatus==2){
                 answerstatusString = "done";
             }
-            mDatabase.child(userid).child("answerstatus").child(AnswerstatusList.get(i).getQuestionId()).setValue(answerstatusString);
+            mDatabase.child("equ_user").child(userid).child("answerstatus").child(AnswerstatusList.get(i).getQuestionId()).setValue(answerstatusString);
         }
-        mDatabase.child(userid).child("username").setValue(username);
+        mDatabase.child("equ_user").child(userid).child("username").setValue(username);
 
     }
 
-
+    //Gets questionid, question, answer, questionorder from Firebase and moves it to local database.Also puts answerstatus to 0.
     public void Get() {
 
-        DatabaseReference mDatabase = FirebaseDatabase.getInstance().getReference("question");
+        DatabaseReference mDatabase = FirebaseDatabase.getInstance().getReference("equations").child("equ_question");
 
         mDatabase.addValueEventListener(new ValueEventListener() {
 
@@ -83,7 +83,7 @@ public class EquFirebaseHelper {
                         String questionorder = (String) messageSnapshot.child("questionorder").getValue().toString();
 
 
-                        Log.d("Data test: ", questionid + question + answer + questionorder);
+                        Log.d("Data test ", questionid + question + answer + questionorder);
                         dbContextHelper.toLocalFromFirebase(questionid, question, answer, Integer.parseInt(questionorder));
                         dbContextHelper.addStatus(questionid, status);
                     }
