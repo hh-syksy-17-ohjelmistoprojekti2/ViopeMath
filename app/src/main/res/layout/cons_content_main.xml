@@ -5,10 +5,11 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     app:layout_behavior="@string/appbar_scrolling_view_behavior"
-    <!-- JOS ALLA PUNAISTA, MUUTA OIKEA POLKU -->
     tools:context="application.viope.math.combinedapp.ConsMainActivity"
     tools:showIn="@layout/cons_app_bar_main"
     android:background="#21618C">
+
+    <!-- JOS YLLÄ ON CONTEXTISSA PUNAISTA, KORJAA SIIHEN OIKEA POLKU -->
 
     <TextView
         android:layout_width="wrap_content"

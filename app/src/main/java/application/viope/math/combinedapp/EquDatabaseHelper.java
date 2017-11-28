@@ -18,6 +18,8 @@ import application.viope.math.combinedapp.bean.EquAnswerstatus;
 import application.viope.math.combinedapp.bean.EquQuestion;
 
 
+// LISÄTKÄÄ OMAT SQLite JUTTUNNE TÄHÄN TIEDOSTOON
+
 public class EquDatabaseHelper extends SQLiteOpenHelper {
 
     private static final String TAG = "EquDatabaseHelper";
