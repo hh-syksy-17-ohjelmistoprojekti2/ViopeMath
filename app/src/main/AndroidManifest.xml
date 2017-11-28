@@ -29,6 +29,9 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
+
+
+
         <activity android:name="application.viope.math.combinedapp.EquListActivity" />
         <activity android:name="application.viope.math.combinedapp.EquListExercisesActivity" />
         <activity android:name="application.viope.math.combinedapp.EquInfoActivity"></activity>
