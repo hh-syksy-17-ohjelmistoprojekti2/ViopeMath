@@ -1,5 +1,7 @@
 package application.viope.math.combinedapp;
 
+// MUISTAKAA MUUTTAA POLUT!
+
 import android.content.ContentValues;
 import android.content.Context;
 import android.database.Cursor;
