@@ -44,6 +44,20 @@
             android:layout_marginTop="20dp"
             android:layout_centerHorizontal="true"
             android:layout_centerVertical="true"/>
+
+        <Button
+            style="@style/StartButtonTheme"
+            android:id="@+id/formulaButton"
+            android:onClick="startFormulas"
+            android:text="Math formulas"
+            android:layout_below="@+id/bonsaiButton"
+            android:layout_width="314dp"
+            android:layout_height="80dp"
+            android:layout_marginTop="20dp"
+            android:layout_centerHorizontal="true"
+            android:layout_centerVertical="true"/>
+
+
     </RelativeLayout>
 
     <ListView

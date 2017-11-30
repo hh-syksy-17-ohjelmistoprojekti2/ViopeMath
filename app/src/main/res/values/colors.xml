@@ -27,4 +27,9 @@
     <color name="colorGreen">#5ab637</color>
     <color name="colorWhite">#FFFFFF</color>
     <color name="colorGreyborder">#d0cdcd</color>
+    <color name="shadowStart">#505052</color>
+    <color name="colorButtonStart">#53b135</color>
+    <color name="error">#ACFF0000</color>
+    <color name="correct">#df357a1f</color>
+    <color name="white">#FFFF</color>
 </resources>

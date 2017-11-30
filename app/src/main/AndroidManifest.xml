@@ -9,32 +9,31 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/CustomActionBarTheme">
-        <activity android:name="application.viope.math.combinedapp.EquMainActivity">
+        <activity android:name=".EquMainActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-
         <activity
             android:name=".ConsMainActivity"
-            android:windowSoftInputMode="adjustPan"
             android:label="@string/app_name"
+            android:screenOrientation="portrait"
             android:theme="@style/AppTheme.NoActionBar"
-            android:screenOrientation="portrait">
+            android:windowSoftInputMode="adjustPan">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
+        <activity android:name=".EquListActivity" />
+        <activity android:name=".EquListExercisesActivity" />
+        <activity android:name=".EquInfoActivity" />
+        <activity android:name=".ForFormulaActivity2" android:configChanges="orientation|screenSize|keyboardHidden"/>
 
 
-
-        <activity android:name="application.viope.math.combinedapp.EquListActivity" />
-        <activity android:name="application.viope.math.combinedapp.EquListExercisesActivity" />
-        <activity android:name="application.viope.math.combinedapp.EquInfoActivity"></activity>
     </application>
 
 </manifest>

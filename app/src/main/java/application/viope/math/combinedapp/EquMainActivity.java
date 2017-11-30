@@ -183,6 +183,11 @@ public class EquMainActivity extends AppCompatActivity {
         startActivity(intent);
     }
 
+    public void startFormulas(View view) {
+        Intent intent = new Intent(this, ForFormulaActivity2.class);
+        startActivity(intent);
+    }
+
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         // Pass the event to ActionBarDrawerToggle, if it returns

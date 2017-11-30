@@ -17,7 +17,7 @@
     <string name="upload_answers_br">Carregar as respostas</string>
     <string name="download_questions_br">Baixar as perguntas</string>
     <string name="info">Info</string>
-        
+
     <string name="homeTitle">Home Page</string>
     <string name="formulaPage">Formula Page</string>
     <string name="exercisePage">Exercise Page</string>
@@ -44,11 +44,11 @@
     <string name="answerBtn">Submit</string>
 
     <string name="home">Home</string>
-    <string name ="forms">Forms</string>
-    <string name ="formulas">Formulas</string>
-    <string name ="exercises">Exercises</string>
-    <string name ="hint">Hint</string>
-    <string name ="answer">Answer</string>
+    <string name="forms">Forms</string>
+    <string name="formulas">Formulas</string>
+    <string name="exercises">Exercises</string>
+    <string name="hint">Hint</string>
+    <string name="answer">Answer</string>
 
     <string name="formHeader">Formula Page</string>
     <string name="discount">Discount = list price × discount rate</string>
