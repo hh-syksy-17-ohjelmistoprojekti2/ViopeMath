@@ -184,7 +184,7 @@ public class EquMainActivity extends AppCompatActivity {
     }
 
     public void startFormulas(View view) {
-        Intent intent = new Intent(this, ForFormulaActivity2.class);
+        Intent intent = new Intent(this, ForMainPage.class);
         startActivity(intent);
     }
 

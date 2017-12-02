@@ -32,6 +32,7 @@
         <activity android:name=".EquListExercisesActivity" />
         <activity android:name=".EquInfoActivity" />
         <activity android:name=".ForFormulaActivity2" android:configChanges="orientation|screenSize|keyboardHidden"/>
+        <activity android:name=".ForMainPage" android:configChanges="orientation|screenSize|keyboardHidden"/>
 
 
     </application>

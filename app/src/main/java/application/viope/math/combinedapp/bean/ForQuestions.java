@@ -2,6 +2,80 @@ package application.viope.math.combinedapp.bean;
 
 public class ForQuestions {
 
+
+    public String question;
+    public int qid;
+    public String answer;
+    public String offeredanswerstring;
+    public String questionimage;
+    public String[][] offeredanswer;
+    public String getQuestion() {
+        return question;
+    }
+
+    public void setQuestion(String question) {
+        this.question = question;
+    }
+
+    public int getQid() {
+        return qid;
+    }
+
+    public void setQid(int qid) {
+        this.qid = qid;
+    }
+    public void setQuestionimage(String questionimage) {
+        this.questionimage = questionimage;
+    }
+    //    public String getQuestionimage() {
+//        return questionimage;
+//    }
+    public String getAnswer() {
+        return answer;
+    }
+
+    public void setAnswer(String answer) {
+        this.answer = answer;
+    }
+
+    public String[] getmQuestions() {
+        return mQuestions;
+    }
+
+    public void setmQuestions(String[] mQuestions) {
+        this.mQuestions = mQuestions;
+    }
+
+    public String[][] getmChoices() {
+        return mChoices;
+    }
+
+    public void setmChoices(String[][] mChoices) {
+        this.mChoices = mChoices;
+    }
+    public void setOfferedanswer(String offeredanswerstring) {
+
+        this.offeredanswerstring = offeredanswerstring;
+    }
+    public String[][] getOfferedanswer() {
+        return offeredanswer;
+    }
+//    public String[] getmCorrectAnswers() {
+//        return mCorrectAnswers;
+//    }
+//
+//    public void setmCorrectAnswers(String[] mCorrectAnswers) {
+//        this.mCorrectAnswers = mCorrectAnswers;
+//    }
+//
+//    public String[] getmQuestionImage() {
+//        return mQuestionImage;
+//    }
+//
+//    public void setmQuestionImage(String[] mQuestionImage) {
+//        this.mQuestionImage = mQuestionImage;
+//    }
+
     public String mQuestions[]={
 
                 /*"which formula would you use on the following expression: 20 + 50 * 100",
@@ -9,85 +83,68 @@ public class ForQuestions {
                 "which one of these is the biggest number?",
                 "which one of these is the smallest number?",
                 "which one is the correct answer to the following expression: 12+24 ?", */
-            "Qual é a fórmula correta para somar custo total?",
-            "Qual é a fórmula correta para somar rendimento total?",
-            "Qual é a fórmula correta para somar produto médio?",
-            "Qual é a fórmula correta para somar produto total?",
-            "Qual é a fórmula correta para somar o teorema de Pitágoras?",
-            "Qual é a fórmula correta para somar quadrado área?",
-            "Qual é a fórmula correta para somar triângulo área?",
-            "Qual é a fórmula correta para somar círculo área?"
-
 
     };
 
     private String mChoices[][] = {
-
-                /*{"a+b*c","c*a+b","c*b+a","c*(a+b)"},
-                {"a+b*c","c*(a+b)","c*a+b","c*b+a"},
-                {"2","5","7","9"},
-                {"2","5","7","9"},
-                {"1","5","48","36"}*/
-            {"custo total*quantidade","custo total/quantidade", "quantidade+custo total", "quantidade-custo total"},
-            {"preço / quantidade", "quantidade + preço * 2","preço x quantidade", "quantidade / preço"},
-            {"produto total * Variável", "produto total / Variável",  "produto total + Variável", "produto total - Variável"},
-            {"produto médio * Variável", "produto médio / Variável","produto médio + Variável","produto médio - Variável"},
-            {"a^2/pi+b^2=c^2", "a^2+b^2=c^2", "a^2/b^2=c^2", "a^2*b^2=c^2"},
-            {"Largura*Comprimento", "Comprimento*Largura*4", "Largura/Comprimento", "4*Largura/Comprimento"},
-            {"Largura*Comprimento/2","Comprimento*Largura/3","Largura/Comprimento*3","Comprimento/Largura*2"},
-            {"r^2/Pi+2", "2/Pi r^2", "2*Pi r^2", "Pi*r^2"}
-
-
-
-
-
+            /// {"{"+ this.offeredanswerstring.toString() + "}"}
     };
 
-    private String mCorrectAnswers[]={"custo total*quantidade","preço x quantidade", "produto total / Variável", "produto médio * Variável","a^2+b^2=c^2","Largura*Comprimento","Largura*Complimento/2","Pi*r^2"};
+    private String mCorrectAnswers[]={};
                 /*{ "c*b+a", "c*b+a", "9", "2","36"};*/
 
-    private String mQuestionImage[]={"","","","","for_pythagoras","for_nelionpintala", "for_kolmiopintala", "for_ympyrapintala"};
+    private String mQuestionImage[]={};
 
 
-    public String getQuestion(int a){
 
-        String question=mQuestions[a];
-        return question;
-
-    }
 
     public String getChoice1(int a){
-
-        String choice= mChoices[a][0];
-        return choice;
+        // String[][] offered =  {{ "{"+this.offeredanswerstring.toString()+"}"}};    // String[] splitted = this.offeredanswerstring.split("\"").toString();
+        String[] optionarr = this.offeredanswerstring.split(",");
+        String choicetest = optionarr[0];
+        String choicetrimmed =choicetest.replace("\"", "");
+        //String choice= offered[0][0];
+        return choicetrimmed;
     }
 
     public String getChoice2(int a){
-
-        String choice= mChoices[a][1];
-        return choice;
+        String[] optionarr = this.offeredanswerstring.split(",");
+        String choicetest = optionarr[1];
+        String choicetrimmed =choicetest.replace("\"", "");
+        //String choice= offered[0][0];
+        return choicetrimmed;
+        //    String choice= offeredanswer[a][1];
+        //    return choice;
     }
 
     public String getChoice3(int a){
-
-        String choice= mChoices[a][2];
-        return choice;
+        String[] optionarr = this.offeredanswerstring.split(",");
+        String choicetest = optionarr[2];
+        String choicetrimmed =choicetest.replace("\"", "");
+        //String choice= offered[0][0];
+        return choicetrimmed;
+        //    String choice= offeredanswer[a][2];
+        //    return choice;
     }
 
     public String getChoice4(int a){
-
-        String choice= mChoices[a][3];
-        return choice;
+        String[] optionarr = this.offeredanswerstring.split(",");
+        String choicetest = optionarr[3];
+        String choicetrimmed =choicetest.replace("\"", "");
+        //String choice= offered[0][0];
+        return choicetrimmed;
+        //   String choice= offeredanswer[a][3];
+        //   return choice;
     }
 
     public String getCorrectAnswer(int a){
 
-        String answer = mCorrectAnswers[a];
+        String answer = this.answer;
         return answer;
     }
     public String getQuestionImage(int a){
 
-        String qimage=mQuestionImage[a];
+        String qimage=this.questionimage;
         return qimage;
 
     }
