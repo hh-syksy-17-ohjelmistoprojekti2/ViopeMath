@@ -1,22 +1,20 @@
 package application.viope.math.combinedapp;
 
-
 import android.app.AlertDialog;
+import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
-import android.content.Context;
 import android.content.res.Configuration;
 import android.graphics.Color;
+import android.os.Bundle;
 import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
-import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
-import android.widget.TextView;
 import android.widget.ImageView;
+import android.widget.TextView;
 
 import java.util.ArrayList;
-import java.lang.String;
 
 import application.viope.math.combinedapp.bean.ForDatabaseHelper;
 import application.viope.math.combinedapp.bean.ForQuestions;
@@ -39,7 +37,7 @@ public class ForFormulaActivity2 extends AppCompatActivity {
     ForDatabaseHelper db;
 
 
-    private final ArrayList<ForQuestions> QuestionArray= new ArrayList<ForQuestions>();
+    private final ArrayList<ForQuestions> QuestionArray = new ArrayList<ForQuestions>();
     // Context dynamicImageContext = dynamicImage.getContext();
    /* Random r;*/
 
@@ -64,7 +62,7 @@ public class ForFormulaActivity2 extends AppCompatActivity {
         menu.setIcon(R.drawable.for_logo1);
         menu.setBackgroundDrawable(getResources().getDrawable(R.drawable.for_actionbar_gradient));
 
-        ArrayList<ForQuestions> QuestionArray =new ArrayList<ForQuestions>();
+        ArrayList<ForQuestions> QuestionArray = new ArrayList<ForQuestions>();
         QuestionArray = db.getQuestions();
         int r = 0;
         answer1 = (Button) findViewById(R.id.answer1);
@@ -83,7 +81,7 @@ public class ForFormulaActivity2 extends AppCompatActivity {
         nextButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                ArrayList<ForQuestions> QuestionArray =new ArrayList<ForQuestions>();
+                ArrayList<ForQuestions> QuestionArray = new ArrayList<ForQuestions>();
                 QuestionArray = db.getQuestions();
                 updateQuestion(questionIndex, QuestionArray);
             }
@@ -92,14 +90,14 @@ public class ForFormulaActivity2 extends AppCompatActivity {
         answer1.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                String answer1text= answer1.getText().toString().replaceAll("\\s+","").toString();
-                String answer2text= answer2.getText().toString().replaceAll("\\s+","").toString();
-                String answer3text= answer3.getText().toString().replaceAll("\\s+","").toString();
-                String answer4text= answer4.getText().toString().replaceAll("\\s+","").toString();
-                String mAnswertext = mAnswer.replaceAll("\\s+","").toString();
+                String answer1text = answer1.getText().toString().replaceAll("\\s+", "").toString();
+                String answer2text = answer2.getText().toString().replaceAll("\\s+", "").toString();
+                String answer3text = answer3.getText().toString().replaceAll("\\s+", "").toString();
+                String answer4text = answer4.getText().toString().replaceAll("\\s+", "").toString();
+                String mAnswertext = mAnswer.replaceAll("\\s+", "").toString();
 
 
-                if (answer1text.equals(mAnswertext) ) {
+                if (answer1text.equals(mAnswertext)) {
                     answer1.setBackgroundResource(R.drawable.for_bt_correct);
                     answer1.setTextColor(Color.WHITE);
                     db.insertData(1, questionIndex);
@@ -138,11 +136,11 @@ public class ForFormulaActivity2 extends AppCompatActivity {
         answer2.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                String answer1text= answer1.getText().toString().replaceAll("\\s+","").toString();
-                String answer2text= answer2.getText().toString().replaceAll("\\s+","").toString();
-                String answer3text= answer3.getText().toString().replaceAll("\\s+","").toString();
-                String answer4text= answer4.getText().toString().replaceAll("\\s+","").toString();
-                String mAnswertext = mAnswer.replaceAll("\\s+","").toString();
+                String answer1text = answer1.getText().toString().replaceAll("\\s+", "").toString();
+                String answer2text = answer2.getText().toString().replaceAll("\\s+", "").toString();
+                String answer3text = answer3.getText().toString().replaceAll("\\s+", "").toString();
+                String answer4text = answer4.getText().toString().replaceAll("\\s+", "").toString();
+                String mAnswertext = mAnswer.replaceAll("\\s+", "").toString();
                 if (answer2text.equals(mAnswertext)) {
                     answer2.setBackgroundResource(R.drawable.for_bt_correct);
                     answer2.setTextColor(Color.WHITE);
@@ -181,11 +179,11 @@ public class ForFormulaActivity2 extends AppCompatActivity {
         answer3.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                String answer1text= answer1.getText().toString().replaceAll("\\s+","").toString();
-                String answer2text= answer2.getText().toString().replaceAll("\\s+","").toString();
-                String answer3text= answer3.getText().toString().replaceAll("\\s+","").toString();
-                String answer4text= answer4.getText().toString().replaceAll("\\s+","").toString();
-                String mAnswertext = mAnswer.replaceAll("\\s+","").toString();
+                String answer1text = answer1.getText().toString().replaceAll("\\s+", "").toString();
+                String answer2text = answer2.getText().toString().replaceAll("\\s+", "").toString();
+                String answer3text = answer3.getText().toString().replaceAll("\\s+", "").toString();
+                String answer4text = answer4.getText().toString().replaceAll("\\s+", "").toString();
+                String mAnswertext = mAnswer.replaceAll("\\s+", "").toString();
                 if (answer3text.equals(mAnswertext)) {
                     answer3.setBackgroundResource(R.drawable.for_bt_correct);
                     answer3.setTextColor(Color.WHITE);
@@ -204,7 +202,7 @@ public class ForFormulaActivity2 extends AppCompatActivity {
                     if (answer2text.equals(mAnswertext)) {
                         answer2.setBackgroundResource(R.drawable.for_bt_correct);
                         answer2.setTextColor(Color.WHITE);
-                    } else if (answer1text.equals(mAnswertext) ) {
+                    } else if (answer1text.equals(mAnswertext)) {
                         answer1.setBackgroundResource(R.drawable.for_bt_correct);
                         answer1.setTextColor(Color.WHITE);
                     } else {
@@ -223,11 +221,11 @@ public class ForFormulaActivity2 extends AppCompatActivity {
         answer4.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                String answer1text= answer1.getText().toString().replaceAll("\\s+","").toString();
-                String answer2text= answer2.getText().toString().replaceAll("\\s+","").toString();
-                String answer3text= answer3.getText().toString().replaceAll("\\s+","").toString();
-                String answer4text= answer4.getText().toString().replaceAll("\\s+","").toString();
-                String mAnswertext = mAnswer.replaceAll("\\s+","").toString();
+                String answer1text = answer1.getText().toString().replaceAll("\\s+", "").toString();
+                String answer2text = answer2.getText().toString().replaceAll("\\s+", "").toString();
+                String answer3text = answer3.getText().toString().replaceAll("\\s+", "").toString();
+                String answer4text = answer4.getText().toString().replaceAll("\\s+", "").toString();
+                String mAnswertext = mAnswer.replaceAll("\\s+", "").toString();
                 if (answer4text.equals(mAnswertext)) {
                     answer4.setBackgroundResource(R.drawable.for_bt_correct);
                     answer4.setTextColor(Color.WHITE);
@@ -263,7 +261,7 @@ public class ForFormulaActivity2 extends AppCompatActivity {
         });
     }
 
-    private void updateQuestion(int num, ArrayList<ForQuestions> QuestionArray)  {
+    private void updateQuestion(int num, ArrayList<ForQuestions> QuestionArray) {
         //delay(5);
 
         if (questionIndex == QuestionArray.size()) {
@@ -334,7 +332,7 @@ public class ForFormulaActivity2 extends AppCompatActivity {
             question.setVisibility(View.INVISIBLE);
             dynamicImage.setVisibility(View.VISIBLE);
             juniorTextView.setVisibility(View.VISIBLE);
-            int resId = getResources().getIdentifier(img, "drawable", "application.viope.math.combinedapp");
+            int resId = getResources().getIdentifier(img, "drawable", "com.mathemtical.formulas.ohjelmistoprojekti2");
             dynamicImage.setImageResource(resId);
         } else {
             question.setVisibility(View.VISIBLE);
@@ -353,6 +351,8 @@ public class ForFormulaActivity2 extends AppCompatActivity {
 
             setContentView(R.layout.for_activity_formula2_land);
 
+            ArrayList<ForQuestions> QuestionArray = new ArrayList<ForQuestions>();
+            QuestionArray = db.getQuestions();
             int r = 0;
             answer1 = (Button) findViewById(R.id.answer1);
             answer2 = (Button) findViewById(R.id.answer2);
@@ -365,12 +365,13 @@ public class ForFormulaActivity2 extends AppCompatActivity {
             juniorTextView = (TextView) findViewById(R.id.juniorTextView);
             score.setText("Ponto: " + mScore);
 
-
             updateQuestion(questionIndex, QuestionArray);
 
             nextButton.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {
+                    ArrayList<ForQuestions> QuestionArray = new ArrayList<ForQuestions>();
+                    QuestionArray = db.getQuestions();
                     updateQuestion(questionIndex, QuestionArray);
                 }
             });
@@ -378,9 +379,17 @@ public class ForFormulaActivity2 extends AppCompatActivity {
             answer1.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {
-                    if (answer1.getText() == mAnswer) {
+                    String answer1text = answer1.getText().toString().replaceAll("\\s+", "").toString();
+                    String answer2text = answer2.getText().toString().replaceAll("\\s+", "").toString();
+                    String answer3text = answer3.getText().toString().replaceAll("\\s+", "").toString();
+                    String answer4text = answer4.getText().toString().replaceAll("\\s+", "").toString();
+                    String mAnswertext = mAnswer.replaceAll("\\s+", "").toString();
+
+
+                    if (answer1text.equals(mAnswertext)) {
                         answer1.setBackgroundResource(R.drawable.for_bt_correct);
                         answer1.setTextColor(Color.WHITE);
+                        db.insertData(1, questionIndex);
                         mScore++;
                         questionIndex++;
                         score.setText("Ponto:" + mScore);
@@ -391,10 +400,11 @@ public class ForFormulaActivity2 extends AppCompatActivity {
                     } else {
                         answer1.setBackgroundResource(R.drawable.for_bt_incorrect);
                         answer1.setTextColor(Color.WHITE);
-                        if (answer2.getText() == mAnswer) {
+                        db.insertData(0, questionIndex);
+                        if (answer2text.equals(mAnswertext)) {
                             answer2.setBackgroundResource(R.drawable.for_bt_correct);
                             answer2.setTextColor(Color.WHITE);
-                        } else if (answer3.getText() == mAnswer) {
+                        } else if (answer3text.equals(mAnswertext)) {
                             answer3.setBackgroundResource(R.drawable.for_bt_correct);
                             answer3.setTextColor(Color.WHITE);
                         } else {
@@ -415,9 +425,15 @@ public class ForFormulaActivity2 extends AppCompatActivity {
             answer2.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {
-                    if (answer2.getText() == mAnswer) {
+                    String answer1text = answer1.getText().toString().replaceAll("\\s+", "").toString();
+                    String answer2text = answer2.getText().toString().replaceAll("\\s+", "").toString();
+                    String answer3text = answer3.getText().toString().replaceAll("\\s+", "").toString();
+                    String answer4text = answer4.getText().toString().replaceAll("\\s+", "").toString();
+                    String mAnswertext = mAnswer.replaceAll("\\s+", "").toString();
+                    if (answer2text.equals(mAnswertext)) {
                         answer2.setBackgroundResource(R.drawable.for_bt_correct);
                         answer2.setTextColor(Color.WHITE);
+                        db.insertData(1, questionIndex);
                         mScore++;
                         questionIndex++;
 
@@ -429,10 +445,11 @@ public class ForFormulaActivity2 extends AppCompatActivity {
                     } else {
                         answer2.setBackgroundResource(R.drawable.for_bt_incorrect);
                         answer2.setTextColor(Color.WHITE);
-                        if (answer1.getText() == mAnswer) {
+                        db.insertData(0, questionIndex);
+                        if (answer1text.equals(mAnswertext)) {
                             answer1.setBackgroundResource(R.drawable.for_bt_correct);
                             answer1.setTextColor(Color.WHITE);
-                        } else if (answer3.getText() == mAnswer) {
+                        } else if (answer3text.equals(mAnswertext)) {
                             answer3.setBackgroundResource(R.drawable.for_bt_correct);
                             answer3.setTextColor(Color.WHITE);
                         } else {
@@ -451,9 +468,15 @@ public class ForFormulaActivity2 extends AppCompatActivity {
             answer3.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {
-                    if (answer3.getText() == mAnswer) {
+                    String answer1text = answer1.getText().toString().replaceAll("\\s+", "").toString();
+                    String answer2text = answer2.getText().toString().replaceAll("\\s+", "").toString();
+                    String answer3text = answer3.getText().toString().replaceAll("\\s+", "").toString();
+                    String answer4text = answer4.getText().toString().replaceAll("\\s+", "").toString();
+                    String mAnswertext = mAnswer.replaceAll("\\s+", "").toString();
+                    if (answer3text.equals(mAnswertext)) {
                         answer3.setBackgroundResource(R.drawable.for_bt_correct);
                         answer3.setTextColor(Color.WHITE);
+                        db.insertData(1, questionIndex);
                         mScore++;
                         questionIndex++;
                         score.setText("Ponto:" + mScore);
@@ -464,10 +487,11 @@ public class ForFormulaActivity2 extends AppCompatActivity {
                     } else {
                         answer3.setBackgroundResource(R.drawable.for_bt_incorrect);
                         answer3.setTextColor(Color.WHITE);
-                        if (answer2.getText() == mAnswer) {
+                        db.insertData(0, questionIndex);
+                        if (answer2text.equals(mAnswertext)) {
                             answer2.setBackgroundResource(R.drawable.for_bt_correct);
                             answer2.setTextColor(Color.WHITE);
-                        } else if (answer1.getText() == mAnswer) {
+                        } else if (answer1text.equals(mAnswertext)) {
                             answer1.setBackgroundResource(R.drawable.for_bt_correct);
                             answer1.setTextColor(Color.WHITE);
                         } else {
@@ -486,9 +510,15 @@ public class ForFormulaActivity2 extends AppCompatActivity {
             answer4.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {
-                    if (answer4.getText() == mAnswer) {
+                    String answer1text = answer1.getText().toString().replaceAll("\\s+", "").toString();
+                    String answer2text = answer2.getText().toString().replaceAll("\\s+", "").toString();
+                    String answer3text = answer3.getText().toString().replaceAll("\\s+", "").toString();
+                    String answer4text = answer4.getText().toString().replaceAll("\\s+", "").toString();
+                    String mAnswertext = mAnswer.replaceAll("\\s+", "").toString();
+                    if (answer4text.equals(mAnswertext)) {
                         answer4.setBackgroundResource(R.drawable.for_bt_correct);
                         answer4.setTextColor(Color.WHITE);
+                        db.insertData(1, questionIndex);
                         mScore++;
                         questionIndex++;
                         score.setText("Ponto:" + mScore);
@@ -499,10 +529,11 @@ public class ForFormulaActivity2 extends AppCompatActivity {
                     } else {
                         answer4.setBackgroundResource(R.drawable.for_bt_incorrect);
                         answer4.setTextColor(Color.WHITE);
-                        if (answer2.getText() == mAnswer) {
+                        db.insertData(0, questionIndex);
+                        if (answer2text.equals(mAnswertext)) {
                             answer2.setBackgroundResource(R.drawable.for_bt_correct);
                             answer2.setTextColor(Color.WHITE);
-                        } else if (answer3.getText() == mAnswer) {
+                        } else if (answer3text.equals(mAnswertext)) {
                             answer3.setBackgroundResource(R.drawable.for_bt_correct);
                             answer3.setTextColor(Color.WHITE);
                         } else {
@@ -517,11 +548,12 @@ public class ForFormulaActivity2 extends AppCompatActivity {
                     }
                 }
             });
-
         } else {
 
             setContentView(R.layout.for_activity_formula2);
 
+            ArrayList<ForQuestions> QuestionArray = new ArrayList<ForQuestions>();
+            QuestionArray = db.getQuestions();
             int r = 0;
             answer1 = (Button) findViewById(R.id.answer1);
             answer2 = (Button) findViewById(R.id.answer2);
@@ -539,6 +571,8 @@ public class ForFormulaActivity2 extends AppCompatActivity {
             nextButton.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {
+                    ArrayList<ForQuestions> QuestionArray = new ArrayList<ForQuestions>();
+                    QuestionArray = db.getQuestions();
                     updateQuestion(questionIndex, QuestionArray);
                 }
             });
@@ -546,9 +580,17 @@ public class ForFormulaActivity2 extends AppCompatActivity {
             answer1.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {
-                    if (answer1.getText() == mAnswer) {
+                    String answer1text = answer1.getText().toString().replaceAll("\\s+", "").toString();
+                    String answer2text = answer2.getText().toString().replaceAll("\\s+", "").toString();
+                    String answer3text = answer3.getText().toString().replaceAll("\\s+", "").toString();
+                    String answer4text = answer4.getText().toString().replaceAll("\\s+", "").toString();
+                    String mAnswertext = mAnswer.replaceAll("\\s+", "").toString();
+
+
+                    if (answer1text.equals(mAnswertext)) {
                         answer1.setBackgroundResource(R.drawable.for_bt_correct);
                         answer1.setTextColor(Color.WHITE);
+                        db.insertData(1, questionIndex);
                         mScore++;
                         questionIndex++;
                         score.setText("Ponto:" + mScore);
@@ -559,10 +601,11 @@ public class ForFormulaActivity2 extends AppCompatActivity {
                     } else {
                         answer1.setBackgroundResource(R.drawable.for_bt_incorrect);
                         answer1.setTextColor(Color.WHITE);
-                        if (answer2.getText() == mAnswer) {
+                        db.insertData(0, questionIndex);
+                        if (answer2text.equals(mAnswertext)) {
                             answer2.setBackgroundResource(R.drawable.for_bt_correct);
                             answer2.setTextColor(Color.WHITE);
-                        } else if (answer3.getText() == mAnswer) {
+                        } else if (answer3text.equals(mAnswertext)) {
                             answer3.setBackgroundResource(R.drawable.for_bt_correct);
                             answer3.setTextColor(Color.WHITE);
                         } else {
@@ -583,9 +626,15 @@ public class ForFormulaActivity2 extends AppCompatActivity {
             answer2.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {
-                    if (answer2.getText() == mAnswer) {
+                    String answer1text = answer1.getText().toString().replaceAll("\\s+", "").toString();
+                    String answer2text = answer2.getText().toString().replaceAll("\\s+", "").toString();
+                    String answer3text = answer3.getText().toString().replaceAll("\\s+", "").toString();
+                    String answer4text = answer4.getText().toString().replaceAll("\\s+", "").toString();
+                    String mAnswertext = mAnswer.replaceAll("\\s+", "").toString();
+                    if (answer2text.equals(mAnswertext)) {
                         answer2.setBackgroundResource(R.drawable.for_bt_correct);
                         answer2.setTextColor(Color.WHITE);
+                        db.insertData(1, questionIndex);
                         mScore++;
                         questionIndex++;
 
@@ -597,10 +646,11 @@ public class ForFormulaActivity2 extends AppCompatActivity {
                     } else {
                         answer2.setBackgroundResource(R.drawable.for_bt_incorrect);
                         answer2.setTextColor(Color.WHITE);
-                        if (answer1.getText() == mAnswer) {
+                        db.insertData(0, questionIndex);
+                        if (answer1text.equals(mAnswertext)) {
                             answer1.setBackgroundResource(R.drawable.for_bt_correct);
                             answer1.setTextColor(Color.WHITE);
-                        } else if (answer3.getText() == mAnswer) {
+                        } else if (answer3text.equals(mAnswertext)) {
                             answer3.setBackgroundResource(R.drawable.for_bt_correct);
                             answer3.setTextColor(Color.WHITE);
                         } else {
@@ -619,9 +669,15 @@ public class ForFormulaActivity2 extends AppCompatActivity {
             answer3.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {
-                    if (answer3.getText() == mAnswer) {
+                    String answer1text = answer1.getText().toString().replaceAll("\\s+", "").toString();
+                    String answer2text = answer2.getText().toString().replaceAll("\\s+", "").toString();
+                    String answer3text = answer3.getText().toString().replaceAll("\\s+", "").toString();
+                    String answer4text = answer4.getText().toString().replaceAll("\\s+", "").toString();
+                    String mAnswertext = mAnswer.replaceAll("\\s+", "").toString();
+                    if (answer3text.equals(mAnswertext)) {
                         answer3.setBackgroundResource(R.drawable.for_bt_correct);
                         answer3.setTextColor(Color.WHITE);
+                        db.insertData(1, questionIndex);
                         mScore++;
                         questionIndex++;
                         score.setText("Ponto:" + mScore);
@@ -632,10 +688,11 @@ public class ForFormulaActivity2 extends AppCompatActivity {
                     } else {
                         answer3.setBackgroundResource(R.drawable.for_bt_incorrect);
                         answer3.setTextColor(Color.WHITE);
-                        if (answer2.getText() == mAnswer) {
+                        db.insertData(0, questionIndex);
+                        if (answer2text.equals(mAnswertext)) {
                             answer2.setBackgroundResource(R.drawable.for_bt_correct);
                             answer2.setTextColor(Color.WHITE);
-                        } else if (answer1.getText() == mAnswer) {
+                        } else if (answer1text.equals(mAnswertext)) {
                             answer1.setBackgroundResource(R.drawable.for_bt_correct);
                             answer1.setTextColor(Color.WHITE);
                         } else {
@@ -654,9 +711,15 @@ public class ForFormulaActivity2 extends AppCompatActivity {
             answer4.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {
-                    if (answer4.getText() == mAnswer) {
+                    String answer1text = answer1.getText().toString().replaceAll("\\s+", "").toString();
+                    String answer2text = answer2.getText().toString().replaceAll("\\s+", "").toString();
+                    String answer3text = answer3.getText().toString().replaceAll("\\s+", "").toString();
+                    String answer4text = answer4.getText().toString().replaceAll("\\s+", "").toString();
+                    String mAnswertext = mAnswer.replaceAll("\\s+", "").toString();
+                    if (answer4text.equals(mAnswertext)) {
                         answer4.setBackgroundResource(R.drawable.for_bt_correct);
                         answer4.setTextColor(Color.WHITE);
+                        db.insertData(1, questionIndex);
                         mScore++;
                         questionIndex++;
                         score.setText("Ponto:" + mScore);
@@ -667,10 +730,11 @@ public class ForFormulaActivity2 extends AppCompatActivity {
                     } else {
                         answer4.setBackgroundResource(R.drawable.for_bt_incorrect);
                         answer4.setTextColor(Color.WHITE);
-                        if (answer2.getText() == mAnswer) {
+                        db.insertData(0, questionIndex);
+                        if (answer2text.equals(mAnswertext)) {
                             answer2.setBackgroundResource(R.drawable.for_bt_correct);
                             answer2.setTextColor(Color.WHITE);
-                        } else if (answer3.getText() == mAnswer) {
+                        } else if (answer3text.equals(mAnswertext)) {
                             answer3.setBackgroundResource(R.drawable.for_bt_correct);
                             answer3.setTextColor(Color.WHITE);
                         } else {
@@ -685,8 +749,8 @@ public class ForFormulaActivity2 extends AppCompatActivity {
                     }
                 }
             });
-
         }
-
     }
 }
+
+
