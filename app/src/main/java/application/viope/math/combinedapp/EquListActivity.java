@@ -3,10 +3,14 @@ package application.viope.math.combinedapp;
 import android.app.Activity;
 import android.content.Intent;
 import android.database.Cursor;
+import android.graphics.Color;
 import android.os.Bundle;
+import android.os.Handler;
 import android.util.Log;
 import android.view.Gravity;
 import android.view.View;
+import android.view.animation.Animation;
+import android.view.animation.AnimationUtils;
 import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.ImageView;
@@ -43,6 +47,7 @@ public class EquListActivity extends Activity {
     private int statusYellow = 1;
     private int statusGreen = 2;
     private EquAnswerstatus equAnswerstatus;
+    private ImageView image;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -56,6 +61,8 @@ public class EquListActivity extends Activity {
 
         equasionList = new ArrayList<String>();
 
+        getWindow().getDecorView().setBackgroundColor(Color.WHITE);
+
         input = (EditText) findViewById(R.id.inputListItem);
 
         equCustomKeyboard = new EquCustomKeyboard(this, R.id.keyboardview, R.xml.equ_hexkbd);
@@ -64,7 +71,7 @@ public class EquListActivity extends Activity {
         listView = (ListView) findViewById(R.id.eList);
 
 
-        // Select the questions ID that is selected from the cons_main activity
+        // Select the questions ID that is selected from the main activity
 
         Intent intent = getIntent();
         currentQuestionId = intent.getStringExtra(EquListExercisesActivity.EXTRA_MESSAGE);
@@ -78,21 +85,9 @@ public class EquListActivity extends Activity {
 
         equCustomAdapter = new EquCustomAdapter(this, R.layout.equ_itemlistrow, equasionList);
         listView.setAdapter(equCustomAdapter);
+        image = findViewById(R.id.correct);
+        image.setVisibility(View.GONE);
 
-
-
-        // ****************
-        // **** HUOMIO ****
-        // ****************
-
-        // POISTA KOMMENTOINNIT SEURAAVILTA KOLMELTA RIVILTÄ ENSIMMÄISELLÄ KÄYNNISTYKSELLÄ,
-        // JONKA JÄLKEEN LAITA KOMMENNTIT TAKAISIN!
-
-        // KOMENTO ASETTAA KOLME KYSYMYSTÄ PUHELIMEN LOKAALIIN TIETOKANTAAN TESTAUSTA VARTEN
-
-        //dbHelper.addTestDataForShowingQuestion("2(3x-4)+5=3(x+1)", "2", "esimerkkiid", 1);
-        //dbHelper.addTestDataForShowingQuestion("3(2x+3)-5=-4(-x+3)", "-8", "esimerkkiiid", 2);
-        //dbHelper.addTestDataForShowingQuestion("(3(5x-2))/4+4=(4(4x-3))/2", "2", "esimerkkiiiid", 3);
         Log.d(TAG, "BEFORE IF ID IS NOT NULL");
         if (currentQuestionId != null) {
             Log.d(TAG, "INSIDE IF ID IS NOT NULL" + currentQuestionIdInt);
@@ -106,14 +101,13 @@ public class EquListActivity extends Activity {
         questionTextView = (TextView) findViewById(R.id.equasionTextView);
         questionTextView.setText(equQuestion.getQuestionText());
 
-
-        //FbHelper.Post(dbHelper.getPost());
     }
 
     @Override
     protected void onStart() {
         super.onStart();
         populateListView(equQuestion.getQuestionId());
+        checkBackgroundColor();
 
     }
 
@@ -167,6 +161,56 @@ public class EquListActivity extends Activity {
         populateListView(questionId);
     }
 
+    public void checkBackgroundColor() {
+        int status = dbHelper.getAnswerStatus(equQuestion.getQuestionOrder()).getAnswerStatus();
+        EditText text = findViewById(R.id.inputListItem);
+        ImageButton add = findViewById(R.id.addListButton);
+        ImageButton delete = findViewById(R.id.delButton);
+        if (status == 2){
+            final Animation animZoom = AnimationUtils.loadAnimation(this, R.anim.zoom);
+            if(image.getVisibility() == View.GONE){
+                image.startAnimation(animZoom);
+            }
+            image.setVisibility(View.VISIBLE);
+            if (text.isFocusable()){
+                text.setFocusable(false);
+                text.setEnabled(false);
+                add.setClickable(false);
+                delete.setClickable(false);
+                //text.setCursorVisible(false);
+                //text.setKeyListener(null);
+            }
+            equCustomKeyboard.hideCustomKeyboard();
+        }else{
+            final Animation animZoomOut = AnimationUtils.loadAnimation(this, R.anim.zoomout);
+            if(image.getVisibility() == View.VISIBLE){
+                image.startAnimation(animZoomOut);
+            }
+            text.setFocusableInTouchMode(true);
+            text.setEnabled(true);
+            add.setClickable(true);
+            delete.setClickable(true);
+            equCustomKeyboard.hideCustomKeyboard();
+            image.setVisibility(View.GONE);
+            //text.setFocusable(true);
+        }
+        /*if (equAnswerstatus != null){
+            if (equAnswerstatus.getAnswerStatus() == statusGreen){
+                Log.d(TAG, "OIKEA VASTAUS PITÄISI NYT VAIHTUA BLAA BLAA BLAA");
+                getWindow().getDecorView().setBackgroundColor(Color.GREEN);
+                //relative.setBackgroundColor(13434828);
+                //View someView = findViewById(R.id.backButton);
+                //View rootView = someView.getRootView();
+                //rootView.setBackgroundColor(13434828);
+                //View view = this.getWindow().getDecorView();
+                //view.setBackgroundColor(13434828);
+            }else{
+                Log.d(TAG, "ANSWERSTATUS ON ======> " + equAnswerstatus.getAnswerStatus());
+            }
+        }*/
+
+    }
+
     public void addButtonClicked(View view) {
         inputString = input.getText().toString().toLowerCase();
         EquTesti equTesti = new EquTesti();
@@ -174,8 +218,6 @@ public class EquListActivity extends Activity {
         if(inputString.contains("x") && inputString.contains("=") && inputString.matches(".*\\d+.*")){
             if(equTesti.testi(inputString, answer) == 1){
                 equCustomKeyboard.hideCustomKeyboard();
-
-                showCorrectAnswerToast();
 
                 //add phase to db
                 AddData(inputString, equQuestion.getQuestionId());
@@ -185,6 +227,7 @@ public class EquListActivity extends Activity {
 
                 //update status to db
                 dbHelper.updateStatus(statusGreen, equQuestion.getQuestionId(), currentQuestionIdInt);
+                checkBackgroundColor();
 
             }else if(equTesti.testi(inputString, answer) == 2) {
 
@@ -200,7 +243,7 @@ public class EquListActivity extends Activity {
                 dbHelper.updateStatus(statusYellow, equQuestion.getQuestionId(), currentQuestionIdInt);
 
             }else if(equTesti.testi(inputString, answer) == 3){
-                //Incorrect ConsAnswer/EquPhase
+                //Incorrect Answer/EquPhase
                 showIncorrectToast();
 
             }else if(equTesti.testi(inputString, answer) == 4){
@@ -216,8 +259,8 @@ public class EquListActivity extends Activity {
     }
 
 
-    public void deleteButtonClicked(View view) {
-        if (!equCustomAdapter.isEmpty()) {
+    public void deleteButtonClicked(View view){
+        if(!equCustomAdapter.isEmpty()) {
             //equCustomAdapter.remove(equCustomAdapter.getItem(equCustomAdapter.getCount() - 1));
             //equCustomAdapter.notifyDataSetChanged();
             equQuestion.removeLastPhase();
@@ -225,6 +268,7 @@ public class EquListActivity extends Activity {
             populateListView(equQuestion.getQuestionId());
         }
     }
+
 
     public void nextButtonClicked(View view) {
         loadNextQuestion();
@@ -249,6 +293,9 @@ public class EquListActivity extends Activity {
     public void loadNextQuestion() {
         int count = (int) dbHelper.getQuestionCount();
         int order = equQuestion.getQuestionOrder();
+        Handler handler = new Handler();
+        final Animation animSlide1 = AnimationUtils.loadAnimation(this, R.anim.slide1);
+        final Animation animSlide2 = AnimationUtils.loadAnimation(this, R.anim.slide2);
         Log.d(TAG, "QUESTION COUNT IS === " + count + " AND");
         Log.d(TAG, "QUESTION ORDER IS === " + order);
         if (order == count){
@@ -260,50 +307,45 @@ public class EquListActivity extends Activity {
             currentQuestionIdInt++;
             Log.d(TAG, equQuestion.toString());
             answer = equQuestion.getAnswer();
-            populateListView(equQuestion.getQuestionId());
-            questionTextView.setText(equQuestion.getQuestionText());
+            questionTextView.startAnimation(animSlide1);
+            listView.startAnimation(animSlide1);
+            handler.postDelayed(new Runnable() {
+                public void run() {
+                    questionTextView.setText(equQuestion.getQuestionText());
+                    questionTextView.startAnimation(animSlide2);
+                    listView.startAnimation(animSlide2);
+                    answer = equQuestion.getAnswer();
+                    populateListView(equQuestion.getQuestionId());
+                    checkBackgroundColor();
+                }
+            }, 200);
         }
     }
 
     public void loadPreviousQuestion() {
         equQuestion = dbHelper.findPreviousQuestion();
+        Handler handler = new Handler();
+        final Animation animSlide3 = AnimationUtils.loadAnimation(this, R.anim.slide3);
+        final Animation animSlide4 = AnimationUtils.loadAnimation(this, R.anim.slide4);
         currentQuestionIdInt--;
         if (equQuestion == null){
             Intent intent = new Intent(this, EquListExercisesActivity.class);
             finish();
             startActivity(intent);
         }else{
-            questionTextView.setText(equQuestion.getQuestionText());
-            answer = equQuestion.getAnswer();
-            populateListView(equQuestion.getQuestionId());
-            //equCustomKeyboard.showCustomKeyboard(input);
+            questionTextView.startAnimation(animSlide3);
+            listView.startAnimation(animSlide3);
+            handler.postDelayed(new Runnable() {
+                public void run() {
+                    questionTextView.setText(equQuestion.getQuestionText());
+                    questionTextView.startAnimation(animSlide4);
+                    listView.startAnimation(animSlide4);
+                    answer = equQuestion.getAnswer();
+                    populateListView(equQuestion.getQuestionId());
+                    checkBackgroundColor();
+                }
+            }, 200);
         }
-
-    }
-
-    public void showCorrectAnswerToast() {
-        float density = getApplicationContext().getResources().getDisplayMetrics().density;
-        int imageSize = (int) (density * 100 + 0.5f);
-        int imageMargin = (int) (density * 50 + 0.5f);
-
-        TextView tView = new TextView(this);
-        tView.setTextSize(25);
-
-        Toast toast = new Toast(getApplicationContext());
-
-        RelativeLayout.LayoutParams layoutParams = new RelativeLayout.LayoutParams(imageSize, imageSize);
-        layoutParams.setMargins(0, imageMargin, 0, 0);
-        iView.setLayoutParams(layoutParams);
-        iView.setImageResource(R.drawable.equ_correct);
-
-        RelativeLayout layout = new RelativeLayout(this);
-
-        layout.addView(iView);
-        layout.addView(tView);
-
-        toast.setGravity(Gravity.CENTER|Gravity.CENTER, 0, -50);
-        toast.setView(layout);
-        toast.show();
     }
 
     public void showCorrectPhaseToast() {

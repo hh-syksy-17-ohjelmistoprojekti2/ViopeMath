@@ -7,6 +7,18 @@
     android:background="@color/bgLight"
     tools:context="application.viope.math.combinedapp.EquListActivity">
 
+    <ImageView
+        android:id="@+id/correct"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:alpha="0.3"
+        android:layout_centerVertical="true"
+        android:layout_centerHorizontal="true"
+        android:layout_centerInParent="true"
+        android:layout_marginTop="5dp"
+        android:src="@drawable/equ_checkmark" />
+
+
     <!-- YHTÄLÖTEKSTI -->
     <TextView
         android:id="@+id/equasionTextView"
@@ -17,7 +29,7 @@
         android:layout_marginLeft="10dp"
         android:layout_marginRight="10dp"
         android:layout_marginTop="20dp"
-        android:textSize="25dp" />
+        android:textSize="25sp" />
 
     <!-- LISTA -->
     <ListView
@@ -44,11 +56,13 @@
         <ImageButton
             android:id="@+id/backButton"
             style="@style/NavButtonTheme"
-            android:layout_width="80dp"
+            android:contentDescription="@string/back_button"
+            android:layout_width="60dp"
             android:layout_height="50dp"
-            android:layout_marginLeft="20dp"
-            android:layout_marginRight="5dp"
-            android:layout_toLeftOf="@+id/menuButton"
+            android:layout_marginLeft="25dp"
+            android:layout_marginStart="25dp"
+            android:layout_marginRight="8dp"
+            android:layout_marginEnd="8dp"
             android:layout_weight="1"
             android:onClick="backButtonClicked"
             android:src="@drawable/equ_back"
@@ -58,10 +72,13 @@
         <ImageButton
             android:id="@+id/menuButton"
             style="@style/NavButtonTheme"
-            android:layout_width="50dp"
+            android:contentDescription="@string/menu_button"
+            android:layout_width="40dp"
             android:layout_height="50dp"
             android:layout_marginLeft="0dp"
-            android:layout_marginRight="5dp"
+            android:layout_marginStart="0dp"
+            android:layout_marginRight="8dp"
+            android:layout_marginEnd="8dp"
             android:layout_weight="1"
             android:onClick="menuButtonClicked"
             android:src="@drawable/equ_menu" />
@@ -70,10 +87,13 @@
         <ImageButton
             android:id="@+id/infoButton"
             style="@style/NavButtonTheme"
-            android:layout_width="50dp"
+            android:contentDescription="@string/info"
+            android:layout_width="40dp"
             android:layout_height="50dp"
             android:layout_marginLeft="0dp"
-            android:layout_marginRight="5dp"
+            android:layout_marginStart="0dp"
+            android:layout_marginRight="8dp"
+            android:layout_marginEnd="8dp"
             android:layout_weight="1"
             android:onClick="infoButtonClicked"
             android:src="@drawable/equ_info" />
@@ -82,10 +102,13 @@
         <ImageButton
             android:id="@+id/nextButton"
             style="@style/NavButtonTheme"
-            android:layout_width="80dp"
+            android:contentDescription="@string/next_button"
+            android:layout_width="60dp"
             android:layout_height="50dp"
             android:layout_marginLeft="0dp"
-            android:layout_marginRight="20dp"
+            android:layout_marginStart="0dp"
+            android:layout_marginRight="25dp"
+            android:layout_marginEnd="25dp"
             android:layout_weight="1"
             android:onClick="nextButtonClicked"
             android:src="@drawable/equ_next"
@@ -125,28 +148,33 @@
     <ImageButton
         android:id="@+id/addListButton"
         style="@style/AddButtonTheme"
+        android:contentDescription="@string/add"
         android:layout_width="50dp"
         android:layout_height="50dp"
         android:layout_marginLeft="8dp"
+        android:layout_marginStart="8dp"
         android:layout_marginBottom="8dp"
         android:onClick="addButtonClicked"
         android:text="@string/add"
         android:layout_above="@+id/keyboardview"
         android:layout_alignWithParentIfMissing="true"
-        android:layout_toRightOf="@+id/inputListItem"/>
+        android:layout_toRightOf="@+id/inputListItem"
+        android:layout_toEndOf="@id/inputListItem"/>
 
     <!-- DELETE-BUTTON -->
     <ImageButton
         android:id="@+id/delButton"
         style="@style/DelButtonTheme"
+        android:contentDescription="@string/delete"
         android:layout_width="50dp"
         android:layout_height="50dp"
         android:layout_marginRight="8dp"
+        android:layout_marginEnd="8dp"
         android:layout_marginBottom="8dp"
         android:onClick="deleteButtonClicked"
-        android:text="Del"
         android:layout_above="@+id/keyboardview"
         android:layout_alignWithParentIfMissing="true"
-        android:layout_toLeftOf="@+id/inputListItem"/>
+        android:layout_toLeftOf="@+id/inputListItem"
+        android:layout_toStartOf="@id/inputListItem"/>
 
 </RelativeLayout>

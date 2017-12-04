@@ -17,6 +17,9 @@
     <string name="upload_answers_br">Carregar as respostas</string>
     <string name="download_questions_br">Baixar as perguntas</string>
     <string name="info">Info</string>
+    <string name="menu_button">Exercise menu</string>
+    <string name="delete">Delete</string>
+
 
     <string name="homeTitle">Home Page</string>
     <string name="formulaPage">Formula Page</string>
