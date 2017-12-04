@@ -332,7 +332,7 @@ public class ForFormulaActivity2 extends AppCompatActivity {
             question.setVisibility(View.INVISIBLE);
             dynamicImage.setVisibility(View.VISIBLE);
             juniorTextView.setVisibility(View.VISIBLE);
-            int resId = getResources().getIdentifier(img, "drawable", "com.mathemtical.formulas.ohjelmistoprojekti2");
+            int resId = getResources().getIdentifier(img, "drawable", "application.viope.math.combinedapp");
             dynamicImage.setImageResource(resId);
         } else {
             question.setVisibility(View.VISIBLE);

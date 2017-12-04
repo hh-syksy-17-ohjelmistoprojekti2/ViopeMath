@@ -1,6 +1,6 @@
 package application.viope.math.combinedapp;
 
-
+import android.content.res.Configuration;
 import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -24,7 +24,7 @@ public class ForMainPage extends AppCompatActivity {
     TextView putdata;
     Button economyButton, areaButton, geometryButton, fraction3Button, GetQuestions;
 
-    DatabaseReference questionRef = FirebaseDatabase.getInstance().getReference().child("formulas");
+    DatabaseReference questionRef = FirebaseDatabase.getInstance().getReference();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -32,6 +32,14 @@ public class ForMainPage extends AppCompatActivity {
         setContentView(R.layout.for_activity_main_page);
         myDb = new ForDatabaseHelper(this);
         initializeComponents();
+
+        int orientation = this.getResources().getConfiguration().orientation;
+        if (orientation == Configuration.ORIENTATION_PORTRAIT) {
+            setContentView(R.layout.for_activity_main_page);
+
+        } else if (orientation == Configuration.ORIENTATION_LANDSCAPE) {
+            setContentView(R.layout.for_activity_main_page_land);
+        }
 
         ActionBar menu = getSupportActionBar();
         menu.setDisplayShowHomeEnabled(true);
@@ -128,5 +136,44 @@ public class ForMainPage extends AppCompatActivity {
 
             }
         });
+    }
+
+    public void onConfigurationChanged(Configuration newConfig) {
+        super.onConfigurationChanged(newConfig);
+
+        if (getResources().getConfiguration().orientation == Configuration.ORIENTATION_LANDSCAPE) {
+
+            setContentView(R.layout.for_activity_main_page_land);
+
+            ActionBar menu = getSupportActionBar();
+            menu.setDisplayShowHomeEnabled(true);
+
+            getSupportActionBar().
+
+                    setDisplayShowTitleEnabled(false);
+            menu.setIcon(R.drawable.for_logo1);
+            menu.setBackgroundDrawable(
+
+                    getResources().
+
+                            getDrawable(R.drawable.for_actionbar_gradient));
+        } else {
+
+            setContentView(R.layout.for_activity_main_page);
+
+            ActionBar menu = getSupportActionBar();
+            menu.setDisplayShowHomeEnabled(true);
+
+            getSupportActionBar().
+
+                    setDisplayShowTitleEnabled(false);
+            menu.setIcon(R.drawable.for_logo1);
+            menu.setBackgroundDrawable(
+
+                    getResources().
+
+                            getDrawable(R.drawable.for_actionbar_gradient));
+
+        }
     }
 }
