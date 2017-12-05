@@ -77,10 +77,10 @@ public class EquFirebaseHelper {
                 for (DataSnapshot messageSnapshot : dataSnapshot.getChildren()) {
                     try {
                         int status = 0;
-                        String questionid = (String) messageSnapshot.getRef().getKey().toString();
-                        String question = (String) messageSnapshot.child("question").getValue().toString();
-                        String answer = (String) messageSnapshot.child("answer").getValue().toString();
-                        String questionorder = (String) messageSnapshot.child("questionorder").getValue().toString();
+                        String questionid = messageSnapshot.getRef().getKey().toString();
+                        String question = messageSnapshot.child("question").getValue().toString();
+                        String answer = messageSnapshot.child("answer").getValue().toString();
+                        String questionorder = messageSnapshot.child("questionorder").getValue().toString();
 
 
                         Log.d("Data test ", questionid + question + answer + questionorder);

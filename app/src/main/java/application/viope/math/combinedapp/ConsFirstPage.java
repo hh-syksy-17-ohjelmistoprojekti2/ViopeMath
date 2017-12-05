@@ -24,8 +24,8 @@ public class ConsFirstPage extends Fragment{
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, Bundle savedInstanceState) {
         myView= inflater.inflate(R.layout.cons_firstpage, container, false);
         mydb = new EquDatabaseHelper(getContext());
-        Button startButton = (Button) myView.findViewById(R.id.startBtn);
-        Button formButton = (Button) myView.findViewById(R.id.formsBtn);
+        Button startButton = myView.findViewById(R.id.startBtn);
+        Button formButton = myView.findViewById(R.id.formsBtn);
 
         startButton.setOnClickListener(new View.OnClickListener() {
             @Override

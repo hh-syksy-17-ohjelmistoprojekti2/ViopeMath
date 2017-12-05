@@ -46,7 +46,7 @@ public class EquCustomAdapter extends ArrayAdapter<String> {
         String p = getItem(position);
 
         if (p != null) {
-            TextView tt1 = (TextView) v.findViewById(R.id.eq);
+            TextView tt1 = v.findViewById(R.id.eq);
 
             if (tt1 != null) {
                 tt1.setText(p.toString());

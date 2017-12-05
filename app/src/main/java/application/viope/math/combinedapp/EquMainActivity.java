@@ -59,8 +59,8 @@ public class EquMainActivity extends AppCompatActivity {
         ActionBar myActionBar = getSupportActionBar();
         myActionBar.show();
 
-        mDrawerList = (ListView) findViewById(R.id.navList);
-        mDrawerLayout = (DrawerLayout) findViewById(R.id.drawer_layout);
+        mDrawerList = findViewById(R.id.navList);
+        mDrawerLayout = findViewById(R.id.drawer_layout);
         addDrawerItems();
 
         mDrawerToggle = new ActionBarDrawerToggle(
@@ -121,18 +121,14 @@ public class EquMainActivity extends AppCompatActivity {
                 if (EquAppNetStatus.getInstance(EquMainActivity.this).isOnline()) {
                     return true;
                 } else {
-                    if (position == perguntas || position == respostas) {
-                        return false;
-                    } else {
-                        return true;
-                    }
+                    return !(position == perguntas || position == respostas);
                 }
 
             }
             @Override
             public View getView(int position, View convertView, ViewGroup parent) {
                 View view = super.getView(position, convertView, parent);
-                TextView tv = (TextView) view.findViewById(android.R.id.text1);
+                TextView tv = view.findViewById(android.R.id.text1);
                 if(isEnabled(position)) {
                     tv.setBackgroundColor(getResources().getColor(R.color.bgLight));
                     tv.setTextColor(getResources().getColor(R.color.black));

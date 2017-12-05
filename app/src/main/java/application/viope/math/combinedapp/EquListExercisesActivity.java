@@ -50,7 +50,7 @@ public class EquListExercisesActivity extends AppCompatActivity {
         dbHelper.checkUsername();
 
         //setupping the settings menu icon and popup
-        settingsButton = (ImageButton) findViewById(R.id.settingsButton);
+        settingsButton = findViewById(R.id.settingsButton);
         settingsButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -85,7 +85,7 @@ public class EquListExercisesActivity extends AppCompatActivity {
                                 //KYSYMYSTEN LATAAMINEN TULEE TÄHÄN
 
                                 FbHelper.Get();
-                                TextView tView = (TextView) findViewById(R.id.downloadQuestions);
+                                TextView tView = findViewById(R.id.downloadQuestions);
                                 tView.setText("Loading questions...");
 
                                 final Handler handler = new Handler();
@@ -145,7 +145,7 @@ public class EquListExercisesActivity extends AppCompatActivity {
         }
 
         // findViewById for RelativeLayout
-        mRelativeLayout = (RelativeLayout) findViewById(R.id.relative);
+        mRelativeLayout = findViewById(R.id.relative);
         // add LinearLayout
         LinearLayout linear = new LinearLayout(this);
         linear.setLayoutParams(new LinearLayout.LayoutParams(LinearLayout.LayoutParams.MATCH_PARENT, LinearLayout.LayoutParams.MATCH_PARENT));

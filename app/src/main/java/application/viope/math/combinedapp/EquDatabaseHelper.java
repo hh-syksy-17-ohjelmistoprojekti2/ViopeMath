@@ -240,11 +240,7 @@ public class EquDatabaseHelper extends SQLiteOpenHelper {
             //userid ei ole lokaalisti
             //return true;
             if (cursor.moveToFirst()) {
-                if(cursor.getString(cursor.getColumnIndex(KEY_USERID)).equals("unknown")){
-                    return false;
-                }else{
-                    return true;
-                }
+                return !cursor.getString(cursor.getColumnIndex(KEY_USERID)).equals("unknown");
             }
         }/*else {
             //userid on lokaalisti

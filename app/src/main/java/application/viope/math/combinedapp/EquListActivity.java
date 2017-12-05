@@ -63,12 +63,12 @@ public class EquListActivity extends Activity {
 
         getWindow().getDecorView().setBackgroundColor(Color.WHITE);
 
-        input = (EditText) findViewById(R.id.inputListItem);
+        input = findViewById(R.id.inputListItem);
 
         equCustomKeyboard = new EquCustomKeyboard(this, R.id.keyboardview, R.xml.equ_hexkbd);
         equCustomKeyboard.registerEditText(R.id.inputListItem);
 
-        listView = (ListView) findViewById(R.id.eList);
+        listView = findViewById(R.id.eList);
 
 
         // Select the questions ID that is selected from the main activity
@@ -98,7 +98,7 @@ public class EquListActivity extends Activity {
         }
         Log.d(TAG, equQuestion.toString());
         answer = equQuestion.getAnswer();
-        questionTextView = (TextView) findViewById(R.id.equasionTextView);
+        questionTextView = findViewById(R.id.equasionTextView);
         questionTextView.setText(equQuestion.getQuestionText());
 
     }
@@ -152,7 +152,7 @@ public class EquListActivity extends Activity {
             phases.add(p.get(i).getPhaseText());
         }
         equCustomAdapter = new EquCustomAdapter(this, R.layout.equ_itemlistrow, phases);
-        listView = (ListView) findViewById(R.id.eList);
+        listView = findViewById(R.id.eList);
         listView.setAdapter(equCustomAdapter);
     }
 

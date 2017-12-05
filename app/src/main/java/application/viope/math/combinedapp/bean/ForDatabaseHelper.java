@@ -78,10 +78,7 @@ public class ForDatabaseHelper extends SQLiteOpenHelper{
         contentValues.put(OFFEREDANSWER, offeredanswer);
         contentValues.put(QUESTIONIMAGE, questionimage);
         long result = db.insert(QUESTIONS, null, contentValues);
-        if(result == -1)
-            return false;
-        else
-            return  true;
+        return result != -1;
     }
 
     public void InsertIntoDB(String QId, String question,String answer, String offeredanswer, String questionimage) {
@@ -113,10 +110,7 @@ public class ForDatabaseHelper extends SQLiteOpenHelper{
         ContentValues contentValues = new ContentValues();
         contentValues.put(R_CORRECT, correct);
         long result = db.insert(RESULTS, null, contentValues);
-        if (result == -1)
-            return false;
-        else
-            return true;
+        return result != -1;
     }
     public boolean clearQuestions() {
 

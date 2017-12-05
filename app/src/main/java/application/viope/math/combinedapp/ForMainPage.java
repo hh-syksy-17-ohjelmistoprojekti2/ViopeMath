@@ -1,12 +1,11 @@
 package application.viope.math.combinedapp;
 
-import android.content.res.Configuration;
+import android.content.Intent;
+import android.os.Bundle;
 import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
-import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
-import android.content.Intent;
 import android.widget.TextView;
 
 import com.google.firebase.database.ChildEventListener;
@@ -49,13 +48,13 @@ public class ForMainPage extends AppCompatActivity {
     }
 
     private void initializeComponents() {
-        economyButton = (Button) findViewById(R.id.economybutton);
-        areaButton = (Button) findViewById(R.id.areabutton);
-        geometryButton = (Button) findViewById(R.id.geometrybutton);
-        fraction3Button = (Button) findViewById(R.id.fraction3Button);
+        economyButton = findViewById(R.id.economybutton);
+        areaButton = findViewById(R.id.areabutton);
+        geometryButton = findViewById(R.id.geometrybutton);
+        fraction3Button = findViewById(R.id.fraction3Button);
         economyButton.setOnClickListener(economyButtonOnClickListener);
         // geometryButton.setOnClickListener(geometryButtonOnClickListener);
-        GetQuestions = (Button) findViewById(R.id.GetQuestions);
+        GetQuestions = findViewById(R.id.GetQuestions);
         GetQuestions.setOnClickListener(getDataOnclickListener);
         //putdata = (TextView) findViewById(R.id.putdata);
 

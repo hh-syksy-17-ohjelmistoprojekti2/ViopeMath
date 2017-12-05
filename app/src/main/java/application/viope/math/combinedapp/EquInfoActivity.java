@@ -54,7 +54,7 @@ public class EquInfoActivity extends Activity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.equ_activity_info);
-        listView = (ListView) findViewById(R.id.infoView);
+        listView = findViewById(R.id.infoView);
 
         InfoAdapter infoAdapter = new InfoAdapter(this, R.id.text, listItemArray);
         listView.setAdapter(infoAdapter);
@@ -115,13 +115,13 @@ public class EquInfoActivity extends Activity {
                     convertView = LayoutInflater.from(getContext()).inflate(R.layout.equ_activity_info_titlerow, null, false);
                 } else if (position > 0 && position < 11) {
                     convertView = LayoutInflater.from(getContext()).inflate(R.layout.equ_activity_info_contentrow_symbol, null, false);
-                    ImageView imageView = (ImageView) convertView. findViewById(R.id.symbol);
+                    ImageView imageView = convertView. findViewById(R.id.symbol);
                     imageView.setImageResource(symbolList[position - 1]);
                 } else {
                     convertView = LayoutInflater.from(getContext()).inflate(R.layout.equ_activity_info_contentrow, null, false);
                 }
 
-                TextView textView = (TextView) convertView.findViewById(R.id.text);
+                TextView textView = convertView.findViewById(R.id.text);
                 viewHolder = new ViewHolder(textView);
 
                 convertView.setTag(viewHolder);

@@ -65,7 +65,7 @@ public class ConsExercisePage extends Fragment {
 
     public void ifRightAnswer(){
         double userAnswer = Double.parseDouble(edit.getText().toString());
-        answerImage = (ImageView) myView.findViewById(R.id.answerImageView);
+        answerImage = myView.findViewById(R.id.answerImageView);
         ConsAnswer answer = new ConsAnswer();
         answer.setAnswer(userAnswer);
         answer.setFormula(formulaEdittext.getText().toString());
@@ -110,21 +110,21 @@ public class ConsExercisePage extends Fragment {
         mydb= new EquDatabaseHelper(getContext());
         questionList= mydb.ConsGetAllQuestions();
         rightAnswer= questionList.get(questionNumber).getRightAnswer();
-        nextBtn = (ImageButton) myView.findViewById(R.id.nextBtn);
-        prevBtn= (ImageButton) myView.findViewById(R.id.prevBtn);
-        answerButton= (Button) myView.findViewById(R.id.answerBtn);
-        edit= (EditText) myView.findViewById(R.id.answerView);
-        answerImage= (ImageView) myView.findViewById(R.id.answerImageView);
-        formulaEdittext= (EditText) myView.findViewById(R.id.formulaView);
-        question1TextView= (TextView) myView.findViewById(R.id.question1TextView);
-        exerciseCountertextView= (TextView) myView.findViewById(R.id.exerciseCounterTextView);
-        currentExercise= (TextView) myView.findViewById(R.id.taskName);
+        nextBtn = myView.findViewById(R.id.nextBtn);
+        prevBtn= myView.findViewById(R.id.prevBtn);
+        answerButton= myView.findViewById(R.id.answerBtn);
+        edit= myView.findViewById(R.id.answerView);
+        answerImage= myView.findViewById(R.id.answerImageView);
+        formulaEdittext= myView.findViewById(R.id.formulaView);
+        question1TextView= myView.findViewById(R.id.question1TextView);
+        exerciseCountertextView= myView.findViewById(R.id.exerciseCounterTextView);
+        currentExercise= myView.findViewById(R.id.taskName);
         String exerciseNumber= String.valueOf(questionNumber + 1);
         String allExercises = String.valueOf(questionList.size());
         exerciseCountertextView.setText(exerciseNumber + "/" + allExercises);
         currentExercise.setText("Exercício " + exerciseNumber);
         question1TextView.setText(questionList.get(questionNumber).getQuestion().toString());
-        final ImageButton hintBtn = (ImageButton) myView.findViewById(R.id.hintBtn);
+        final ImageButton hintBtn = myView.findViewById(R.id.hintBtn);
         hintBtn.setVisibility(View.INVISIBLE);
         if (mydb.ifExists(rightAnswer)) {
             answerInDb();
@@ -138,7 +138,7 @@ public class ConsExercisePage extends Fragment {
                         Toast.makeText(getContext(), getString(R.string.please_insert), Toast.LENGTH_LONG).show();
                     } else {
                         double userAnswer = Double.parseDouble(edit.getText().toString());
-                        answerImage = (ImageView) myView.findViewById(R.id.answerImageView);
+                        answerImage = myView.findViewById(R.id.answerImageView);
 
                         if (userAnswer == rightAnswer) {
                             ifRightAnswer();
