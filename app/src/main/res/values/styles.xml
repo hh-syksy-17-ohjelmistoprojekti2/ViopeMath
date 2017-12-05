@@ -40,9 +40,8 @@
     </style>
 
     <style name="ActionBarStyle.TitleTextStyle" parent="@android:style/TextAppearance">
-        <item name="android:textColor">@color/bgGrey</item>
+        <item name="android:textColor">@color/bgLight</item>
         <item name="android:textStyle">bold</item>
-        <item name="android:gravity">right</item>
     </style>
 
     <!-- ALOITUSNÄKYMÄN TYYLIT -->
@@ -114,8 +113,9 @@
     </style>
     <style name="KeyboardTheme">
         <item name="android:background">@color/silver</item>
-        <item name="android:keyBackground">@color/silver</item>
         <item name="android:keyTextColor">@color/black</item>
+        <item name="android:shadowRadius">0.0</item>
+        <item name="android:keyBackground">@drawable/keyboard_bg_selector</item>
     </style>
        <style name="AppTheme.NoActionBar">
         <item name="windowActionBar">false</item>

@@ -38,4 +38,7 @@
     <color name="holder">#b4b4b4</color>
     <color name="bt_color_dark">#5F39C7</color>
     <color name="bt_color_light">#7A77FF</color>
+    <color name="bgdGreyLight">#cecece</color>
+    <color name="notfinishedYellowDark">#ffc335</color>
+    <color name="notfinishedYellowLight">#ffd46c</color>
 </resources>

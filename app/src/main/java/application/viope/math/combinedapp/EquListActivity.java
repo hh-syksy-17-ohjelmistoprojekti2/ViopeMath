@@ -54,8 +54,7 @@ public class EquListActivity extends Activity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.equ_activity_list);
 
-        //ActionBar myActionBar = getSupportActionBar();
-        //myActionBar.hide();
+
         dbHelper = new EquDatabaseHelper(this);
         FbHelper = new EquFirebaseHelper();
 
@@ -63,12 +62,12 @@ public class EquListActivity extends Activity {
 
         getWindow().getDecorView().setBackgroundColor(Color.WHITE);
 
-        input = findViewById(R.id.inputListItem);
+        input = (EditText) findViewById(R.id.inputListItem);
 
         equCustomKeyboard = new EquCustomKeyboard(this, R.id.keyboardview, R.xml.equ_hexkbd);
         equCustomKeyboard.registerEditText(R.id.inputListItem);
 
-        listView = findViewById(R.id.eList);
+        listView = (ListView) findViewById(R.id.eList);
 
 
         // Select the questions ID that is selected from the main activity
@@ -88,6 +87,7 @@ public class EquListActivity extends Activity {
         image = findViewById(R.id.correct);
         image.setVisibility(View.GONE);
 
+
         Log.d(TAG, "BEFORE IF ID IS NOT NULL");
         if (currentQuestionId != null) {
             Log.d(TAG, "INSIDE IF ID IS NOT NULL" + currentQuestionIdInt);
@@ -98,7 +98,7 @@ public class EquListActivity extends Activity {
         }
         Log.d(TAG, equQuestion.toString());
         answer = equQuestion.getAnswer();
-        questionTextView = findViewById(R.id.equasionTextView);
+        questionTextView = (TextView) findViewById(R.id.equasionTextView);
         questionTextView.setText(equQuestion.getQuestionText());
 
     }
@@ -135,7 +135,6 @@ public class EquListActivity extends Activity {
     public void populateListView(String questionId) {
         equQuestion.removeAllPhases();
         Cursor data = dbHelper.getPhases(questionId);
-        //ArrayList<String> equasionList = new ArrayList<String>();
         Log.d(TAG, "populating listview");
         if (data != null){
             while(data.moveToNext()){
@@ -143,7 +142,7 @@ public class EquListActivity extends Activity {
                 //add it to the ArrayList
                 EquPhase equPhase = new EquPhase(questionId, data.getString(0));
                 equQuestion.addPhase(equPhase);
-                //equasionList.add(data.getString(3));
+
             }
         }
         List<EquPhase> p = equQuestion.getEquPhaseList();
@@ -152,7 +151,7 @@ public class EquListActivity extends Activity {
             phases.add(p.get(i).getPhaseText());
         }
         equCustomAdapter = new EquCustomAdapter(this, R.layout.equ_itemlistrow, phases);
-        listView = findViewById(R.id.eList);
+        listView = (ListView) findViewById(R.id.eList);
         listView.setAdapter(equCustomAdapter);
     }
 
@@ -177,8 +176,6 @@ public class EquListActivity extends Activity {
                 text.setEnabled(false);
                 add.setClickable(false);
                 delete.setClickable(false);
-                //text.setCursorVisible(false);
-                //text.setKeyListener(null);
             }
             equCustomKeyboard.hideCustomKeyboard();
         }else{
@@ -192,31 +189,16 @@ public class EquListActivity extends Activity {
             delete.setClickable(true);
             equCustomKeyboard.hideCustomKeyboard();
             image.setVisibility(View.GONE);
-            //text.setFocusable(true);
-        }
-        /*if (equAnswerstatus != null){
-            if (equAnswerstatus.getAnswerStatus() == statusGreen){
-                Log.d(TAG, "OIKEA VASTAUS PITÄISI NYT VAIHTUA BLAA BLAA BLAA");
-                getWindow().getDecorView().setBackgroundColor(Color.GREEN);
-                //relative.setBackgroundColor(13434828);
-                //View someView = findViewById(R.id.backButton);
-                //View rootView = someView.getRootView();
-                //rootView.setBackgroundColor(13434828);
-                //View view = this.getWindow().getDecorView();
-                //view.setBackgroundColor(13434828);
-            }else{
-                Log.d(TAG, "ANSWERSTATUS ON ======> " + equAnswerstatus.getAnswerStatus());
-            }
-        }*/
 
+        }
     }
 
     public void addButtonClicked(View view) {
         inputString = input.getText().toString().toLowerCase();
-        EquTesti equTesti = new EquTesti();
+        EquCheckup equCheckup = new EquCheckup();
         iView = new ImageView(getApplicationContext());
         if(inputString.contains("x") && inputString.contains("=") && inputString.matches(".*\\d+.*")){
-            if(equTesti.testi(inputString, answer) == 1){
+            if(equCheckup.testi(inputString, answer) == 1){
                 equCustomKeyboard.hideCustomKeyboard();
 
                 //add phase to db
@@ -229,7 +211,7 @@ public class EquListActivity extends Activity {
                 dbHelper.updateStatus(statusGreen, equQuestion.getQuestionId(), currentQuestionIdInt);
                 checkBackgroundColor();
 
-            }else if(equTesti.testi(inputString, answer) == 2) {
+            }else if(equCheckup.testi(inputString, answer) == 2) {
 
                 showCorrectPhaseToast();
 
@@ -242,18 +224,18 @@ public class EquListActivity extends Activity {
                 //update status to db
                 dbHelper.updateStatus(statusYellow, equQuestion.getQuestionId(), currentQuestionIdInt);
 
-            }else if(equTesti.testi(inputString, answer) == 3){
+            }else if(equCheckup.testi(inputString, answer) == 3){
                 //Incorrect Answer/EquPhase
                 showIncorrectToast();
 
-            }else if(equTesti.testi(inputString, answer) == 4){
-                //Syntax Error
+            }else if(equCheckup.testi(inputString, answer) == 4){
+
                 showIncorrectToast();
             } else {
-                //Toast.makeText(getApplicationContext(), "Incorrect", Toast.LENGTH_SHORT).show();
+
             }
         }else{
-            //Toast.makeText(getApplicationContext(), "Your input must contain x, = and number(s)", Toast.LENGTH_SHORT).show();
+
             showIncorrectToast();
         }
     }
@@ -261,8 +243,7 @@ public class EquListActivity extends Activity {
 
     public void deleteButtonClicked(View view){
         if(!equCustomAdapter.isEmpty()) {
-            //equCustomAdapter.remove(equCustomAdapter.getItem(equCustomAdapter.getCount() - 1));
-            //equCustomAdapter.notifyDataSetChanged();
+
             equQuestion.removeLastPhase();
             dbHelper.deleteData();
             populateListView(equQuestion.getQuestionId());
@@ -323,16 +304,18 @@ public class EquListActivity extends Activity {
     }
 
     public void loadPreviousQuestion() {
-        equQuestion = dbHelper.findPreviousQuestion();
-        Handler handler = new Handler();
-        final Animation animSlide3 = AnimationUtils.loadAnimation(this, R.anim.slide3);
-        final Animation animSlide4 = AnimationUtils.loadAnimation(this, R.anim.slide4);
-        currentQuestionIdInt--;
-        if (equQuestion == null){
+        int qOrder = equQuestion.getQuestionOrder();
+        Log.d(TAG, "CURRENT QUESTION ORDER IS : " + qOrder);
+        if (qOrder == 1) {
             Intent intent = new Intent(this, EquListExercisesActivity.class);
             finish();
             startActivity(intent);
         }else{
+            equQuestion = dbHelper.findPreviousQuestion();
+            Handler handler = new Handler();
+            final Animation animSlide3 = AnimationUtils.loadAnimation(this, R.anim.slide3);
+            final Animation animSlide4 = AnimationUtils.loadAnimation(this, R.anim.slide4);
+            currentQuestionIdInt--;
             questionTextView.startAnimation(animSlide3);
             listView.startAnimation(animSlide3);
             handler.postDelayed(new Runnable() {

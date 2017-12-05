@@ -10,8 +10,11 @@ import android.view.ContextThemeWrapper;
 import android.view.Gravity;
 import android.view.MenuItem;
 import android.view.View;
+import android.view.animation.Animation;
+import android.view.animation.AnimationUtils;
 import android.widget.Button;
 import android.widget.ImageButton;
+import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
@@ -37,6 +40,9 @@ public class EquListExercisesActivity extends AppCompatActivity {
 
     private ImageButton settingsButton;
     private RelativeLayout mRelativeLayout;
+    private ImageView arrow;
+    private ImageView arrowfake;
+    private Animation arrowMovement;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -44,13 +50,19 @@ public class EquListExercisesActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         dbHelper = new EquDatabaseHelper(this);
         FbHelper = new EquFirebaseHelper();
+
+        dbHelper.checkUsername(); //FILLER METHOD THAT GIVES USERNAMES CAN WORK WITHOUT THIS
         setContentView(R.layout.equ_activity_list_exercises);
         getSupportActionBar().setDisplayShowCustomEnabled(true);
         getSupportActionBar().setCustomView(R.layout.equ_toolbar_custom);
-        dbHelper.checkUsername();
+        getSupportActionBar().setDisplayShowTitleEnabled(false);
+        arrow = findViewById(R.id.arrow);
+        arrowMovement  = AnimationUtils.loadAnimation(this, R.anim.arrow);
+        arrowfake = findViewById(R.id.arrowfake);
+        onStart();
 
         //setupping the settings menu icon and popup
-        settingsButton = findViewById(R.id.settingsButton);
+        settingsButton = (ImageButton) findViewById(R.id.settingsButton);
         settingsButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -82,11 +94,13 @@ public class EquListExercisesActivity extends AppCompatActivity {
                         } else {
                             if (EquAppNetStatus.getInstance(EquListExercisesActivity.this).isOnline()) {
 
-                                //KYSYMYSTEN LATAAMINEN TULEE TÄHÄN
-
                                 FbHelper.Get();
-                                TextView tView = findViewById(R.id.downloadQuestions);
+                                final TextView tView = (TextView) findViewById(R.id.downloadQuestions);
                                 tView.setText("Loading questions...");
+                                arrow.setVisibility(View.GONE);
+                                arrow.clearAnimation();
+                                arrowMovement.cancel();
+                                arrowfake.setVisibility(View.GONE);
 
                                 final Handler handler = new Handler();
                                 handler.postDelayed(new Runnable() {
@@ -94,7 +108,11 @@ public class EquListExercisesActivity extends AppCompatActivity {
                                     public void run() {
                                         getnumberofquestions = dbHelper.getQuestionCount();
                                         inflateButtons();
-                                        Toast.makeText(EquListExercisesActivity.this, "Questions downloaded", Toast.LENGTH_SHORT).show();
+                                        if (mRelativeLayout == null){
+                                            tView.setText("Whoops! Something went wrong. Try again.");
+                                        }else{
+                                            Toast.makeText(EquListExercisesActivity.this, "Questions downloaded", Toast.LENGTH_SHORT).show();
+                                        }
                                     }
                                 }, 5000);
 
@@ -113,7 +131,19 @@ public class EquListExercisesActivity extends AppCompatActivity {
     @Override
     protected void onStart() {
         super.onStart();
+        arrowStatus();
         inflateButtons();
+    }
+
+    public void arrowStatus() {
+        if (mRelativeLayout != null) {
+            arrow.setVisibility(View.GONE);
+            arrowfake.setVisibility(View.GONE);
+        }else{
+            arrow.setVisibility(View.VISIBLE);
+            arrowfake.setVisibility(View.INVISIBLE);
+            arrow.setAnimation(arrowMovement);
+        }
     }
 
     public void inflateButtons() {
@@ -142,10 +172,13 @@ public class EquListExercisesActivity extends AppCompatActivity {
             View scrollView = findViewById(R.id.scrollButtons);
             scrollView.setVisibility(View.VISIBLE);
             downloadText.setVisibility(View.GONE);
+        } else {
+            arrow.setVisibility(View.VISIBLE);
+            arrowfake.setVisibility(View.INVISIBLE);
         }
 
         // findViewById for RelativeLayout
-        mRelativeLayout = findViewById(R.id.relative);
+        mRelativeLayout = (RelativeLayout) findViewById(R.id.relative);
         // add LinearLayout
         LinearLayout linear = new LinearLayout(this);
         linear.setLayoutParams(new LinearLayout.LayoutParams(LinearLayout.LayoutParams.MATCH_PARENT, LinearLayout.LayoutParams.MATCH_PARENT));
@@ -163,16 +196,13 @@ public class EquListExercisesActivity extends AppCompatActivity {
                 int dpwidth = (int) (75 * scale);
                 int dpheight = (int) (75 * scale);
                 LinearLayout.LayoutParams layoutParams = new LinearLayout.LayoutParams(dpwidth, dpheight);
-                layoutParams.setMargins(30, 30, 30, 30);
+                layoutParams.setMargins(30, 20, 20, 30);
                 eBtn.setLayoutParams(layoutParams);
                 eBtn.setText("" + (j + 1 + (i * 3)));
                 eBtn.setId(j + 1 + (i * 3));
                 int questionOrder = j + 1 + (i * 3);
-                Log.d("QUESTIONORDER IS: ", "questionorder: " + questionOrder);
                 equAnswerstatus = dbHelper.getAnswerStatus(questionOrder);
-
                 answerStatus = equAnswerstatus.getAnswerStatus();
-                Log.d("ANSWER STATUS: ", " " + answerStatus);
                 if (answerStatus == 1) {
                     eBtn.setBackgroundResource(R.drawable.equ_exercisebuttonyellow);
                 } else if (answerStatus == 2){
@@ -200,6 +230,8 @@ public class EquListExercisesActivity extends AppCompatActivity {
             // add view to the outer LinearLayout
             linear.addView(row);
         }
+
+        //Adds a button or two when necessary
         if (partialbuttons != 0) {
             for (int i = 0; i < 1; i++) {
                 LinearLayout row = new LinearLayout(this);
@@ -214,17 +246,14 @@ public class EquListExercisesActivity extends AppCompatActivity {
                     int dpwidth = (int) (75 * scale);
                     int dpheight = (int) (75 * scale);
                     LinearLayout.LayoutParams layoutParams = new LinearLayout.LayoutParams(dpwidth, dpheight);
-                    layoutParams.setMargins(30, 30, 30, 30);
+                    layoutParams.setMargins(30, 20, 20, 30);
                     eBtn.setLayoutParams(layoutParams);
 
                     eBtn.setText("" + (buttonsbeforepartials + (j + 1)));
                     eBtn.setId(buttonsbeforepartials + (j + 1));
                     int questionOrder = buttonsbeforepartials + (j + 1);
-                    Log.d("QUESTIONORDER IS: ", "questionorder: " + questionOrder);
                     equAnswerstatus = dbHelper.getAnswerStatus(questionOrder);
-
                     answerStatus = equAnswerstatus.getAnswerStatus();
-                    Log.d("ANSWER STATUS: ", " " + answerStatus);
                     if (answerStatus == 1) {
                         eBtn.setBackgroundResource(R.drawable.equ_exercisebuttonyellow);
                     } else if (answerStatus == 2){

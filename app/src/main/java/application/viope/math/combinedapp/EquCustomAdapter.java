@@ -10,10 +10,6 @@ import android.widget.TextView;
 import java.util.ArrayList;
 import java.util.List;
 
-/**
- * Created by valtteri on 11.9.2017.
- */
-
 public class EquCustomAdapter extends ArrayAdapter<String> {
 
     private ArrayList<String> list = new ArrayList<String>();
@@ -46,25 +42,12 @@ public class EquCustomAdapter extends ArrayAdapter<String> {
         String p = getItem(position);
 
         if (p != null) {
-            TextView tt1 = v.findViewById(R.id.eq);
+            TextView tt1 = (TextView) v.findViewById(R.id.eq);
 
             if (tt1 != null) {
                 tt1.setText(p.toString());
             }
-
         }
-
-        /*Button deleteButton = (Button) v.findViewById(R.id.eraseButton);
-
-        //toimintalogiikka kun listan riviä klikataan
-        deleteButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                //do something
-                list.remove(position); //or some other task
-                notifyDataSetChanged();
-            }
-        });*/
         return v;
     }
 }

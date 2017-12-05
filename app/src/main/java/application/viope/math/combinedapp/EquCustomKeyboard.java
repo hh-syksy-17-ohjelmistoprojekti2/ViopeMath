@@ -106,7 +106,7 @@ class EquCustomKeyboard {
      */
     public EquCustomKeyboard(Activity host, int viewid, int layoutid) {
         mHostActivity= host;
-        mKeyboardView= mHostActivity.findViewById(viewid);
+        mKeyboardView= (KeyboardView)mHostActivity.findViewById(viewid);
         mKeyboardView.setKeyboard(new Keyboard(mHostActivity, layoutid));
         mKeyboardView.setPreviewEnabled(false); // NOTE Do not show the preview balloons
         mKeyboardView.setOnKeyboardActionListener(mOnKeyboardActionListener);
@@ -139,7 +139,7 @@ class EquCustomKeyboard {
      */
     public void registerEditText(int resid) {
         // Find the EditText 'resid'
-        EditText edittext= mHostActivity.findViewById(resid);
+        EditText edittext= (EditText)mHostActivity.findViewById(resid);
         // Make the custom keyboard appear
         edittext.setOnFocusChangeListener(new OnFocusChangeListener() {
             // NOTE By setting the on focus listener, we can show the custom keyboard when the edit box gets focus, but also hide it when the edit box loses focus
@@ -170,7 +170,3 @@ class EquCustomKeyboard {
     }
 
 }
-
-
-// NOTE How can we change the background color of some keys (like the shift/ctrl/alt)?
-// NOTE What does android:keyEdgeFlags do/mean

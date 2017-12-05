@@ -32,29 +32,6 @@ public class EquMainActivity extends AppCompatActivity {
         setContentView(R.layout.equ_activity_main);
 
         dbHelper = new EquDatabaseHelper(this);
-/*
-        dbHelper.addTestDataForShowingQuestion("2(3x-4)+5=3(x+1)", "2", "esimerkkiid", 1);
-        dbHelper.addTestDataForShowingQuestion("3(2x+3)-5=-4(-x+3)", "-8", "esimerkkiiid", 2);
-        dbHelper.addTestDataForShowingQuestion("(3(5x-2))/4+4=(4(4x-3))/2", "2", "esimerkkiiiid", 3);
-        dbHelper.addTestDataForShowingQuestion("testi4", "4", "testi4", 4);
-        dbHelper.addTestDataForShowingQuestion("testi5", "5", "testi5", 5);
-        dbHelper.addTestDataForShowingQuestion("testi6", "6", "testi6", 6);
-        dbHelper.addTestDataForShowingQuestion("testi7", "7", "testi7", 7);
-        dbHelper.addTestDataForShowingQuestion("testi8", "8", "testi8", 8);
-        dbHelper.addTestDataForShowingQuestion("testi9", "9", "testi9", 9);
-        dbHelper.addTestDataForShowingQuestion("testi10", "10", "testi10", 10);
-        dbHelper.addTestDataForShowingQuestion("testi11", "11", "testi11", 11);
-        dbHelper.addStatus(1, "esimerkkiid",1);
-        dbHelper.addStatus(0, "esimerkkiiid",2);
-        dbHelper.addStatus(0, "esimerkkiiiid",3);
-        dbHelper.addStatus(0, "testi4",4);
-        dbHelper.addStatus(0, "testi5",5);
-        dbHelper.addStatus(0, "testi6",6);
-        dbHelper.addStatus(0, "testi7",7);
-        dbHelper.addStatus(0, "testi8",8);
-        dbHelper.addStatus(0, "testi9",9);
-        dbHelper.addStatus(0, "testi10",10);
-        dbHelper.addStatus(0, "testi11",11);*/
 
         ActionBar myActionBar = getSupportActionBar();
         myActionBar.show();

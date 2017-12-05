@@ -1,7 +1,5 @@
 package application.viope.math.combinedapp;
 
-// MUISTAKAA MUUTTAA POLUT!
-
 import android.content.ContentValues;
 import android.content.Context;
 import android.database.Cursor;
@@ -19,9 +17,6 @@ import application.viope.math.combinedapp.bean.EquAnswerstatus;
 import application.viope.math.combinedapp.bean.EquQuestion;
 import application.viope.math.combinedapp.bean.ln7_Answer;
 import application.viope.math.combinedapp.bean.ln7_Exercise;
-
-
-// LISÄTKÄÄ OMAT SQLite JUTTUNNE TÄHÄN TIEDOSTOON
 
 public class EquDatabaseHelper extends SQLiteOpenHelper {
 
@@ -202,33 +197,12 @@ public class EquDatabaseHelper extends SQLiteOpenHelper {
 
     }
 
-    /*public boolean addStatussssss(int status, String id, int order) {
-        db = this.getWritableDatabase();
-        ContentValues contentValues2 = new ContentValues();
-        ContentValues contentValues = new ContentValues();
-        contentValues.put(KEY_ANSWERSTATUS, status);
-        contentValues.put(KEY_QUESTIONID, id);
-        contentValues2.put(KEY_QUESTIONORDER, order);
-        Log.d(TAG, "addStatus: Adding " + status + " " + id
-                + " " + order + " to " + TABLE_ANSWERSTATUS);
-
-        long result = db.insert(TABLE_ANSWERSTATUS, null, contentValues);
-        //long result2 = db.insert(TABLE_QUESTION, null, contentValues2);
-
-        if (result == -1 || result2 == -1){
-            Log.d(TAG, "insert failed");
-            return false;
-        }else {
-            Log.d(TAG, "insert successful");
-            return true;
-        }
-    }*/
     public void checkUsername(){
         db = this.getReadableDatabase();
         cursor = db.rawQuery("SELECT " + KEY_USERID + " FROM " + TABLE_USER + "", null);
         if (cursor!=null && cursor.getCount() < 1){
             SQLiteDatabase db = this.getWritableDatabase();
-            db.execSQL("INSERT INTO " +TABLE_USER+ " ( " + KEY_USERID + ", " + KEY_USERNAME + ") VALUES ('unknown', '" + Nickname.getName() + "')");
+            db.execSQL("INSERT INTO " +TABLE_USER+ " ( " + KEY_USERID + ", " + KEY_USERNAME + ") VALUES ('unknown', '" + EquNickname.getName() + "')");
         }
     }
     public boolean checkIfUseridExists(){

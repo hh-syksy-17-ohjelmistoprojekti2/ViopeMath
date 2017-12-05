@@ -3,6 +3,7 @@ package application.viope.math.combinedapp;
 import android.app.Activity;
 import android.content.Context;
 import android.os.Bundle;
+import android.support.v7.app.AppCompatActivity;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -11,7 +12,7 @@ import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.TextView;
 
-public class EquInfoActivity extends Activity {
+public class EquInfoActivity extends AppCompatActivity {
 
     private ListView listView;
     final String[] listItemArray = {
@@ -26,15 +27,17 @@ public class EquInfoActivity extends Activity {
             "Correct final answer",    //8
             "Incorrect answer",   //9
             "Correct answer",     //10
-            "Exercise colour meanings",   //11
+            "Exercise list colour meanings",   //11
             "Blue: Not yet tried", //12
             "Yellow: Incomplete", //13
             "Green: Done", // 14
-            "Tips", //15
-            "- The goal of every exercise is to solve the variable X",
-            "- Always solve from left to right",
-            "- Parentheses -> Division/multiplication -> Addition/subtraction",
-            "- Remember to multiple numbers with following parentheses' contents, e.g. 5(3 - 2) = 5 * 1"
+            "Instructions", //15
+            "1. The goal of every exercise is to solve the variable X",
+            "2. Solve the exercises phase by phase and input them into the app as you go",
+            "3. Inputting the final answer right away is possible, but solving in phases is encouraged",
+            "4. Always solve from left to right",
+            "5. Parentheses -> Division/multiplication -> Addition/subtraction",
+            "6. Remember to multiply numbers with following parentheses' contents, e.g. 5(3 - 2) = 5 * 1"
     };
 
     final int[] symbolList = {
@@ -54,10 +57,19 @@ public class EquInfoActivity extends Activity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.equ_activity_info);
-        listView = findViewById(R.id.infoView);
+        listView = (ListView) findViewById(R.id.infoView);
+
+        getSupportActionBar().setDisplayShowCustomEnabled(true);
+        getSupportActionBar().setCustomView(R.layout.equ_toolbar_custom2);
+        getSupportActionBar().setDisplayShowTitleEnabled(false);
 
         InfoAdapter infoAdapter = new InfoAdapter(this, R.id.text, listItemArray);
         listView.setAdapter(infoAdapter);
+    }
+
+    @Override
+    public void onBackPressed() {
+        finish();
     }
 
     public class ViewHolder {
@@ -115,13 +127,13 @@ public class EquInfoActivity extends Activity {
                     convertView = LayoutInflater.from(getContext()).inflate(R.layout.equ_activity_info_titlerow, null, false);
                 } else if (position > 0 && position < 11) {
                     convertView = LayoutInflater.from(getContext()).inflate(R.layout.equ_activity_info_contentrow_symbol, null, false);
-                    ImageView imageView = convertView. findViewById(R.id.symbol);
+                    ImageView imageView = (ImageView) convertView. findViewById(R.id.symbol);
                     imageView.setImageResource(symbolList[position - 1]);
                 } else {
                     convertView = LayoutInflater.from(getContext()).inflate(R.layout.equ_activity_info_contentrow, null, false);
                 }
 
-                TextView textView = convertView.findViewById(R.id.text);
+                TextView textView = (TextView) convertView.findViewById(R.id.text);
                 viewHolder = new ViewHolder(textView);
 
                 convertView.setTag(viewHolder);
@@ -135,4 +147,7 @@ public class EquInfoActivity extends Activity {
         }
     }
 
+    public void backToolbarClicked(View view) {
+        finish();
+    }
 }

@@ -1,10 +1,6 @@
 package application.viope.math.combinedapp;
 
-/**
- * Created by a1600547 on 26.9.2017.
- */
-
-public class EquTesti {
+public class EquCheckup {
 
     public double eval(final String str) {
         return new Object() {
@@ -82,12 +78,12 @@ public class EquTesti {
     }
 
     public int testi (final String stagex, final String answer) {
-        //String answer = "2"; //Murtolukuiset vastaukset pitää kirjoittaa sulkuihin
+
         String inputAnswer = "x="+answer;
         String inputAnswer2 = answer+"=x";
 
-        String stage = stagex; //inputista tulisi stage variable jonka tarkistamme
-        String stage1;  //stage1 ja 2 ovat stagen puolikkaita
+        String stage = stagex; //input becomes stage variable that we will check
+        String stage1;  //stage1 and stage2 are half of the same stage
         String stage2;
 
         try {
@@ -95,18 +91,14 @@ public class EquTesti {
                 if (stage.charAt(i) == 'x') {
                     try {
                         if (String.valueOf(stage.charAt(i - 1)).matches("[-+]?\\d*\\.?\\d+")) {
-                            System.out.println("Numero edessä");
                             stage = new StringBuffer(stage).insert(i, "*").toString();
-                            System.out.println(stage);
 
                         }
                     } catch (StringIndexOutOfBoundsException ignored) {
                     }
                     try {
                         if (String.valueOf(stage.charAt(i + 1)).matches("[-+]?\\d*\\.?\\d+")) {
-                            System.out.println("Numero takana");
                             stage = new StringBuffer(stage).insert(i + 1, "*").toString();
-                            System.out.println(stage);
                         }
                     } catch (StringIndexOutOfBoundsException ignored) {
                     }
@@ -116,10 +108,7 @@ public class EquTesti {
                 if (stage.charAt(i) == '(') {
                     try {
                         if (String.valueOf(stage.charAt(i - 1)).matches("[-+]?\\d*\\.?\\d+")) {
-                            System.out.println("Numero edessä");
                             stage = new StringBuffer(stage).insert(i, "*").toString();
-                            System.out.println(stage);
-
                         }
                     } catch (StringIndexOutOfBoundsException ignored) {
                     }
@@ -129,31 +118,24 @@ public class EquTesti {
                 if (stage.charAt(i) == ')') {
                     try {
                         if (String.valueOf(stage.charAt(i + 1)).matches("[-+]?\\d*\\.?\\d+")) {
-                            System.out.println("Numero takana");
                             stage = new StringBuffer(stage).insert(i + 1, "*").toString();
-                            System.out.println(stage);
                         }
                     } catch (StringIndexOutOfBoundsException ignored) {
                     }
-
-
                 }
             }
 
-            //Testataan onko inputti oikea vastaus, poistetaan stage kohdasta välilyönnit
+            //We test if the input is the correct answer and we remove spaces
             if(stage.replaceAll("\\s+","").equals(inputAnswer)|stage.replaceAll("\\s+","").equals(inputAnswer2)){
                 return 1;
             }
 
-            //kun käyttäjä antaa inputin otamme sen stage variableen ja heti muutamme laskun tarkistettavaksi
+            //When user gives their input we put it in the stage variable and instantly change the calculation to make it checkable
             String stage3 = stage.replace("x", answer);
-            String[] separated = stage3.split("="); // String jaetaan kaheteen osaan "=" kohdalta
-            //System.out.println(eval(stage3));
+            String[] separated = stage3.split("="); // String gets divided at "="
             stage1 = separated[0];
             stage2 = separated[1];
-            System.out.println(eval(stage1));
-            System.out.println(eval(stage2));
-            if (eval(stage1) == eval(stage2)) { // vertaamme että ovatko molemmat samat tiedämme onko tehtävän vaihe vielä oikein.
+            if (eval(stage1) == eval(stage2)) { //Comparing if both sides are the same so we know if the phase is still correct
                 return 2;
             } else {
                 return 3;

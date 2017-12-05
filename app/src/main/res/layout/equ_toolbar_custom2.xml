@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="horizontal"
+    android:layout_width="match_parent"
+    android:layout_height="50dp"
+    style="@style/CustomActionBarTheme">
+
+    <LinearLayout
+
+        android:layout_width="30dp"
+        android:layout_height="30dp"
+        android:layout_marginTop="10dp"
+        android:layout_marginBottom="10dp"
+        >
+
+        <ImageButton
+            android:id="@+id/backButton2"
+            android:contentDescription="@string/back_button"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:background="?attr/selectableItemBackgroundBorderless"
+            android:src="@drawable/equ_back2"
+            android:layout_weight="1"
+            android:layout_marginRight="1dp"
+            android:layout_marginEnd="1dp"
+            android:onClick="backToolbarClicked"
+            />
+    </LinearLayout>
+
+    <TextView
+        android:id="@+id/infoTitle"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:text="@string/info"
+        android:textStyle="bold"
+        android:typeface="normal"
+        android:textSize="16sp"
+        android:textColor="@color/bgGrey"
+        android:layout_weight="2"
+        android:layout_marginLeft="10dp"
+        android:layout_marginStart="10dp"
+        android:layout_marginTop="14dp"
+        android:layout_marginBottom="14dp"
+        />
+
+
+</LinearLayout>

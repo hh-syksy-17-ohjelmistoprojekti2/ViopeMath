@@ -17,12 +17,6 @@ import application.viope.math.combinedapp.bean.EquUser;
 import static application.viope.math.combinedapp.EquAppNetStatus.context;
 
 
-/**
- * Created by a1600519 on 30.10.2017.
- */
-
-
-
 public class EquFirebaseHelper {
 
     private DatabaseReference kDatabase;
@@ -30,14 +24,6 @@ public class EquFirebaseHelper {
     private ArrayList<String> lista;
 
     EquDatabaseHelper dbContextHelper = new EquDatabaseHelper(context);
-
-
-
-    public String getTestQuestion() {
-        return testQuestion;
-    }
-
-    public EquDatabaseHelper dbHelper;
 
 
     public String getKey(){
@@ -77,10 +63,10 @@ public class EquFirebaseHelper {
                 for (DataSnapshot messageSnapshot : dataSnapshot.getChildren()) {
                     try {
                         int status = 0;
-                        String questionid = messageSnapshot.getRef().getKey().toString();
-                        String question = messageSnapshot.child("question").getValue().toString();
-                        String answer = messageSnapshot.child("answer").getValue().toString();
-                        String questionorder = messageSnapshot.child("questionorder").getValue().toString();
+                        String questionid = (String) messageSnapshot.getRef().getKey().toString();
+                        String question = (String) messageSnapshot.child("question").getValue().toString();
+                        String answer = (String) messageSnapshot.child("answer").getValue().toString();
+                        String questionorder = (String) messageSnapshot.child("questionorder").getValue().toString();
 
 
                         Log.d("Data test ", questionid + question + answer + questionorder);

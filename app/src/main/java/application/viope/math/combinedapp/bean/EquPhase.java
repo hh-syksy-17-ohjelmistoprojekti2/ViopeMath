@@ -1,9 +1,5 @@
 package application.viope.math.combinedapp.bean;
 
-/**
- * Created by a1600519 on 30.10.2017.
- */
-
 public class EquPhase {
 
     private int phaseId;

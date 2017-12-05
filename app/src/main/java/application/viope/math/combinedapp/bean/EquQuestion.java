@@ -5,10 +5,6 @@ import android.util.Log;
 import java.util.ArrayList;
 import java.util.List;
 
-/**
- * Created by a1600519 on 30.10.2017.
- */
-
 public class EquQuestion {
 
     private static final String TAG = "QuestionBean";
