@@ -11,11 +11,14 @@ import android.database.sqlite.SQLiteOpenHelper;
 import android.util.Log;
 
 import java.util.ArrayList;
+import java.util.List;
 
 import application.viope.math.combinedapp.bean.ConsAnswer;
 import application.viope.math.combinedapp.bean.ConsQuestion;
 import application.viope.math.combinedapp.bean.EquAnswerstatus;
 import application.viope.math.combinedapp.bean.EquQuestion;
+import application.viope.math.combinedapp.bean.ln7_Answer;
+import application.viope.math.combinedapp.bean.ln7_Exercise;
 
 
 // LISÄTKÄÄ OMAT SQLite JUTTUNNE TÄHÄN TIEDOSTOON
@@ -93,6 +96,33 @@ public class EquDatabaseHelper extends SQLiteOpenHelper {
 
     //-------------------------------------------------------------------------------------------
 
+    //------------------------------fracs and roots----------------------------------------------
+    //ln7_Exercise table
+    private static final String TABLE_FR_EXERCISE = "exercise";
+    private static final String KEY_FR_ID = "id";
+    private static final String KEY_FR_QUESTION = "question";
+    private static final String KEY_FR_CORRECT = "correct";
+    private static final String KEY_FR_TYPE = "type";
+
+    //ln7_Answer table
+    private static final String TABLE_FR_ANSWER = "answer";
+    private static final String KEY_FR_EXERCISE_ID = "exercise_id";
+    private static final String KEY_FR_ANSWER = "answer";
+    private static final String KEY_FR_ISCORRECT = "isCorrect";
+
+    private String CREATE_FR_EXERCISE_TABLE = "CREATE TABLE " +  TABLE_FR_EXERCISE + " ("
+            + KEY_FR_ID + " INTEGER PRIMARY KEY UNIQUE, "
+            + KEY_FR_QUESTION + " TEXT UNIQUE, "
+            + KEY_FR_CORRECT + " TEXT, "
+            + KEY_FR_TYPE + " TEXT,"
+            + "UNIQUE (" + KEY_FR_QUESTION + ") ON CONFLICT IGNORE"
+            + ");";
+
+    private String CREATE_FR_ANSWER_TABLE = "CREATE TABLE " + TABLE_FR_ANSWER + " ("
+            + KEY_FR_EXERCISE_ID + " INTEGER PRIMARY KEY UNIQUE, "
+            + KEY_FR_ANSWER + " TEXT, "
+            + KEY_FR_ISCORRECT + " SMALLINT DEFAULT 0); ";
+    //-------------------------------------------------------------------------------------------
 
     private SQLiteDatabase db;
     private Cursor cursor;
@@ -112,6 +142,8 @@ public class EquDatabaseHelper extends SQLiteOpenHelper {
         db.execSQL(CREATE_TABLE_PHASE);
         db.execSQL(CREATE_TABLE_CONS_ANSWER);
         db.execSQL(CREATE_TABLE_CONS_QUESTIONS);
+        db.execSQL(CREATE_FR_EXERCISE_TABLE);
+        db.execSQL(CREATE_FR_ANSWER_TABLE);
     }
 
     @Override
@@ -122,6 +154,8 @@ public class EquDatabaseHelper extends SQLiteOpenHelper {
         db.execSQL("DROP TABLE IF EXISTS " + TABLE_PHASE);
         db.execSQL("DROP TABLE IF EXISTS " + TABLE_CONS_ANSWERS);
         db.execSQL("DROP TABLE IF EXISTS " + TABLE_CONS_QUESTIONS);
+        db.execSQL("DROP TABLE IF EXISTS " + TABLE_FR_ANSWER);
+        db.execSQL("DROP TABLE IF EXISTS " + TABLE_FR_EXERCISE);
 
         onCreate(db);
     }
@@ -414,6 +448,199 @@ public class EquDatabaseHelper extends SQLiteOpenHelper {
         catch(Exception e){
             System.out.println("dbHelper error:" + e);
         }
+    }
+
+    //--------------------------- Fracs and roots ----------------------------------------------
+    //INSERT VALUES to TABLES
+    public void setExercisesFirebase_fr(List<ln7_Exercise> list) {
+        for (int i = 0; i < list.size() - 1; i ++) {
+            ln7_Exercise exercise = list.get(i);
+            addExercise_fr(exercise);
+        }
+    }
+
+    public void addExercise_fr(ln7_Exercise exercise){
+        SQLiteDatabase db = this.getWritableDatabase();
+
+        ContentValues values = new ContentValues();
+        values.put(KEY_FR_QUESTION, exercise.getQuestion());
+        values.put(KEY_FR_CORRECT, exercise.getCorrect());
+        values.put(KEY_FR_TYPE, exercise.getType());
+
+        db.insertWithOnConflict(TABLE_FR_EXERCISE, null, values, SQLiteDatabase.CONFLICT_IGNORE);
+        db.close();
+    }
+
+    public void addAnswer_fr(ln7_Answer answer){
+        SQLiteDatabase db = this.getWritableDatabase();
+
+        ContentValues values = new ContentValues();
+        values.put(KEY_FR_EXERCISE_ID, answer.getExercise_id());
+        values.put(KEY_FR_ANSWER, answer.getAnswer());
+        values.put(KEY_FR_ISCORRECT, answer.isCorrect());
+
+        db.insertWithOnConflict(TABLE_FR_ANSWER, null, values, SQLiteDatabase.CONFLICT_IGNORE);
+        db.close();
+    }
+
+    //READ TABLES
+    public ln7_Exercise getExercise_fr(int id){
+        SQLiteDatabase db = this.getReadableDatabase();
+
+        Cursor cursor = db.query(TABLE_FR_EXERCISE, new String[]{KEY_FR_ID, KEY_FR_QUESTION, KEY_FR_CORRECT, KEY_FR_TYPE}, KEY_FR_ID + "=?",
+                new String[]{String.valueOf(id)}, null, null, null, null);
+        if (cursor != null) {
+            cursor.moveToFirst();
+        }
+
+        ln7_Exercise exercise = new ln7_Exercise(cursor.getString(0), cursor.getString(1), cursor.getString(2));
+
+        return exercise;
+    }
+
+    public ln7_Answer getAnswer_fr(int id){
+        SQLiteDatabase db = this.getReadableDatabase();
+
+        Cursor cursor = db.query(TABLE_FR_ANSWER, new String[]{KEY_FR_EXERCISE_ID, KEY_FR_ANSWER, KEY_FR_ISCORRECT}, KEY_FR_EXERCISE_ID + "=?",
+                new String[]{String.valueOf(id)}, null, null, null, null);
+        if (cursor != null) {
+            cursor.moveToFirst();
+        }
+
+        ln7_Answer answer = new ln7_Answer(cursor.getInt(0), cursor.getString(1), (cursor.getInt(2) == 1));
+
+        return answer;
+    }
+
+    public List<ln7_Exercise> getAllExercisesFracs_fr(){
+        List<ln7_Exercise> exerciseList = new ArrayList<ln7_Exercise>();
+
+        String selectQuery = "SELECT * FROM " + TABLE_FR_EXERCISE + " WHERE \"type\"  = 'frac'";
+
+        SQLiteDatabase db = this.getWritableDatabase();
+        Cursor cursor = db. rawQuery(selectQuery, null);
+
+        if(cursor.moveToFirst()){
+            do {
+                ln7_Exercise exercise = new ln7_Exercise();
+                exercise.setId(Integer.parseInt(cursor.getString(0)));
+                exercise.setQuestion(cursor.getString(1));
+                exercise.setCorrect(cursor.getString(2));
+                exercise.setType(cursor.getString(3));
+
+                exerciseList.add(exercise);
+            } while (cursor.moveToNext());
+        }
+
+        return exerciseList;
+    }
+
+    public List<ln7_Exercise> getAllExercisesRoots_fr(){
+        List<ln7_Exercise> exerciseList = new ArrayList<ln7_Exercise>();
+
+        String selectQuery = "SELECT * FROM " + TABLE_FR_EXERCISE + " WHERE \"type\"  = 'root'";
+
+        SQLiteDatabase db = this.getWritableDatabase();
+        Cursor cursor = db. rawQuery(selectQuery, null);
+
+        if(cursor.moveToFirst()){
+            do {
+                ln7_Exercise exercise = new ln7_Exercise();
+                exercise.setId(Integer.parseInt(cursor.getString(0)));
+                exercise.setQuestion(cursor.getString(1));
+                exercise.setCorrect(cursor.getString(2));
+                exercise.setType(cursor.getString(3));
+
+                exerciseList.add(exercise);
+            } while (cursor.moveToNext());
+        }
+
+        return exerciseList;
+    }
+
+    public List<ln7_Exercise> getAllExercises_fr(){
+        List<ln7_Exercise> exerciseList = new ArrayList<ln7_Exercise>();
+
+        String selectQuery = "SELECT * FROM " + TABLE_FR_EXERCISE;
+
+        SQLiteDatabase db = this.getWritableDatabase();
+        Cursor cursor = db. rawQuery(selectQuery, null);
+
+        if(cursor.moveToFirst()){
+            do {
+                ln7_Exercise exercise = new ln7_Exercise();
+                exercise.setId(Integer.parseInt(cursor.getString(0)));
+                exercise.setQuestion(cursor.getString(1));
+                exercise.setCorrect(cursor.getString(2));
+                exercise.setType(cursor.getString(3));
+
+                exerciseList.add(exercise);
+            } while (cursor.moveToNext());
+        }
+
+        return exerciseList;
+    }
+
+    public List<ln7_Answer> getAllAnswers_fr() {
+        List<ln7_Answer> answerList = new ArrayList<ln7_Answer>();
+
+        String selectQuery = "SELECT * FROM " + TABLE_FR_ANSWER;
+
+        SQLiteDatabase db = this.getWritableDatabase();
+        Cursor cursor = db. rawQuery(selectQuery, null);
+
+        if(cursor.moveToFirst()){
+            do {
+                ln7_Answer answer = new ln7_Answer();
+                answer.setExercise_id(cursor.getInt(0));
+                answer.setAnswer(cursor.getString(1));
+                answer.setCorrect(cursor.getInt(2) == 1);
+
+                answerList.add(answer);
+            } while (cursor.moveToNext());
+        }
+
+        return answerList;
+    }
+
+    //UPDATE VALUES on TABLES
+    public int updateExercise_fr(ln7_Exercise exercise) {
+        SQLiteDatabase db = this.getWritableDatabase();
+
+        ContentValues values = new ContentValues();
+        values.put(KEY_FR_QUESTION, exercise.getQuestion());
+        values.put(KEY_FR_CORRECT, exercise.getCorrect());
+        values.put(KEY_FR_TYPE, exercise.getType());
+
+        return db.update(TABLE_FR_EXERCISE, values, KEY_FR_ID + "=?",
+                new String[]{String.valueOf(exercise.getId())});
+    }
+
+    public int updateAnswer_fr(ln7_Answer answer) {
+        SQLiteDatabase db = this.getWritableDatabase();
+
+        ContentValues values = new ContentValues();
+        values.put(KEY_FR_EXERCISE_ID, answer.getExercise_id());
+        values.put(KEY_FR_ANSWER, answer.getAnswer());
+        values.put(KEY_FR_ISCORRECT, answer.isCorrect());
+
+        return db.update(TABLE_FR_ANSWER, values, KEY_FR_ID + "=?",
+                new String[]{String.valueOf(answer.getExercise_id())});
+    }
+
+    //DELETE TUPLES from TABLE
+    public void deleteExercise_fr(ln7_Exercise exercise){
+        SQLiteDatabase db = this.getWritableDatabase();
+        db.delete(TABLE_FR_EXERCISE, KEY_FR_ID + "=?",
+                new String[]{String.valueOf(exercise.getId())});
+        db.close();
+    }
+
+    public void deleteAnswer_fr(ln7_Answer answer){
+        SQLiteDatabase db = this.getWritableDatabase();
+        db.delete(TABLE_FR_ANSWER, KEY_FR_ID + "=?",
+                new String[]{String.valueOf(answer.getExercise_id())});
+        db.close();
     }
 
 

@@ -167,6 +167,11 @@ public class EquMainActivity extends AppCompatActivity {
                         intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
                         EquMainActivity.this.startActivity(intent);
                         break;
+                    case 3:
+                        intent = new Intent(EquMainActivity.this, EquListActivity.class);
+                        intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+                        EquMainActivity.this.startActivity(intent);
+                        break;
                 }
             }
         });
@@ -185,6 +190,11 @@ public class EquMainActivity extends AppCompatActivity {
 
     public void startFormulas(View view) {
         Intent intent = new Intent(this, ForMainPage.class);
+        startActivity(intent);
+    }
+
+    public void startLn7(View view) {
+        Intent intent = new Intent(this, ln7_ExerciseGroups.class);
         startActivity(intent);
     }
 

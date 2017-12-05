@@ -9,30 +9,30 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/CustomActionBarTheme">
-        <activity android:name=".EquMainActivity">
-            <intent-filter>
-                <action android:name="android.intent.action.MAIN" />
-
-                <category android:name="android.intent.category.LAUNCHER" />
-            </intent-filter>
-        </activity>
         <activity
-            android:name=".ConsMainActivity"
-            android:label="@string/app_name"
-            android:screenOrientation="portrait"
-            android:theme="@style/AppTheme.NoActionBar"
-            android:windowSoftInputMode="adjustPan">
+            android:name=".ln7_Splash"
+            android:theme="@style/SplashTheme">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
-
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
+        <activity android:name=".EquMainActivity"/>
         <activity android:name=".EquListActivity" />
         <activity android:name=".EquListExercisesActivity" />
         <activity android:name=".EquInfoActivity" />
+        <activity android:name=".ConsMainActivity" android:label="@string/app_name" android:screenOrientation="portrait"
+            android:theme="@style/AppTheme.NoActionBar" android:windowSoftInputMode="adjustPan"/>
         <activity android:name=".ForFormulaActivity2" android:configChanges="orientation|screenSize|keyboardHidden"/>
         <activity android:name=".ForMainPage" android:configChanges="orientation|screenSize|keyboardHidden"/>
+        <activity android:name=".ln7_ExerciseGroups" android:configChanges="orientation|screenSize"
+            android:label="@string/ln7_app_name" android:theme="@style/lnAppTheme" />
+        <activity android:name=".ln7_Exercises_frac" android:configChanges="orientation|screenSize"
+            android:label="@string/ln7_app_name" android:theme="@style/lnAppTheme"/>
+        <activity android:name=".ln7_Exercises_roots" android:configChanges="orientation|screenSize"
+            android:label="@string/ln7_app_name" android:theme="@style/lnAppTheme"/>
+        <activity android:name=".ln7_FracTheory" android:configChanges="orientation|screenSize"
+            android:label="@string/ln7_app_name" android:theme="@style/lnAppTheme"/>
 
 
     </application>

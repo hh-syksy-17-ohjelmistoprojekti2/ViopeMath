@@ -1,12 +1,13 @@
 <?xml version="1.0" encoding="utf-8"?>
 <android.support.v4.widget.DrawerLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/drawer_layout"
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
-    <RelativeLayout
+    <android.support.constraint.ConstraintLayout
         tools:context="application.viope.math.combinedapp.EquMainActivity"
         android:layout_width="match_parent"
         android:layout_height="match_parent">
@@ -15,50 +16,88 @@
             android:id="@+id/welcomeTextView"
             style="@style/WelcomeTextTheme"
             android:layout_width="314dp"
-            android:layout_height="100dp"
-            android:layout_above="@+id/startButton"
+            android:layout_height="71dp"
+            android:layout_alignParentTop="true"
             android:layout_centerHorizontal="true"
-            android:layout_marginTop="20dp"
+            android:layout_marginEnd="8dp"
+            android:layout_marginStart="8dp"
+            android:layout_marginTop="28dp"
             android:text="@string/welcome_br"
-            android:textAlignment="center" />
+            android:textAlignment="center"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
 
         <Button
-            style="@style/StartButtonTheme"
             android:id="@+id/startButton"
+            style="@style/StartButtonTheme"
+            android:layout_width="314dp"
+            android:layout_height="80dp"
+            android:layout_alignParentLeft="true"
+            android:layout_alignParentStart="true"
+            android:layout_below="@+id/welcomeTextView"
+            android:layout_marginEnd="8dp"
+            android:layout_marginStart="8dp"
+            android:layout_marginTop="16dp"
             android:onClick="startExcercise"
             android:text="Equations"
-            android:layout_width="314dp"
-            android:layout_height="80dp"
-            android:layout_marginTop="30dp"
-            android:layout_centerHorizontal="true"
-            android:layout_centerVertical="true"/>
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/welcomeTextView" />
 
         <Button
-            style="@style/StartButtonTheme"
             android:id="@+id/bonsaiButton"
+            style="@style/StartButtonTheme"
+            android:layout_width="314dp"
+            android:layout_height="80dp"
+            android:layout_below="@+id/startButton"
+            android:layout_centerHorizontal="true"
+            android:layout_centerVertical="true"
+            android:layout_marginEnd="8dp"
+            android:layout_marginStart="8dp"
+            android:layout_marginTop="16dp"
             android:onClick="startBonsai"
             android:text="Consumer mathapp"
-            android:layout_below="@+id/startButton"
-            android:layout_width="314dp"
-            android:layout_height="80dp"
-            android:layout_marginTop="20dp"
-            android:layout_centerHorizontal="true"
-            android:layout_centerVertical="true"/>
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/startButton" />
 
         <Button
-            style="@style/StartButtonTheme"
             android:id="@+id/formulaButton"
-            android:onClick="startFormulas"
-            android:text="Math formulas"
-            android:layout_below="@+id/bonsaiButton"
+            style="@style/StartButtonTheme"
             android:layout_width="314dp"
             android:layout_height="80dp"
-            android:layout_marginTop="20dp"
+            android:layout_below="@+id/bonsaiButton"
             android:layout_centerHorizontal="true"
-            android:layout_centerVertical="true"/>
+            android:layout_centerVertical="true"
+            android:layout_marginEnd="8dp"
+            android:layout_marginStart="8dp"
+            android:layout_marginTop="16dp"
+            android:onClick="startFormulas"
+            android:text="Math formulas"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/bonsaiButton" />
+
+        <Button
+            android:id="@+id/ln7Button"
+            style="@style/StartButtonTheme"
+            android:layout_width="314dp"
+            android:layout_height="80dp"
+            android:layout_below="@+id/formulaButton"
+            android:layout_centerHorizontal="true"
+            android:layout_centerVertical="true"
+            android:layout_marginEnd="8dp"
+            android:layout_marginStart="8dp"
+            android:layout_marginTop="16dp"
+            android:onClick="startLn7"
+            android:text="Fracs and Roots"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/formulaButton" />
 
 
-    </RelativeLayout>
+    </android.support.constraint.ConstraintLayout>
 
     <ListView
         android:id="@+id/navList"

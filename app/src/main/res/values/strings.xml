@@ -77,4 +77,127 @@
     <string name="please_insert">Please insert an answer</string>
 
     <string name="name" translatable="false">Enter your name or student number \nAnd press upload</string>
+
+
+
+    <string name="ln7_app_name">Raízes e frações</string>
+    <string name="choose">Escolher pacote de exercício:</string>
+    <string name="submit">Enviar</string>
+    <string name="exercise">Resolva essa expressão matemática</string>
+    <string name="next">Vá para o próximo exercício!</string>
+    <string name="previousBt">&lt;</string>
+    <string name="nextBt">&gt;</string>
+    <string name="roots">Raízes quadradas</string>
+    <string name="fracs">Frações</string>
+    <string name="theory">Teoria</string>
+    <string name="startFractions">Começar</string>
+    <string name="theoryText">
+        $$\\textit{As traduções virão mais tarde..} \\\\$$
+
+        You can multiply fractions so that you multiply the numerators
+        and the denominators (and then simplify if possible).
+        $$\\\\[4ex] \\text{Example:}\\quad
+        \\frac{a}{b} \\cdot \\frac{c}{d}
+        = \\frac{a\\cdot c}{b\\cdot d}
+        = \\frac{ac}{bd}
+        \\\\[4ex]
+        \\text{Example:} \\quad
+        \\frac{a}{2} \\cdot \\frac{b}{c}
+        = \\frac{a\\cdot b}{2\\cdot c}
+        = \\frac{ab}{2c} \\\\[4ex]$$
+
+        You can divide fractions so that you multiply the numerator by the
+        reciprocal of the denominator.
+        $$\\text{Example:} \\quad
+        \\frac{\\frac{a}{b}}{\\frac{c}{d}}
+        = \\frac{a}{b} \\cdot \\frac{d}{c}
+        = \\frac{ad}{bc}
+        \\\\[4ex]
+        \\text{Example:} \\quad
+        \\frac{\\frac{a}{3}}{2}
+        = \\frac{a}{3} : 2
+        = \\frac{a}{3} \\cdot \\frac{1}{2}
+        = \\frac{a}{6} \\\\[4ex]$$
+
+        If there is a shared factor in the numerator and the denominator,
+        it can be cancelled.
+
+         $$\\text{Example:} \\quad
+        \\frac{10}{15}
+        = \\frac{2 \\cdot \\rlap{\,/}{5}}{3 \\cdot \\rlap{\,/}{5}}
+        = \\frac{2}{3}
+        \\\\[4ex]
+
+        \\text{Example:} \\quad
+        \\frac{a \\rlap{\,/}{x}y}{bz \\rlap{\,/}{x}}
+        = \\frac{ay}{bz}
+        \\\\[4ex]
+
+        \\text{Example:} \\quad
+        \\frac{w(a-2)}{a-2}
+        = \\frac{w \\cdot (a-2)}{1 \\cdot (a-2)}
+        = w
+        \\\\[4ex]$$
+
+        You may have to factor to be able to reduce the fraction.
+
+         $$\\text{Example:} \\quad
+        \\frac{ab+ac}{b+c}
+        = \\frac{a \\cdot (b+c)}{(b+c)}
+        = a
+        \\\\[4ex]$$
+
+        You can factor a fraction by any number or expression,
+        zero excluded. Factoring means that both the numerator and
+        the denominator are multiplied by the same expression.
+
+        $$\\text{Example:} \\quad
+        \\frac{a}{b}
+        = \\frac{2a}{2b}
+        \\\\[4ex]$$
+
+        If fractions have the same denominator, you can add or subtract
+        them so that you add or subtract only the numerators,
+        and keep that same denominator.
+
+        $$\\text{Example:} \\quad
+        \\frac{5}{2} + \\frac{4}{2}
+        = \\frac{5+4}{2}
+        = \\frac{9}{2}
+        \\\\[4ex]
+
+        \\text{Example:} \\quad
+        \\frac{2}{s} + \\frac{x}{s}
+        = \\frac{2+x}{s}
+        \\\\[4ex]
+
+         \\text{Example:} \\quad
+        \\frac{2x}{x+1} - \\frac{5}{x+1}
+        = \\frac{2x-5}{x+1}
+        \\\\[4ex]
+        $$
+
+        If necessary, you must factor the fractions before adding or subtracting
+        so that they have the same denominator.
+
+        $$\\text{Example:} \\quad$$
+        $$^{2)}\\frac{1}{7} + ^{7)}\\frac{3}{2}$$
+        $$= \\frac{2 \\cdot 1}{2 \\cdot 7} + \\frac{7 \\cdot 3}{7 \\cdot 2}$$
+        $$= \\frac{2+21}{14}$$
+        $$= \\frac {23}{14}$$
+        $$\\\\[4ex]$$
+
+        $$\\text{Example:} \\quad$$
+        $$\\frac{1}{6x} + ^{2)}\\frac{5}{3x} + ^{3)}\\frac{3}{2x}$$
+        $$ = \\frac{1}{6x} + \\frac{10}{6x} + \\frac{9}{6x}$$
+        $$ = \\frac{1+10+9}{6x}$$
+        $$= \\frac {20}{6x}$$
+        $$= \\frac {10}{3x}$$
+        $$\\\\[4ex]$$
+
+        $$\\text{Example:} \\quad$$
+        $$^{a)}\\frac{5}{b} - ^{b)}\\frac{4}{a}$$
+        $$= \\frac{5a}{ab} - \\frac{4b}{ab}$$
+        $$= \\frac{5a-4b}{ab}$$
+    </string>
 </resources>

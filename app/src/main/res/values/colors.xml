@@ -32,4 +32,10 @@
     <color name="error">#ACFF0000</color>
     <color name="correct">#df357a1f</color>
     <color name="white">#FFFF</color>
+    <color name="darkViolet">#482B96</color>
+    <color name="lightViolet">#7F72FF</color>
+    <color name="lncolorAccent">#000</color>
+    <color name="holder">#b4b4b4</color>
+    <color name="bt_color_dark">#5F39C7</color>
+    <color name="bt_color_light">#7A77FF</color>
 </resources>

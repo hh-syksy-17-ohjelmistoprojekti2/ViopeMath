@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <item android:id="@+id/navi_Home"
+        android:icon="@drawable/ic_home"
+        android:orderInCategory="100"
+        android:title="Pagina inicial" />
+
+    <item android:id="@+id/navi_Excerices"
+        android:icon="@drawable/ic_exercises"
+        android:orderInCategory="100"
+        android:title="Exercícios" />
+
+    <item android:id="@+id/navi_Theory"
+        android:icon="@drawable/ic_theory"
+        android:orderInCategory="100"
+        android:title="Teoria" />
+
+    <item android:id="@+id/navi_Download"
+        android:icon="@drawable/ic_download"
+        android:orderInCategory="100"
+        android:title="Baixar" />
+
+    <item android:id="@+id/navi_Upload"
+        android:icon="@drawable/ic_upload"
+        android:orderInCategory="100"
+        android:title="Envio" />
+</menu>

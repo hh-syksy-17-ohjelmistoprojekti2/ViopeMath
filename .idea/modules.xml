@@ -2,6 +2,7 @@
 <project version="4">
   <component name="ProjectModuleManager">
     <modules>
+      <module fileurl="file://$PROJECT_DIR$/MathView-0.0.6/MathView-0.0.6.iml" filepath="$PROJECT_DIR$/MathView-0.0.6/MathView-0.0.6.iml" />
       <module fileurl="file://$PROJECT_DIR$/ViopeMath.iml" filepath="$PROJECT_DIR$/ViopeMath.iml" />
       <module fileurl="file://$PROJECT_DIR$/app/app.iml" filepath="$PROJECT_DIR$/app/app.iml" />
     </modules>
