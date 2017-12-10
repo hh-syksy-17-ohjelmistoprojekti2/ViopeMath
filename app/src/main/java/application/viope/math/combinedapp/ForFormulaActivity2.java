@@ -14,6 +14,7 @@ import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import java.lang.String;
 import java.util.ArrayList;
 
 import application.viope.math.combinedapp.bean.ForDatabaseHelper;
@@ -65,15 +66,15 @@ public class ForFormulaActivity2 extends AppCompatActivity {
         ArrayList<ForQuestions> QuestionArray = new ArrayList<ForQuestions>();
         QuestionArray = db.getQuestions();
         int r = 0;
-        answer1 = findViewById(R.id.answer1);
-        answer2 = findViewById(R.id.answer2);
-        answer3 = findViewById(R.id.answer3);
-        answer4 = findViewById(R.id.answer4);
-        nextButton = findViewById(R.id.nextButton);
-        dynamicImage = findViewById(R.id.image_view_1);
-        question = findViewById(R.id.question);
-        score = findViewById(R.id.score);
-        juniorTextView = findViewById(R.id.juniorTextView);
+        answer1 = (Button) findViewById(R.id.answer1);
+        answer2 = (Button) findViewById(R.id.answer2);
+        answer3 = (Button) findViewById(R.id.answer3);
+        answer4 = (Button) findViewById(R.id.answer4);
+        nextButton = (Button) findViewById(R.id.nextButton);
+        dynamicImage = (ImageView) findViewById(R.id.image_view_1);
+        question = (TextView) findViewById(R.id.question);
+        score = (TextView) findViewById(R.id.score);
+        juniorTextView = (TextView) findViewById(R.id.juniorTextView);
         score.setText("Ponto: " + mScore);
 
         updateQuestion(questionIndex, QuestionArray);
@@ -354,15 +355,15 @@ public class ForFormulaActivity2 extends AppCompatActivity {
             ArrayList<ForQuestions> QuestionArray = new ArrayList<ForQuestions>();
             QuestionArray = db.getQuestions();
             int r = 0;
-            answer1 = findViewById(R.id.answer1);
-            answer2 = findViewById(R.id.answer2);
-            answer3 = findViewById(R.id.answer3);
-            answer4 = findViewById(R.id.answer4);
-            nextButton = findViewById(R.id.nextButton);
-            dynamicImage = findViewById(R.id.image_view_1);
-            question = findViewById(R.id.question);
-            score = findViewById(R.id.score);
-            juniorTextView = findViewById(R.id.juniorTextView);
+            answer1 = (Button) findViewById(R.id.answer1);
+            answer2 = (Button) findViewById(R.id.answer2);
+            answer3 = (Button) findViewById(R.id.answer3);
+            answer4 = (Button) findViewById(R.id.answer4);
+            nextButton = (Button) findViewById(R.id.nextButton);
+            dynamicImage = (ImageView) findViewById(R.id.image_view_1);
+            question = (TextView) findViewById(R.id.question);
+            score = (TextView) findViewById(R.id.score);
+            juniorTextView = (TextView) findViewById(R.id.juniorTextView);
             score.setText("Ponto: " + mScore);
 
             updateQuestion(questionIndex, QuestionArray);
@@ -555,15 +556,15 @@ public class ForFormulaActivity2 extends AppCompatActivity {
             ArrayList<ForQuestions> QuestionArray = new ArrayList<ForQuestions>();
             QuestionArray = db.getQuestions();
             int r = 0;
-            answer1 = findViewById(R.id.answer1);
-            answer2 = findViewById(R.id.answer2);
-            answer3 = findViewById(R.id.answer3);
-            answer4 = findViewById(R.id.answer4);
-            nextButton = findViewById(R.id.nextButton);
-            dynamicImage = findViewById(R.id.image_view_1);
-            question = findViewById(R.id.question);
-            score = findViewById(R.id.score);
-            juniorTextView = findViewById(R.id.juniorTextView);
+            answer1 = (Button) findViewById(R.id.answer1);
+            answer2 = (Button) findViewById(R.id.answer2);
+            answer3 = (Button) findViewById(R.id.answer3);
+            answer4 = (Button) findViewById(R.id.answer4);
+            nextButton = (Button) findViewById(R.id.nextButton);
+            dynamicImage = (ImageView) findViewById(R.id.image_view_1);
+            question = (TextView) findViewById(R.id.question);
+            score = (TextView) findViewById(R.id.score);
+            juniorTextView = (TextView) findViewById(R.id.juniorTextView);
             score.setText("Ponto: " + mScore);
 
             updateQuestion(questionIndex, QuestionArray);

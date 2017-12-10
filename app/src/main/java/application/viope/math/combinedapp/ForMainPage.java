@@ -1,5 +1,8 @@
 package application.viope.math.combinedapp;
 
+import android.app.AlertDialog;
+import android.content.Context;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.ActionBar;
@@ -14,16 +17,21 @@ import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 
-import application.viope.math.combinedapp.bean.ForDatabaseHelper;
+import java.util.ArrayList;
 
+import application.viope.math.combinedapp.bean.ForDatabaseHelper;
+import application.viope.math.combinedapp.bean.ForQuestions;
 
 public class ForMainPage extends AppCompatActivity {
     ForDatabaseHelper myDb;
 
     TextView putdata;
     Button economyButton, areaButton, geometryButton, fraction3Button, GetQuestions;
+    final Context context = this;
+    int count;
 
-    DatabaseReference questionRef = FirebaseDatabase.getInstance().getReference().child("formulas");
+
+    DatabaseReference questionRef = FirebaseDatabase.getInstance().getReference().child("formulas");;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -31,6 +39,8 @@ public class ForMainPage extends AppCompatActivity {
         setContentView(R.layout.for_activity_main_page);
         myDb = new ForDatabaseHelper(this);
         initializeComponents();
+
+
 
 
         ActionBar menu = getSupportActionBar();
@@ -48,13 +58,13 @@ public class ForMainPage extends AppCompatActivity {
     }
 
     private void initializeComponents() {
-        economyButton = findViewById(R.id.economybutton);
-        areaButton = findViewById(R.id.areabutton);
-        geometryButton = findViewById(R.id.geometrybutton);
-        fraction3Button = findViewById(R.id.fraction3Button);
+        economyButton = (Button) findViewById(R.id.economybutton);
+        areaButton = (Button) findViewById(R.id.areabutton);
+        geometryButton = (Button) findViewById(R.id.geometrybutton);
+        fraction3Button = (Button) findViewById(R.id.fraction3Button);
         economyButton.setOnClickListener(economyButtonOnClickListener);
         // geometryButton.setOnClickListener(geometryButtonOnClickListener);
-        GetQuestions = findViewById(R.id.GetQuestions);
+        GetQuestions = (Button) findViewById(R.id.GetQuestions);
         GetQuestions.setOnClickListener(getDataOnclickListener);
         //putdata = (TextView) findViewById(R.id.putdata);
 
@@ -65,9 +75,28 @@ public class ForMainPage extends AppCompatActivity {
 
         @Override
         public void onClick(View v) {
-            //To change body of implemented methods use File | Settings | File Templates.
-            Intent intent = new Intent(getApplicationContext(), ForFormulaActivity2.class);
-            startActivity(intent);
+            ArrayList<ForQuestions> jau = myDb.getQuestions();
+
+            if (jau != null) {
+                count = jau.size();
+            }
+            if (count > 0) {
+                Intent intent = new Intent(getApplicationContext(), ForFormulaActivity2.class);
+                startActivity(intent);
+            }
+            else
+            {
+                new AlertDialog.Builder(ForMainPage.this)
+                        .setTitle("Erro!")
+                        .setMessage("Faça o download de perguntas primeiro")
+                        .setCancelable(true)
+                        .setPositiveButton("Está bem", new DialogInterface.OnClickListener() {
+                            @Override
+                            public void onClick(DialogInterface dialog, int which) {
+                                // Whatever...
+                            }
+                        }).show();
+            }
         }
     };
 
@@ -89,12 +118,35 @@ public class ForMainPage extends AppCompatActivity {
         @Override
         public void onClick(View v) {
             myDb.clearQuestions();
-            getFireBaseData();
-
+            String res = myDb.getResults() + "next set: " ;
+            sendResults();
+            int size = getFireBaseData();
+            if (size >0){
+                new AlertDialog.Builder(ForMainPage.this)
+                        .setTitle("Feito!")
+                        .setMessage("Perguntas baixadas: " + size)
+                        .setCancelable(true)
+                        .setPositiveButton("Está bem", new DialogInterface.OnClickListener() {
+                            @Override
+                            public void onClick(DialogInterface dialog, int which) {
+                                // Whatever...
+                            }
+                        }).show();
+            }
         }
     };
 
-    private void getFireBaseData() {
+
+
+
+
+    private void sendResults(){
+        String res = myDb.getResults();
+        questionRef.child("results").setValue(res);
+    }
+
+    private int  getFireBaseData() {
+
         questionRef.child("questions").addChildEventListener(new ChildEventListener() {
             @Override
             public void onChildAdded(DataSnapshot dataSnapshot, String s) {
@@ -106,6 +158,9 @@ public class ForMainPage extends AppCompatActivity {
                 String questionimage =  dataSnapshot.child("questionimage").getValue().toString();
 
                 myDb.InsertIntoDB(QId,question, answer, offeredanswer, questionimage);
+                ArrayList<ForQuestions> jau = myDb.getQuestions();
+                count =jau.size();
+
             }
 
             @Override
@@ -127,6 +182,10 @@ public class ForMainPage extends AppCompatActivity {
             public void onCancelled(DatabaseError databaseError) {
 
             }
+
         });
+        return count;
     }
+
+
 }

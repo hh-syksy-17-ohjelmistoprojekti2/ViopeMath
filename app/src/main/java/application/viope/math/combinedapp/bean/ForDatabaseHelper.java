@@ -5,14 +5,11 @@ import android.content.Context;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
-import android.util.Log;
 
-import java.lang.reflect.Array;
 import java.util.ArrayList;
-import java.util.List;
 
 
-public class ForDatabaseHelper extends SQLiteOpenHelper{
+public class ForDatabaseHelper extends SQLiteOpenHelper {
 
     public static final String DATABASE_FORMULAS= "Formulas.db";
     public static final String QUESTIONS="ForQuestions";
@@ -78,7 +75,10 @@ public class ForDatabaseHelper extends SQLiteOpenHelper{
         contentValues.put(OFFEREDANSWER, offeredanswer);
         contentValues.put(QUESTIONIMAGE, questionimage);
         long result = db.insert(QUESTIONS, null, contentValues);
-        return result != -1;
+        if(result == -1)
+            return false;
+        else
+            return  true;
     }
 
     public void InsertIntoDB(String QId, String question,String answer, String offeredanswer, String questionimage) {
@@ -89,6 +89,7 @@ public class ForDatabaseHelper extends SQLiteOpenHelper{
     {
         ArrayList<ForQuestions> questionarray = new ArrayList<ForQuestions>();
         SQLiteDatabase sql=this.getReadableDatabase();
+        sql.execSQL("create table IF NOT EXISTS " + QUESTIONS +" (q_id INTEGER, question TEXT, answer TEXT, offeredanswer TEXT, questionimage TEXT)");
         //String qstring = Integer.toString(QId);
         String query = "SELECT q_id, question, answer, offeredanswer, questionimage FROM ForQuestions order by q_id";
         Cursor c = sql.rawQuery(query, null);
@@ -109,15 +110,44 @@ public class ForDatabaseHelper extends SQLiteOpenHelper{
         SQLiteDatabase db = this.getWritableDatabase();
         ContentValues contentValues = new ContentValues();
         contentValues.put(R_CORRECT, correct);
+        contentValues.put(R_QUESTIONS_ID, q_id);
         long result = db.insert(RESULTS, null, contentValues);
-        return result != -1;
+        if (result == -1)
+            return false;
+        else
+            return true;
     }
     public boolean clearQuestions() {
 
         SQLiteDatabase db = this.getWritableDatabase();
         db.execSQL("DROP TABLE IF EXISTS "+ QUESTIONS);
+        getResults();
+
         return true;
     }
+
+    public String getResults(){
+        SQLiteDatabase db = this.getReadableDatabase();
+        String[] results = new String[]{R_QUESTIONS_ID, R_CORRECT};
+        Cursor c = db.query(RESULTS, results, null, null, null, null, null);
+        String result =" ";
+
+        int iID = c.getColumnIndex(R_QUESTIONS_ID);
+        int iCorrect = c.getColumnIndex(R_CORRECT);
+
+        for(c.moveToFirst(); !c.isAfterLast(); c.moveToNext()){
+            result = result + c.getString(iID) + " " + c.getString(iCorrect) + ", ";
+        }
+
+        return result;
+
+    }
+
+
+
+
+
+
 
 
 }
