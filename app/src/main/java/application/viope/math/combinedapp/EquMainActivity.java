@@ -72,8 +72,8 @@ public class EquMainActivity extends AppCompatActivity {
     }
 
     private void addDrawerItems() {
-        String[] exerciseArray = { "Exercício 1", "Exercício 2", "Exercício 3"}; //placeholder-array tehtäville, myöhemmin haetaan dynaamisesti jostain arrayhyn
-        String[] linkArray = {"Baixar as perguntas", "Carregar as respostas"}; //array linkeille, jotka näkyvät aina (nyt download/upload)
+        String[] exerciseArray = { "Equacões", "Matemático de aprendizagem ao consumidor", "Fórmulas", "Frações"}; //placeholder-array tehtäville, myöhemmin haetaan dynaamisesti jostain arrayhyn
+        String[] linkArray = {}; //array linkeille, jotka näkyvät aina (nyt download/upload)
 
         //yhdistetään arrayt, jotta sisällöt voi laittaa linkkeinä draweriin
         final String[] drawerArray = new String[exerciseArray.length + linkArray.length];
@@ -126,22 +126,22 @@ public class EquMainActivity extends AppCompatActivity {
                 Intent intent;
                 switch (position) {
                     case 0:
-                        intent = new Intent(EquMainActivity.this, EquListActivity.class);
+                        intent = new Intent(EquMainActivity.this, EquListExercisesActivity.class);
                         intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
                         EquMainActivity.this.startActivity(intent);
                         break;
                     case 1:
-                        intent = new Intent(EquMainActivity.this, EquListActivity.class);
+                        intent = new Intent(EquMainActivity.this, ConsMainActivity.class);
                         intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
                         EquMainActivity.this.startActivity(intent);
                         break;
                     case 2:
-                        intent = new Intent(EquMainActivity.this, EquListActivity.class);
+                        intent = new Intent(EquMainActivity.this, ForMainPage.class);
                         intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
                         EquMainActivity.this.startActivity(intent);
                         break;
                     case 3:
-                        intent = new Intent(EquMainActivity.this, EquListActivity.class);
+                        intent = new Intent(EquMainActivity.this, ln7_ExerciseGroups.class);
                         intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
                         EquMainActivity.this.startActivity(intent);
                         break;

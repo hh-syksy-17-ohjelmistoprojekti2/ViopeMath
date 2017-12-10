@@ -24,7 +24,7 @@ import application.viope.math.combinedapp.bean.EquAnswerstatus;
 
 public class EquListExercisesActivity extends AppCompatActivity {
 
-    public static final String EXTRA_MESSAGE = "com.viope.saskia.viope0.MESSAGE";
+    public static final String EXTRA_MESSAGE = "application.viope.math.combinedapp.MESSAGE";
     private EquDatabaseHelper dbHelper;
     private EquFirebaseHelper FbHelper;
     private String id;
@@ -43,6 +43,7 @@ public class EquListExercisesActivity extends AppCompatActivity {
     private ImageView arrow;
     private ImageView arrowfake;
     private Animation arrowMovement;
+    private Boolean animateButtons = false;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -72,7 +73,7 @@ public class EquListExercisesActivity extends AppCompatActivity {
                     Intent intent;
                     public boolean onMenuItemClick(MenuItem item) {
                         CharSequence itemTitle = item.getTitle();
-                        if (itemTitle.equals("Info")) {
+                        if (itemTitle.equals("informação")) {
                             intent = new Intent(EquListExercisesActivity.this, EquInfoActivity.class);
                             intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
                             startActivity(intent);
@@ -87,20 +88,24 @@ public class EquListExercisesActivity extends AppCompatActivity {
                                     FbHelper.Post(dbHelper.toFirebaseFromLocalAnswerstatus(), dbHelper.getPost(), userid);
                                 }
 
-                                Toast.makeText(EquListExercisesActivity.this, "Answers uploaded", Toast.LENGTH_SHORT).show();
+                                Toast.makeText(EquListExercisesActivity.this, "Respostas carregadas", Toast.LENGTH_SHORT).show();
                             } else {
-                                Toast.makeText(EquListExercisesActivity.this, "Internet connection not detected", Toast.LENGTH_SHORT).show();
+                                Toast.makeText(EquListExercisesActivity.this, "Internet não connectada", Toast.LENGTH_SHORT).show();
                             }
                         } else {
                             if (EquAppNetStatus.getInstance(EquListExercisesActivity.this).isOnline()) {
 
                                 FbHelper.Get();
                                 final TextView tView = (TextView) findViewById(R.id.downloadQuestions);
-                                tView.setText("Loading questions...");
+                                tView.setText("Baixando as perguntas");
                                 arrow.setVisibility(View.GONE);
                                 arrow.clearAnimation();
                                 arrowMovement.cancel();
                                 arrowfake.setVisibility(View.GONE);
+                                animateButtons = true;
+                                if (numberofquestions > 1) {
+                                    Toast.makeText(EquListExercisesActivity.this, "Baixando as perguntas", Toast.LENGTH_SHORT).show();
+                                }
 
                                 final Handler handler = new Handler();
                                 handler.postDelayed(new Runnable() {
@@ -111,13 +116,13 @@ public class EquListExercisesActivity extends AppCompatActivity {
                                         if (mRelativeLayout == null){
                                             tView.setText("Whoops! Something went wrong. Try again.");
                                         }else{
-                                            Toast.makeText(EquListExercisesActivity.this, "Questions downloaded", Toast.LENGTH_SHORT).show();
+                                            Toast.makeText(EquListExercisesActivity.this, "Perguntas baixadas", Toast.LENGTH_SHORT).show();
                                         }
                                     }
                                 }, 5000);
 
                             } else {
-                                Toast.makeText(EquListExercisesActivity.this, "Internet connection not detected", Toast.LENGTH_SHORT).show();
+                                Toast.makeText(EquListExercisesActivity.this, "Internet não connectada", Toast.LENGTH_SHORT).show();
                             }
                         }
                         return true;
@@ -213,6 +218,10 @@ public class EquListExercisesActivity extends AppCompatActivity {
 
                 // add view to the inner LinearLayout
                 row.addView(eBtn);
+                if (animateButtons) {
+                    final Animation flipButtons = AnimationUtils.loadAnimation(EquListExercisesActivity.this, R.anim.flip);
+                    eBtn.startAnimation(flipButtons);
+                }
                 buttonsbeforepartials = eBtn.getId();
 
                 eBtn.setOnClickListener(new View.OnClickListener() {
@@ -263,6 +272,10 @@ public class EquListExercisesActivity extends AppCompatActivity {
                     }
 
                     row.addView(eBtn);
+                    if (animateButtons) {
+                        final Animation flipButtons = AnimationUtils.loadAnimation(EquListExercisesActivity.this, R.anim.flip);
+                        eBtn.startAnimation(flipButtons);
+                    }
 
                     eBtn.setOnClickListener(new View.OnClickListener() {
 
@@ -279,5 +292,6 @@ public class EquListExercisesActivity extends AppCompatActivity {
             }
         }
         mRelativeLayout.addView(linear);
+        animateButtons = false;
     }
 }
