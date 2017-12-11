@@ -120,8 +120,6 @@ public class ForMainPage extends AppCompatActivity {
         @Override
         public void onClick(View v) {
             myDb.clearQuestions();
-            String res = myDb.getResults() + "next set: " ;
-            sendResults();
             int size = getFireBaseData();
             if (size >0){
                 new AlertDialog.Builder(ForMainPage.this)
