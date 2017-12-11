@@ -26,7 +26,7 @@ public class ForMainPage extends AppCompatActivity {
     ForDatabaseHelper myDb;
 
     TextView putdata;
-    Button economyButton, areaButton, geometryButton, fraction3Button, GetQuestions;
+    Button economyButton, areaButton, geometryButton, fraction3Button, GetQuestions, SyncResults;
     final Context context = this;
     int count;
 
@@ -66,6 +66,8 @@ public class ForMainPage extends AppCompatActivity {
         // geometryButton.setOnClickListener(geometryButtonOnClickListener);
         GetQuestions = (Button) findViewById(R.id.GetQuestions);
         GetQuestions.setOnClickListener(getDataOnclickListener);
+        SyncResults = (Button) findViewById(R.id.sendResults);
+        SyncResults.setOnClickListener(syncResultsOnclickListener);
         //putdata = (TextView) findViewById(R.id.putdata);
 
 
@@ -135,6 +137,29 @@ public class ForMainPage extends AppCompatActivity {
             }
         }
     };
+
+    private View.OnClickListener syncResultsOnclickListener = new View.OnClickListener() {
+
+        public void onClick(View v) {
+
+            String res = myDb.getResults() + "next set: " ;
+            sendResults();
+
+            new AlertDialog.Builder(ForMainPage.this)
+                    .setTitle("Feito!")
+                    .setMessage("Resultados enviados!")
+                    .setCancelable(true)
+                    .setPositiveButton("Está bem", new DialogInterface.OnClickListener() {
+                        @Override
+                        public void onClick(DialogInterface dialog, int which) {
+                            // Whatever...
+                        }
+                    }).show();
+
+        }
+    };
+
+
 
 
 
