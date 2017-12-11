@@ -73,7 +73,7 @@ public class EquListExercisesActivity extends AppCompatActivity {
                     Intent intent;
                     public boolean onMenuItemClick(MenuItem item) {
                         CharSequence itemTitle = item.getTitle();
-                        if (itemTitle.equals("informação")) {
+                        if (itemTitle.equals("Informação")) {
                             intent = new Intent(EquListExercisesActivity.this, EquInfoActivity.class);
                             intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
                             startActivity(intent);
